@@ -1,0 +1,77 @@
+input, textarea, select, label {
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: rgba(0, 0, 0, 0);
+}
+
+body {
+  -webkit-app-region: no-drag;
+
+  height: 100%;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.4em;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+
+  #react-root {
+    height: 100%;
+
+    .window {
+      height: 100%;
+
+      .window-container {
+        #music-box-container {
+
+          .popover {
+            top: 15px;
+
+            position: relative;
+            border-radius: 6px;
+            border: 1px solid #9e9e9e;
+            background-image: linear-gradient(to bottom, #f6f6f6 0%, #e1e1e1 100%);
+
+            .popover-content {
+              padding: 10px 15px;
+
+            }
+
+            .arrow, .arrow:after{
+              position: absolute;
+              width: 0;
+              height: 0;
+              border-color: transparent;
+              border-style: solid;
+              left: 50%;
+              border-width: 11px;
+              border-top-width: 0;
+              transform: translate(-50%, 0);
+            }
+
+            .arrow {
+              top: -11px;
+              border-bottom-color: #9e9e9e;
+
+              &:after {
+                content: '';
+                top: 1px;
+                border-bottom-color: #f6f6f6;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
