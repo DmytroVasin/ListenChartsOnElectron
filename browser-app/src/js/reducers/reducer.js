@@ -1,16 +1,20 @@
 const initialState = {
-  statusFilter: 'all',
-  stories: 'AAAA'
+  playList: {
+    songs: [],
+    error: null,
+    loading: false
+  },
 }
 
 const reducer = function(state=initialState, action) {
   switch(action.type) {
 
-    case 'SET_STATUS_FILTER':
-      return { ...state, statusFilter: action.payload }
-
-    case 'SET_SPRINT_FILTER':
-      return { ...state, sprintFilter: action.payload }
+    case 'FETCH_LIST_REQUEST':
+      return { ...state, playList: {songs: [], error: null, loading: true }}
+    case 'FETCH_LIST_SUCCESS':
+      return { ...state, playList: {songs: action.payload, error: null, loading: false }}
+    case 'FETCH_LIST_FAILURE':
+      return { ...state, playList: {songs: [], error: action.payload, loading: false }}
 
     default:
       return state

@@ -1,0 +1,52 @@
+#lc-player {
+  .lc-playlist {
+    overflow-y: scroll;
+
+    .lc-playlist-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $border;
+      line-height: 24px;
+
+      .lc-playlist-row-play-pause {
+        margin: 0 10px;
+        cursor: pointer;
+        width: 5px;
+        height: 9px;
+        background: url(images/player/playlist-play-button.png);
+
+        &:hover {
+          background: url(images/player/playlist-pause-button.png);
+        }
+      }
+
+      .lc-playlist-row-title {
+        width: 100%;
+
+        span {
+          font-weight: bold;
+        }
+      }
+
+      .lc-playlist-row-time {
+        margin: 0 10px;
+      }
+
+      &:hover {
+        color: $black;
+      }
+
+      &.active {
+        color: $black;
+
+        .lc-playlist-row-play-pause {
+          background: url(images/player/playlist-play-button-over.png);
+
+          &:hover {
+            background: url(images/player/playlist-pause-button-over.png);
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ class MainWindow {
     this.window = new BrowserWindow({
       show: false,
       height: 400,
-      width: 500,
+      width: 800,
       frame: false,
       transparent: true
     });
