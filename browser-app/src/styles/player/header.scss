@@ -91,10 +91,14 @@
           width: 30px;
           overflow: hidden;
 
+          img {
+            animation: equalizer_animation 9s linear 0s infinite normal;
+            animation-play-state: paused;
+          }
+
           &.playing {
             img {
-              animation: equalizer_animation 9s linear 0s infinite normal;
-              animation-play-state: paused;
+              animation-play-state: running;
             }
           }
         }

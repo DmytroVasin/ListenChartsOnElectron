@@ -23,7 +23,7 @@ export class MusicPlayerHeader extends Component {
 
         <div className='lc-header-controll-timeline'>
           <div className='player-header-controll-main-box-ticker-line'>
-            <div className='equalizer playing'>
+            <div className={this.props.playing ?  'equalizer playing' : 'equalizer'} >
               <img src='http://www.webdesign-flash.ro/p/rap/content/minimal_skin_white/equalizer.png' />
             </div>
             <div className='text-ticker'>
