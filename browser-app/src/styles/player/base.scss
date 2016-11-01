@@ -2,6 +2,16 @@
   width: 800px;
   height: 350px;
 
-  color: #6A6A6A;
+  color: $text-color;
   font-size: 12px;
+
+  .lc-header {
+    height: 75px;
+    border-bottom: 1px solid $dark-border;
+  }
+
+  .lc-playlist {
+    height: 275px;
+    overflow-y: scroll;
+  }
 }

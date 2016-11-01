@@ -3,7 +3,7 @@ import axios from 'axios'
 export function fetchList() {
   return (dispatch) => {
     dispatch(fetchListRequest())
-    axios.get('http://beta.listencharts.com/api/v1/charts/23')
+    axios.get('http://beta.listencharts.com/api/v1/charts/22')
     .then(function(response) {
       dispatch(fetchListSuccess(response.data))
     })
@@ -27,5 +27,13 @@ function fetchListFailure(error) {
   return {
     type: 'FETCH_LIST_FAILURE',
     payload: error
+  }
+}
+
+export function togglePause() {
+  return (dispatch) => {
+    dispatch({
+      type: 'TOGGLE_PAUSE'
+    })
   }
 }

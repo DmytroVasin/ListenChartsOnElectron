@@ -5,7 +5,6 @@ import { SongRow } from './song_row.jsx'
 export class MusicPlayerList extends Component {
 
   componentWillMount() {
-
   }
 
   render() {
@@ -20,17 +19,12 @@ export class MusicPlayerList extends Component {
     }
 
     let songRows = songs.map( (song, index) => {
-      return <SongRow key={song.id}
-                       song={song}
-                       index={index} />
+      return <SongRow key={song.id} song={song} index={index} />
     })
 
     return (
-      <div className="amazingaudioplayer-track-song-list">
-        <div className="amazingaudioplayer-track-song-list-devider"></div>
-        <ul className='amazingaudioplayer-tracks'>
-          { songRows }
-        </ul>
+      <div className='lc-playlist'>
+        { songRows }
       </div>
     )
   }
