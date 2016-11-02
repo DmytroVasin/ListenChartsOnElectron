@@ -10,7 +10,7 @@ export class MainPage extends Component {
         <div className='popover'>
           <div className='arrow'></div>
           <div className='popover-content'>
-            <MusicPlayer fetchList={this.props.actions.fetchList} playList={this.props.playList} togglePause={this.props.actions.togglePause} playing={this.props.playing} />
+            <MusicPlayer fetchList={this.props.actions.fetchList} playList={this.props.playList} toggleIsPlaying={this.props.actions.toggleIsPlaying} player={this.props.player} />
           </div>
         </div>
       </div>

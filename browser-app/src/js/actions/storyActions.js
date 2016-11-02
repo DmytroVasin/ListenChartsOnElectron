@@ -30,10 +30,11 @@ function fetchListFailure(error) {
   }
 }
 
-export function togglePause() {
+export function toggleIsPlaying(isPlaying) {
   return (dispatch) => {
     dispatch({
-      type: 'TOGGLE_PAUSE'
+      type: 'TOGGLE_PLAY',
+      payload: isPlaying
     })
   }
 }

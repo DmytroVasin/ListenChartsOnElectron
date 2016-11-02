@@ -1,5 +1,7 @@
 const initialState = {
-  playing: false,
+  player: {
+    isPlaying: false
+  },
 
   playList: {
     songs: [],
@@ -18,8 +20,8 @@ const reducer = function(state=initialState, action) {
     case 'FETCH_LIST_FAILURE':
       return { ...state, playList: {songs: [], error: action.payload, loading: false }}
 
-    case 'TOGGLE_PAUSE':
-      return { ...state, playing: !state.playing }
+    case 'TOGGLE_PLAY':
+      return { ...state, player: { isPlaying: action.payload } }
 
 
     default:

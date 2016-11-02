@@ -8,7 +8,7 @@ import { MainPage } from '../components/graphs/main_page.jsx';
 function mapStateToProps(store) {
   return {
     playList: store.reducer.playList,
-    playing: store.reducer.playing
+    player: store.reducer.player
   }
 }
 

@@ -17,7 +17,7 @@ export class MusicPlayer extends Component {
     return (
 
       <div id='lc-player'>
-        <MusicPlayerHeader togglePause={this.props.togglePause} playing={this.props.playing} />
+        <MusicPlayerHeader toggleIsPlaying={this.props.toggleIsPlaying} player={this.props.player} />
 
         <MusicPlayerList playList={this.props.playList} />
       </div>

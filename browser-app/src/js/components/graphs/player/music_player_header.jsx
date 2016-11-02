@@ -1,36 +1,83 @@
 import React, { Component } from 'react'
+import { formatSeconds, formatStreamUrl } from '../../../utils';
 
 export class MusicPlayerHeader extends Component {
+  constructor(props) {
+    super(props);
 
-  handleTogglePause = () => {
-    this.props.togglePause()
+    this.state = {
+      currentTime: 0,
+      duration: 0
+    };
   }
 
+
+  handleTogglePlay = () => {
+    const audioElement = this.refs.audio;
+
+    const { isPlaying } = this.props.player;
+
+    if (isPlaying) {
+      audioElement.pause();
+    } else {
+      audioElement.play();
+    }
+  }
 
   componentDidMount = () => {
     const audioElement = this.refs.audio;
 
     audioElement.addEventListener('pause', this.handlePause, false);
     audioElement.addEventListener('play', this.handlePlay, false);
+    audioElement.addEventListener('loadstart', this.handleLoadStart, false);
+    audioElement.addEventListener('loadedmetadata', this.handleLoadedMetadata, false);
+    audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
   }
 
   componentWillUnmount() {
     const audioElement = this.refs.audio;
+
     audioElement.removeEventListener('pause', this.handlePause, false);
     audioElement.removeEventListener('play', this.handlePlay, false);
+    audioElement.addEventListener('loadstart', this.handleLoadStart, false);
+    audioElement.removeEventListener('loadedmetadata', this.handleLoadedMetadata, false);
+    audioElement.removeEventListener('timeupdate', this.handleTimeUpdate, false);
   }
 
 
   handlePlay = () => {
-    this.props.togglePause()
+    this.props.toggleIsPlaying(true)
   }
 
   handlePause = () => {
-    console.log('................')
-    this.props.togglePause()
+    this.props.toggleIsPlaying(false)
+  }
+
+  handleLoadStart = () => {
+    this.setState({
+      duration: 0,
+    });
+  }
+
+  handleLoadedMetadata = () => {
+    const audioElement = this.refs.audio;
+
+    this.setState({
+      duration: Math.floor(audioElement.duration)
+    });
+  }
+
+  handleTimeUpdate = () => {
+    const audioElement = this.refs.audio;
+
+    this.setState({
+      currentTime: Math.floor(audioElement.currentTime)
+    });
   }
 
   render() {
+    const { duration, currentTime } = this.state;
+
     return (
       <div className='lc-header'>
         <audio id='lc-player-audio' ref='audio' controls='controls' src="https://goo.gl/e5gulZ"></audio>
@@ -41,7 +88,7 @@ export class MusicPlayerHeader extends Component {
 
         <div className='lc-header-controlls'>
           <div className='prev-btn'></div>
-          <div className={this.props.playing ?  'play-btn playing' : 'play-btn'} onClick={this.handleTogglePause}></div>
+          <div className={this.props.player.isPlaying ? 'play-btn playing' : 'play-btn'} onClick={this.handleTogglePlay}></div>
           <div className='next-btn'></div>
         </div>
 
@@ -49,7 +96,7 @@ export class MusicPlayerHeader extends Component {
 
         <div className='lc-header-controll-timeline'>
           <div className='player-header-controll-main-box-ticker-line'>
-            <div className={this.props.playing ?  'equalizer playing' : 'equalizer'} >
+            <div className={this.props.player.isPlaying ? 'equalizer playing' : 'equalizer'} >
               <img src='http://www.webdesign-flash.ro/p/rap/content/minimal_skin_white/equalizer.png' />
             </div>
             <div className='text-ticker'>
@@ -58,7 +105,7 @@ export class MusicPlayerHeader extends Component {
           </div>
 
           <div className='player-header-controll-main-box-player'>
-            <div className='player-header-controll-main-box-current-time'>00:16</div>
+            <div className='player-header-controll-main-box-current-time'>{ formatSeconds(currentTime) }</div>
 
             <div className='player-header-controll-main-box-player-progress'>
               <div className='player-progress-bar'>
@@ -69,7 +116,7 @@ export class MusicPlayerHeader extends Component {
               </div>
             </div>
 
-            <div className='player-header-controll-main-box-full-time'>02:33</div>
+            <div className='player-header-controll-main-box-full-time'>{ formatSeconds(duration) }</div>
           </div>
         </div>
 
