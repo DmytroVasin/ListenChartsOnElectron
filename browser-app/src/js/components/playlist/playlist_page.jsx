@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 
 import { SongRow } from './song_row.jsx'
 
-export class MusicPlayerList extends Component {
+export class PlayListPage extends Component {
 
   componentWillMount() {
+    this.props.fetchList()
   }
 
   render() {
@@ -23,8 +24,10 @@ export class MusicPlayerList extends Component {
     })
 
     return (
-      <div className='lc-playlist'>
-        { songRows }
+      <div id='lc-player'>
+        <div className='lc-playlist'>
+          { songRows }
+        </div>
       </div>
     )
   }

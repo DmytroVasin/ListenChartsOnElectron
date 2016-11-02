@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 
 export class SongRow extends Component {
 
-  componentWillMount() {
-  }
-
   render() {
     const { place, artist, title  } = this.props.song
 

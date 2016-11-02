@@ -80,21 +80,18 @@ export class MusicPlayerHeader extends Component {
     });
   }
 
-
-
-  handleSeekMouseDown = () => {
-    console.log('handleSeekMouseDown')
-
+  handleSeekMouseDown = (e) => {
     document.addEventListener('mousemove', this.handleSeekMouseMove);
     document.addEventListener('mouseup', this.handleSeekMouseUp);
 
     this.setState({
       isSeeking: true,
     });
-  }
-  handleSeekMouseMove = (e) => {
-    console.log('handleSeekMouseMove')
 
+    this.handleSeekMouseMove(e);
+  }
+
+  handleSeekMouseMove = (e) => {
     const seekBar = this.refs.seekBar;
     const diff = e.clientX - offsetLeft(seekBar);
     const pos = diff < 0 ? 0 : diff;
@@ -110,11 +107,6 @@ export class MusicPlayerHeader extends Component {
   handleSeekMouseUp = () => {
     const audioElement = this.refs.audio;
 
-    console.log('handleSeekMouseUp')
-    if (!this.state.isSeeking) {
-      return;
-    }
-
     document.removeEventListener('mousemove', this.handleSeekMouseMove);
     document.removeEventListener('mouseup', this.handleSeekMouseUp);
 
@@ -125,20 +117,9 @@ export class MusicPlayerHeader extends Component {
     });
   }
 
-
-  rewind = (e) => {
-    const audioElement = this.refs.audio;
-    const percent = (e.clientX - offsetLeft(e.currentTarget)) / e.currentTarget.offsetWidth;
-
-    const currentTime = Math.floor(percent * this.state.duration);
-
-    this.setState({
-      currentTime: currentTime
-    }, () => {
-      audioElement.currentTime = this.state.currentTime;
-    });
+  handleShowRadioList = () => {
+    this.props.handleShowRadioList(true)
   }
-
 
   render() {
     const { duration, currentTime } = this.state;
@@ -173,12 +154,10 @@ export class MusicPlayerHeader extends Component {
           <div className='player-header-controll-main-box-player'>
             <div className='player-header-controll-main-box-current-time'>{ formatSeconds(currentTime) }</div>
 
-            <div className='player-header-controll-main-box-player-progress' onClick={ this.rewind } >
+            <div className='player-header-controll-main-box-player-progress' onMouseDown={ this.handleSeekMouseDown } >
               <div className='player-progress-bar' ref='seekBar'>
-                <div className='player-progress-bar-progress' style={{ width: seekWidth }} >
-                  <div className='player-progress-bar-handler' onMouseDown={ this.handleSeekMouseDown } >
-                  </div>
-                </div>
+                <div className='player-progress-bar-progress' style={{ width: seekWidth }} ></div>
+                <div className='player-progress-bar-handler' style={{ left: seekWidth }}></div>
               </div>
             </div>
 
@@ -190,7 +169,7 @@ export class MusicPlayerHeader extends Component {
 
         <div className='lc-header-options'>
           <div className='options-bar'>
-            <div className='options-btn playlist'></div>
+            <div className='options-btn playlist' onClick={ this.handleShowRadioList } ></div>
             <div className='options-btn radiostations'></div>
             <div className='options-btn replay'></div>
             <div className='options-btn shuffle'></div>

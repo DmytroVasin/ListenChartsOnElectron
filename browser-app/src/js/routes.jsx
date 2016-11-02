@@ -3,10 +3,12 @@ import { Route, IndexRoute } from 'react-router';
 
 import Application from './components/layout/application.jsx'
 
-import MainPageContainer     from './containers/main_page_container.js'
+import RadioStationContainer from './containers/radio_station_container.js'
+import PlaylistContainer     from './containers/playlist_container.js'
 
 export default (
-  <Route   path='/'                 component={Application} >
-    <IndexRoute                     component={MainPageContainer} />
+  <Route path='/'                   component={ Application } >
+    <IndexRoute                     component={ RadioStationContainer } />
+    <Route path="/radiostation/:id" component={ PlaylistContainer } />
   </Route>
 )

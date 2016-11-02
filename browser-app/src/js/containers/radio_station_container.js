@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 
 import * as storyActions from '../actions/storyActions'
 
-import { MainPage } from '../components/graphs/main_page.jsx';
+import { RadioStationPage } from '../components/radio_station/radio_station_page.jsx';
 
 function mapStateToProps(store) {
   return {
-    playList: store.reducer.playList,
-    player: store.reducer.player
+    stationsList: store.reducer.stationsList
   }
 }
 
@@ -21,4 +20,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainPage)
+)(RadioStationPage)

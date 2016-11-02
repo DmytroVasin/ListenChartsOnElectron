@@ -8,6 +8,12 @@ const initialState = {
     error: null,
     loading: false
   },
+
+  stationsList: {
+    stations: [],
+    error: null,
+    loading: false
+  },
 }
 
 const reducer = function(state=initialState, action) {
@@ -19,6 +25,13 @@ const reducer = function(state=initialState, action) {
       return { ...state, playList: {songs: action.payload, error: null, loading: false }}
     case 'FETCH_LIST_FAILURE':
       return { ...state, playList: {songs: [], error: action.payload, loading: false }}
+
+    case 'FETCH_STATIONS_REQUEST':
+      return { ...state, stationsList: {stations: [], error: null, loading: true }}
+    case 'FETCH_STATIONS_SUCCESS':
+      return { ...state, stationsList: {stations: action.payload, error: null, loading: false }}
+    case 'FETCH_STATIONS_FAILURE':
+      return { ...state, stationsList: {stations: [], error: action.payload, loading: false }}
 
     case 'TOGGLE_PLAY':
       return { ...state, player: { isPlaying: action.payload } }

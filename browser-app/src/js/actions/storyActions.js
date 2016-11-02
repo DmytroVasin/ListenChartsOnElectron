@@ -30,6 +30,38 @@ function fetchListFailure(error) {
   }
 }
 
+
+export function fetchStations() {
+  return (dispatch) => {
+    dispatch(fetchStationsRequest())
+    axios.get('http://beta.listencharts.com/api/v1/charts')
+    .then(function(response) {
+      dispatch(fetchStationsSuccess(response.data))
+    })
+    .catch(function (error) {
+      dispatch(fetchStationsFailure(error.message))
+    })
+  }
+}
+function fetchStationsRequest() {
+  return {
+    type: 'FETCH_STATIONS_REQUEST'
+  }
+}
+function fetchStationsSuccess(list) {
+  return {
+    type: 'FETCH_STATIONS_SUCCESS',
+    payload: list.charts
+  }
+}
+function fetchStationsFailure(error) {
+  return {
+    type: 'FETCH_STATIONS_FAILURE',
+    payload: error
+  }
+}
+
+
 export function toggleIsPlaying(isPlaying) {
   return (dispatch) => {
     dispatch({

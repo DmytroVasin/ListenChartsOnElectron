@@ -130,27 +130,29 @@
 
         .player-header-controll-main-box-player-progress {
           width: 100%;
+          cursor: pointer;
 
           .player-progress-bar {
             height: 5px;
             margin: 9px 0;
             background-color: #D6D6D6;
-            cursor: pointer;
+            position: relative;
 
             .player-progress-bar-progress {
               position: relative;
               background-color: #ABABAB;
-              width: 60%;
+              width: 0;
               height: inherit;
+            }
 
-              .player-progress-bar-handler {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                width: 1px;
-                background-color: #000;
-              }
+            .player-progress-bar-handler {
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 5px;
+              width: 2px;
+              background-color: #000000;
+              transition: left 0.2s ease-in-out;
             }
           }
         }
