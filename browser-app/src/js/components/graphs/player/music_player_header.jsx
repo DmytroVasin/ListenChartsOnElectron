@@ -6,9 +6,35 @@ export class MusicPlayerHeader extends Component {
     this.props.togglePause()
   }
 
+
+  componentDidMount = () => {
+    const audioElement = this.refs.audio;
+
+    audioElement.addEventListener('pause', this.handlePause, false);
+    audioElement.addEventListener('play', this.handlePlay, false);
+  }
+
+  componentWillUnmount() {
+    const audioElement = this.refs.audio;
+    audioElement.removeEventListener('pause', this.handlePause, false);
+    audioElement.removeEventListener('play', this.handlePlay, false);
+  }
+
+
+  handlePlay = () => {
+    this.props.togglePause()
+  }
+
+  handlePause = () => {
+    console.log('................')
+    this.props.togglePause()
+  }
+
   render() {
     return (
       <div className='lc-header'>
+        <audio id='lc-player-audio' ref='audio' controls='controls' src="https://goo.gl/e5gulZ"></audio>
+
         <div className='lc-header-badge'>
           <img src='http://www.webdesign-flash.ro/p/rap/content/thumbnails/small21.jpg' />
         </div>
