@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { formatSeconds, formatStreamUrl } from '../../../utils';
+
+import { formatSeconds, offsetLeft } from '../../../utils';
 
 export class MusicPlayerHeader extends Component {
   constructor(props) {
@@ -7,10 +8,10 @@ export class MusicPlayerHeader extends Component {
 
     this.state = {
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      isSeeking: false
     };
   }
-
 
   handleTogglePlay = () => {
     const audioElement = this.refs.audio;
@@ -68,6 +69,10 @@ export class MusicPlayerHeader extends Component {
   }
 
   handleTimeUpdate = () => {
+    if (this.state.isSeeking) {
+      return;
+    }
+
     const audioElement = this.refs.audio;
 
     this.setState({
@@ -75,8 +80,69 @@ export class MusicPlayerHeader extends Component {
     });
   }
 
+
+
+  handleSeekMouseDown = () => {
+    console.log('handleSeekMouseDown')
+
+    document.addEventListener('mousemove', this.handleSeekMouseMove);
+    document.addEventListener('mouseup', this.handleSeekMouseUp);
+
+    this.setState({
+      isSeeking: true,
+    });
+  }
+  handleSeekMouseMove = (e) => {
+    console.log('handleSeekMouseMove')
+
+    const seekBar = this.refs.seekBar;
+    const diff = e.clientX - offsetLeft(seekBar);
+    const pos = diff < 0 ? 0 : diff;
+    let percent = pos / seekBar.offsetWidth;
+
+    percent = percent > 1 ? 1 : percent;
+
+    this.setState({
+      currentTime: Math.floor(percent * this.state.duration)
+    });
+  }
+
+  handleSeekMouseUp = () => {
+    const audioElement = this.refs.audio;
+
+    console.log('handleSeekMouseUp')
+    if (!this.state.isSeeking) {
+      return;
+    }
+
+    document.removeEventListener('mousemove', this.handleSeekMouseMove);
+    document.removeEventListener('mouseup', this.handleSeekMouseUp);
+
+    this.setState({
+      isSeeking: false,
+    }, () => {
+      audioElement.currentTime = this.state.currentTime;
+    });
+  }
+
+
+  rewind = (e) => {
+    const audioElement = this.refs.audio;
+    const percent = (e.clientX - offsetLeft(e.currentTarget)) / e.currentTarget.offsetWidth;
+
+    const currentTime = Math.floor(percent * this.state.duration);
+
+    this.setState({
+      currentTime: currentTime
+    }, () => {
+      audioElement.currentTime = this.state.currentTime;
+    });
+  }
+
+
   render() {
     const { duration, currentTime } = this.state;
+    const seekWidth = (currentTime / duration * 100) + '%';
 
     return (
       <div className='lc-header'>
@@ -107,10 +173,10 @@ export class MusicPlayerHeader extends Component {
           <div className='player-header-controll-main-box-player'>
             <div className='player-header-controll-main-box-current-time'>{ formatSeconds(currentTime) }</div>
 
-            <div className='player-header-controll-main-box-player-progress'>
-              <div className='player-progress-bar'>
-                <div className='player-progress-bar-progress'>
-                  <div className='player-progress-bar-handler'>
+            <div className='player-header-controll-main-box-player-progress' onClick={ this.rewind } >
+              <div className='player-progress-bar' ref='seekBar'>
+                <div className='player-progress-bar-progress' style={{ width: seekWidth }} >
+                  <div className='player-progress-bar-handler' onMouseDown={ this.handleSeekMouseDown } >
                   </div>
                 </div>
               </div>

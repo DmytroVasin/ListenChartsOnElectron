@@ -60,3 +60,10 @@ function padZero(num, size) {
   }
   return s;
 }
+
+// Return offset of left.
+// Note: only for webkit
+export function offsetLeft(element) {
+  let leftOffset = element.getBoundingClientRect().left
+  return Math.round(leftOffset);
+}
