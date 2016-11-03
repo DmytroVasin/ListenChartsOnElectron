@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import * as storyActions from '../actions/storyActions'
 
-import { PlayListPage } from '../components/playlist/playlist_page.jsx';
+import { MusicPlayer } from '../components/player/music_player.jsx';
 
 function mapStateToProps(store) {
   return {
-    playList: store.reducer.playList
+    player: store.reducer.player
   }
 }
 
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlayListPage)
+)(MusicPlayer)

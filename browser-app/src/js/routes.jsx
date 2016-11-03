@@ -8,7 +8,9 @@ import PlaylistContainer     from './containers/playlist_container.js'
 
 export default (
   <Route path='/'                   component={ Application } >
-    <IndexRoute                     component={ RadioStationContainer } />
-    <Route path="/radiostation/:id" component={ PlaylistContainer } />
+    <IndexRoute                     component={ PlaylistContainer } />
   </Route>
 )
+
+// <IndexRoute                     component={ RadioStationContainer } />
+// <Route path="/radiostation/:id" component={ PlaylistContainer } />

@@ -5,7 +5,7 @@ import { RadioStation } from './radio_station.jsx'
 export class RadioStationPage extends Component {
 
   componentWillMount() {
-    this.props.fetchStations()
+    this.props.actions.fetchStations()
   }
 
   render() {
@@ -24,7 +24,7 @@ export class RadioStationPage extends Component {
     })
 
     return (
-      <div className='lc-radio-stations'>
+      <div id='lc-radio-stations'>
         { radioStations }
       </div>
     )

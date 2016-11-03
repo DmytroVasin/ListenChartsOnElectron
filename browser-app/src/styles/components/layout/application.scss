@@ -1,0 +1,46 @@
+.window {
+  height: 100%;
+
+  .window-container {
+    .popover {
+      top: 15px;
+      position: relative;
+
+      border-radius: 5px;
+      border: 1px solid $dark-border;
+
+      background: $white;
+
+      .arrow, .arrow:after{
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        left: 50%;
+        border-width: 11px;
+        border-top-width: 0;
+        transform: translate(-50%, 0);
+      }
+
+      .arrow {
+        top: -11px;
+        border-bottom-color: $dark-border;
+
+        &:after {
+          content: '';
+          top: 1px;
+          border-bottom-color: $white;
+        }
+      }
+
+      .popover-content {
+        width: 800px;
+        height: 350px;
+
+        color: $text-color;
+        font-size: 12px;
+      }
+    }
+  }
+}

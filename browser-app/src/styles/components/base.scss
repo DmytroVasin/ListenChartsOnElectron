@@ -1,0 +1,31 @@
+input, textarea, select, label {
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: rgba(0, 0, 0, 0);
+}
+
+body {
+  -webkit-app-region: no-drag;
+
+  height: 100%;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.4em;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+
+  #react-root {
+    height: 100%;
+  }
+}

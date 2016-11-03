@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { MusicPlayerHeader } from '../graphs/player/music_player_header.jsx';
+import MusicPlayerContainer from '../../containers/music_player_container.js'
 
 export default class Application extends Component {
   render() {
@@ -8,15 +8,13 @@ export default class Application extends Component {
       <div className='window'>
         <div className='window-container'>
 
-          <div id='music-box-container'>
-            <div className='popover'>
-              <div className='arrow'></div>
+          <div className='popover'>
+            <div className='arrow'></div>
 
-              <div className='popover-content'>
-                <MusicPlayerHeader />
+            <div className='popover-content'>
+              <MusicPlayerContainer />
 
-                { this.props.children }
-              </div>
+              { this.props.children }
             </div>
           </div>
 

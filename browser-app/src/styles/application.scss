@@ -2,8 +2,9 @@
 @import 'utils/reset';
 @import 'utils/mixins';
 
-@import 'windows/base';
+@import 'components/base';
 
-@import 'player/base';
-@import 'player/header';
-@import 'player/playlist';
+@import 'components/layout/application';
+@import 'components/player/music_player';
+@import 'components/playlist/playlist_page';
+@import 'components/radio_station/radio_station_page';

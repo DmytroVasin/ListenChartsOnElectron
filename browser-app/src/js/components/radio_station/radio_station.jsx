@@ -7,8 +7,8 @@ export class RadioStation extends Component {
 
     return (
       <div className='lc-radio-station'>
-        <div className='lc-playlist-row-time'>{ chart_key }</div>
-        <div className='lc-playlist-row-time'>{ country }</div>
+        <div>{ chart_key }</div>
+        <div>{ country }</div>
       </div>
     )
   }

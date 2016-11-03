@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import { formatSeconds, offsetLeft } from '../../../utils';
+import { formatSeconds, offsetLeft } from '../../utils';
 
-export class MusicPlayerHeader extends Component {
+export class MusicPlayer extends Component {
   constructor(props) {
     super(props);
 
@@ -47,11 +47,11 @@ export class MusicPlayerHeader extends Component {
 
 
   handlePlay = () => {
-    this.props.toggleIsPlaying(true)
+    this.props.actions.toggleIsPlaying(true)
   }
 
   handlePause = () => {
-    this.props.toggleIsPlaying(false)
+    this.props.actions.toggleIsPlaying(false)
   }
 
   handleLoadStart = () => {
@@ -126,22 +126,22 @@ export class MusicPlayerHeader extends Component {
     const seekWidth = (currentTime / duration * 100) + '%';
 
     return (
-      <div className='lc-header'>
+      <div id='lc-player'>
         <audio id='lc-player-audio' ref='audio' controls='controls' src="https://goo.gl/e5gulZ"></audio>
 
-        <div className='lc-header-badge'>
+        <div className='lc-player-badge'>
           <img src='http://www.webdesign-flash.ro/p/rap/content/thumbnails/small21.jpg' />
         </div>
 
-        <div className='lc-header-controlls'>
+        <div className='lc-player-controlls'>
           <div className='prev-btn'></div>
           <div className={this.props.player.isPlaying ? 'play-btn playing' : 'play-btn'} onClick={this.handleTogglePlay}></div>
           <div className='next-btn'></div>
         </div>
 
-        <div className='lc-header-devider'></div>
+        <div className='lc-player-devider'></div>
 
-        <div className='lc-header-controll-timeline'>
+        <div className='lc-player-controll-timeline'>
           <div className='player-header-controll-main-box-ticker-line'>
             <div className={this.props.player.isPlaying ? 'equalizer playing' : 'equalizer'} >
               <img src='http://www.webdesign-flash.ro/p/rap/content/minimal_skin_white/equalizer.png' />
@@ -165,9 +165,9 @@ export class MusicPlayerHeader extends Component {
           </div>
         </div>
 
-        <div className='lc-header-devider'></div>
+        <div className='lc-player-devider'></div>
 
-        <div className='lc-header-options'>
+        <div className='lc-player-options'>
           <div className='options-bar'>
             <div className='options-btn playlist' onClick={ this.handleShowRadioList } ></div>
             <div className='options-btn radiostations'></div>
