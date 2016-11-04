@@ -1,5 +1,56 @@
 #lc-radio-stations {
-  .lc-radio-station {
+  @include clearfix;
 
+  height: 275px;
+  overflow-y: scroll;
+
+  .lc-radio-station {
+    float: left;
+    cursor: pointer;
+    position: relative;
+    margin: 6px;
+    box-shadow: 5px 5px 10px #ababab;
+    border: 1px solid #ababab;
+
+    .lc-radio-station-preview {
+      width: 100px;
+      height: 100px;
+      background-size: 100% 100%;
+    }
+
+    .mask, .circle {
+      display: none;
+
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 0; right: 0;
+    }
+
+    &:hover {
+      .mask, .circle { display: block; }
+    }
+
+    .mask {
+      opacity: 0.7;
+      background-color: #181818;
+    }
+
+    .circle {
+      margin: auto;
+      width: 50%;
+      height: 50%;
+      background-color: transparent;
+      border: 2px solid #d7dce0;
+      border-radius: 50%;
+      z-index: 1;
+      transition: all 0.1s ease-in-out;
+      cursor: inherit;
+
+      &:hover { border: 2px solid $white; }
+
+      .icon-play {
+        color: $white;
+      }
+    }
   }
 }

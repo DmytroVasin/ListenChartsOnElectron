@@ -5,7 +5,7 @@ import { SongRow } from './song_row.jsx'
 export class PlayListPage extends Component {
 
   componentWillMount() {
-    this.props.actions.fetchList()
+    this.props.actions.fetchList(this.props.routeParams.id)
   }
 
   render() {

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-export function fetchList() {
+export function fetchList(stationId) {
   return (dispatch) => {
     dispatch(fetchListRequest())
-    axios.get('http://beta.listencharts.com/api/v1/charts/22')
+    axios.get(`http://beta.listencharts.com/api/v1/charts/${stationId}`)
     .then(function(response) {
       dispatch(fetchListSuccess(response.data))
     })

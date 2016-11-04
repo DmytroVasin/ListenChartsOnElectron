@@ -8,6 +8,10 @@
     border-top: 1px solid $border;
     line-height: 24px;
 
+    &:nth-child(even) {
+      background-color: #F5F5F5;
+    }
+
     .lc-playlist-row-play-pause {
       margin: 0 10px;
       cursor: pointer;

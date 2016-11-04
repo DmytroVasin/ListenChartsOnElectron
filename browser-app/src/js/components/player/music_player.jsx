@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { formatSeconds, offsetLeft } from '../../utils';
+import { Link } from 'react-router';
 
 export class MusicPlayer extends Component {
   constructor(props) {
@@ -117,10 +118,6 @@ export class MusicPlayer extends Component {
     });
   }
 
-  handleShowRadioList = () => {
-    this.props.handleShowRadioList(true)
-  }
-
   render() {
     const { duration, currentTime } = this.state;
     const seekWidth = (currentTime / duration * 100) + '%';
@@ -169,7 +166,7 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-options'>
           <div className='options-bar'>
-            <div className='options-btn playlist' onClick={ this.handleShowRadioList } ></div>
+            <Link to='/' className='options-btn playlist'></Link>
             <div className='options-btn radiostations'></div>
             <div className='options-btn replay'></div>
             <div className='options-btn shuffle'></div>
