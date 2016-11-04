@@ -1,6 +1,7 @@
 const initialState = {
   player: {
-    isPlaying: false
+    isPlaying: false,
+    currentSongSCID: null
   },
 
   playList: {
@@ -34,7 +35,14 @@ const reducer = function(state=initialState, action) {
       return { ...state, stationsList: {stations: [], error: action.payload, loading: false }}
 
     case 'TOGGLE_PLAY':
-      return { ...state, player: { isPlaying: action.payload } }
+      return { ...state, player: { isPlaying: action.payload, currentSongSCID: state.player.currentSongSCID } }
+
+
+    case 'FETCH_SONG_REQUEST':
+      return state
+      // return { ...state, player: { isPlaying: action.payload } }
+    case 'FETCH_SONG_SUCCESS':
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: action.payload.scid } }
 
 
     default:

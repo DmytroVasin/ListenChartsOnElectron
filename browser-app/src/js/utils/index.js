@@ -1,6 +1,4 @@
-// TODO: ES6
-
-const pJson = require('../../../../package.json');
+import { CLIENT_ID } from '../constants/config.js';
 
 /**
  * Convert null, 0, 240 value minutes to
@@ -37,14 +35,6 @@ export function convertMinutesToTrayFromat(minutes) {
   return h+':'+m;
 }
 
-/**
- * Get app version
- * @return {String}
- */
-export function ecoSystemJson() {
-  return pJson;
-}
-
 
 // Format for seconds -> "00:00"
 export function formatSeconds(num) {
@@ -66,4 +56,9 @@ function padZero(num, size) {
 export function offsetLeft(element) {
   let leftOffset = element.getBoundingClientRect().left
   return Math.round(leftOffset);
+}
+
+
+export function soundCloudUrl(currentSongSCID) {
+  return `https://api.soundcloud.com/tracks/${currentSongSCID}/stream?client_id=${CLIENT_ID}`
 }

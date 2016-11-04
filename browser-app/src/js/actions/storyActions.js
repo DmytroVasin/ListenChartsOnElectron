@@ -70,3 +70,44 @@ export function toggleIsPlaying(isPlaying) {
     })
   }
 }
+
+
+
+export function fetchSong(query) {
+  return (dispatch) => {
+    dispatch(fetchSongRequest())
+    // WHY limit=1 do not work - don't know.
+
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+
+    SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
+       dispatch(fetchSongSuccess(data[0]))
+    })
+
+    // axios.get('https://api.soundcloud.com/tracks?limit=10&offset=0&client_id='+CLIENT_ID+'&q='+encodeURI(query))
+    // .then(function(response) {
+    //   dispatch(fetchSongSuccess(response.data[0]))
+    // })
+    // .catch(function (error) {
+    //   console.log('failed')
+    // })
+  }
+}
+function fetchSongRequest() {
+  return {
+    type: 'FETCH_SONG_REQUEST'
+  }
+}
+function fetchSongSuccess(scSong) {
+  return {
+    type: 'FETCH_SONG_SUCCESS',
+    payload: { scid: scSong.id }
+  }
+}
+// function fetchSongFailure(error) {
+//   return {
+//     type: 'FETCH_SONG_FAILURE',
+//     payload: error
+//   }
+// }
+

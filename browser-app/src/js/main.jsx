@@ -12,6 +12,15 @@ import routes from './routes'
 
 const store = configureStore()
 
+
+
+import SC from 'soundcloud';
+import { CLIENT_ID } from './constants/config.js';
+
+SC.initialize({
+  client_id: CLIENT_ID
+});
+
 render(
   <Provider store={store}>
     <Router history={hashHistory} routes={routes} />

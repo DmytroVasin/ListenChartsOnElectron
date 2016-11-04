@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { formatSeconds, offsetLeft } from '../../utils';
+import { formatSeconds, offsetLeft, soundCloudUrl } from '../../utils';
 import { Link } from 'react-router';
 
 export class MusicPlayer extends Component {
@@ -124,7 +124,7 @@ export class MusicPlayer extends Component {
 
     return (
       <div id='lc-player'>
-        <audio id='lc-player-audio' ref='audio' controls='controls' src="https://goo.gl/e5gulZ"></audio>
+        <audio id='lc-player-audio' ref='audio' controls='controls' preload='none' src={ soundCloudUrl(this.props.player.currentSongSCID) } />
 
         <div className='lc-player-badge'>
           <img src='http://www.webdesign-flash.ro/p/rap/content/thumbnails/small21.jpg' />
