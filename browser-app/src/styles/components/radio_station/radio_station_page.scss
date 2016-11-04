@@ -48,8 +48,12 @@
 
       &:hover { border: 2px solid $white; }
 
-      .icon-play {
-        color: $white;
+      .circle-play {
+        background: url(images/player/white-play-button-over.png);
+        width: 21px;
+        height: 21px;
+        background-size: 100% 100%;
+        margin: 12px 0 0 15px;
       }
     }
   }
