@@ -191,27 +191,27 @@
 
         &.playlist {
           background: url(images/player/playlist-button.png);
-          &:hover { background: url(images/player/playlist-button-over.png); }
+          &.active, &:hover { background: url(images/player/playlist-button-over.png); }
         }
         &.radiostations {
           background: url(images/player/categories-button.png);
-          &:hover { background: url(images/player/categories-button-over.png); }
+          &.active, &:hover { background: url(images/player/categories-button-over.png); }
         }
         &.replay {
           background: url(images/player/replay-button.png);
-          &:hover { background: url(images/player/replay-button-over.png); }
+          &.active, &:hover { background: url(images/player/replay-button-over.png); }
         }
         &.shuffle {
           background: url(images/player/shuffle-button.png);
-          &:hover { background: url(images/player/shuffle-button-over.png); }
+          &.active, &:hover { background: url(images/player/shuffle-button-over.png); }
         }
         &.download {
           background: url(images/player/download-button.png);
-          &:hover { background: url(images/player/download-button-over.png); }
+          &.active, &:hover { background: url(images/player/download-button-over.png); }
         }
         &.visit-site {
           background: url(images/player/popup-button.png);
-          &:hover { background: url(images/player/popup-button-over.png); }
+          &.active, &:hover { background: url(images/player/popup-button-over.png); }
         }
       }
     }

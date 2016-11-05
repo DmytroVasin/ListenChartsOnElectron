@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classNames from 'classnames';
 
 import { formatSeconds, offsetLeft, soundCloudUrl } from '../../utils';
 import { Link } from 'react-router';
@@ -8,13 +9,13 @@ export class MusicPlayer extends Component {
     super(props);
 
     this.state = {
-      currentTime: 0,
-      duration: 0,
-      isSeeking: false
+      isSeeking: false,
+      replay: false,
+      shuffle: false
     };
   }
 
-  handleTogglePlay = () => {
+  togglePlay = () => {
     const audioElement = this.refs.audio;
 
     const { isPlaying } = this.props.player;
@@ -26,6 +27,14 @@ export class MusicPlayer extends Component {
     }
   }
 
+  toggleReplay = () => {
+    this.setState({ replay: !this.state.replay });
+  }
+
+  toggleShuffle = () => {
+    this.setState({ shuffle: !this.state.shuffle });
+  }
+
   componentDidMount = () => {
     const audioElement = this.refs.audio;
 
@@ -35,6 +44,22 @@ export class MusicPlayer extends Component {
     audioElement.addEventListener('loadedmetadata', this.handleLoadedMetadata, false);
     audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
   }
+
+  // componentDidUpdate = (prevState) => {
+  //   // TODO: Too much call'
+  //   if (prevState.currentSongSCID && prevState.currentSongSCID == this.props.playingSongId) {
+  //     return;
+  //   }
+  //   const { isPlaying } = this.props.player;
+  //   const audioElement = this.refs.audio;
+
+  //   if (isPlaying) {
+  //     audioElement.play();
+  //   } else {
+  //     audioElement.pause();
+  //   }
+  // }
+
 
   componentWillUnmount() {
     const audioElement = this.refs.audio;
@@ -56,17 +81,13 @@ export class MusicPlayer extends Component {
   }
 
   handleLoadStart = () => {
-    this.setState({
-      duration: 0,
-    });
+    this.props.actions.durationUpdate(0)
   }
 
   handleLoadedMetadata = () => {
     const audioElement = this.refs.audio;
 
-    this.setState({
-      duration: Math.floor(audioElement.duration)
-    });
+    this.props.actions.durationUpdate( Math.floor(audioElement.duration) )
   }
 
   handleTimeUpdate = () => {
@@ -76,9 +97,7 @@ export class MusicPlayer extends Component {
 
     const audioElement = this.refs.audio;
 
-    this.setState({
-      currentTime: Math.floor(audioElement.currentTime)
-    });
+    this.props.actions.timeUpdate(Math.floor(audioElement.currentTime))
   }
 
   handleSeekMouseDown = (e) => {
@@ -86,7 +105,7 @@ export class MusicPlayer extends Component {
     document.addEventListener('mouseup', this.handleSeekMouseUp);
 
     this.setState({
-      isSeeking: true,
+      isSeeking: true
     });
 
     this.handleSeekMouseMove(e);
@@ -100,9 +119,7 @@ export class MusicPlayer extends Component {
 
     percent = percent > 1 ? 1 : percent;
 
-    this.setState({
-      currentTime: Math.floor(percent * this.state.duration)
-    });
+    this.props.actions.timeUpdate(Math.floor(percent * this.props.player.duration))
   }
 
   handleSeekMouseUp = () => {
@@ -114,13 +131,14 @@ export class MusicPlayer extends Component {
     this.setState({
       isSeeking: false,
     }, () => {
-      audioElement.currentTime = this.state.currentTime;
+      audioElement.currentTime = this.props.player.currentTime;
     });
   }
 
   render() {
-    const { duration, currentTime } = this.state;
-    const seekWidth = (currentTime / duration * 100) + '%';
+    const { duration, currentTime } = this.props.player;
+
+    const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
 
     return (
       <div id='lc-player'>
@@ -132,7 +150,7 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-controlls'>
           <div className='prev-btn'></div>
-          <div className={this.props.player.isPlaying ? 'play-btn playing' : 'play-btn'} onClick={this.handleTogglePlay}></div>
+          <div className={ classNames('play-btn', { 'playing': this.props.player.isPlaying }) } onClick={ this.togglePlay }></div>
           <div className='next-btn'></div>
         </div>
 
@@ -140,7 +158,7 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-controll-timeline'>
           <div className='player-header-controll-main-box-ticker-line'>
-            <div className={this.props.player.isPlaying ? 'equalizer playing' : 'equalizer'} >
+            <div className={ classNames('equalizer', { 'playing': this.props.player.isPlaying }) }>
               <img src='http://www.webdesign-flash.ro/p/rap/content/minimal_skin_white/equalizer.png' />
             </div>
             <div className='text-ticker'>
@@ -153,8 +171,8 @@ export class MusicPlayer extends Component {
 
             <div className='player-header-controll-main-box-player-progress' onMouseDown={ this.handleSeekMouseDown } >
               <div className='player-progress-bar' ref='seekBar'>
-                <div className='player-progress-bar-progress' style={{ width: seekWidth }} ></div>
-                <div className='player-progress-bar-handler' style={{ left: seekWidth }}></div>
+                <div className='player-progress-bar-progress' style={{ width: `${seekWidth}%` }} ></div>
+                <div className='player-progress-bar-handler' style={{ left: `${seekWidth}%` }}></div>
               </div>
             </div>
 
@@ -168,8 +186,8 @@ export class MusicPlayer extends Component {
           <div className='options-bar'>
             <Link to='/' className='options-btn playlist'></Link>
             <div className='options-btn radiostations'></div>
-            <div className='options-btn replay'></div>
-            <div className='options-btn shuffle'></div>
+            <div className={ classNames('options-btn', 'replay', { 'active': this.state.replay }) } onClick={ this.toggleReplay }></div>
+            <div className={ classNames('options-btn', 'shuffle', { 'active': this.state.replay }) } onClick={ this.toggleShuffle }></div>
             <div className='options-btn download'></div>
             <div className='options-btn visit-site'></div>
           </div>

@@ -73,16 +73,14 @@ export function toggleIsPlaying(isPlaying) {
 
 
 
-export function fetchSong(query) {
+export function fetchSong(id, query) {
   return (dispatch) => {
-    dispatch(fetchSongRequest())
-    // WHY limit=1 do not work - don't know.
-
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-
+    dispatch(fetchSongRequest(id))
     SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
-       dispatch(fetchSongSuccess(data[0]))
-    })
+      dispatch(fetchSongSuccess(data[0]))
+    }).catch(function (error) {
+      console.log('There was an error ' + error.message);
+    });
 
     // axios.get('https://api.soundcloud.com/tracks?limit=10&offset=0&client_id='+CLIENT_ID+'&q='+encodeURI(query))
     // .then(function(response) {
@@ -93,9 +91,10 @@ export function fetchSong(query) {
     // })
   }
 }
-function fetchSongRequest() {
+function fetchSongRequest(id) {
   return {
-    type: 'FETCH_SONG_REQUEST'
+    type: 'FETCH_SONG_REQUEST',
+    payload: { id: id }
   }
 }
 function fetchSongSuccess(scSong) {
@@ -111,3 +110,21 @@ function fetchSongSuccess(scSong) {
 //   }
 // }
 
+
+export function durationUpdate(duration) {
+  return (dispatch) => {
+    dispatch({
+      type: 'PLAYER_DURATION_UPDATE',
+      payload: duration
+    })
+  }
+}
+
+export function timeUpdate(currentTime) {
+  return (dispatch) => {
+    dispatch({
+      type: 'PLAYER_TIME_UPDATE',
+      payload: currentTime
+    })
+  }
+}

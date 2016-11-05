@@ -1,6 +1,9 @@
 const initialState = {
   player: {
     isPlaying: false,
+    currentTime: 0,
+    duration: 0,
+    currentSongID: null,
     currentSongSCID: null
   },
 
@@ -27,6 +30,9 @@ const reducer = function(state=initialState, action) {
     case 'FETCH_LIST_FAILURE':
       return { ...state, playList: {songs: [], error: action.payload, loading: false }}
 
+
+
+
     case 'FETCH_STATIONS_REQUEST':
       return { ...state, stationsList: {stations: [], error: null, loading: true }}
     case 'FETCH_STATIONS_SUCCESS':
@@ -34,15 +40,22 @@ const reducer = function(state=initialState, action) {
     case 'FETCH_STATIONS_FAILURE':
       return { ...state, stationsList: {stations: [], error: action.payload, loading: false }}
 
-    case 'TOGGLE_PLAY':
-      return { ...state, player: { isPlaying: action.payload, currentSongSCID: state.player.currentSongSCID } }
 
+    // return Object.assign({}, state, { playing: false });
+    case 'TOGGLE_PLAY':
+      return { ...state, player: { isPlaying: action.payload, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration } }
 
     case 'FETCH_SONG_REQUEST':
-      return state
-      // return { ...state, player: { isPlaying: action.payload } }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: null, currentSongID: action.payload.id, currentTime: state.player.currentTime, duration: state.player.duration } }
+
     case 'FETCH_SONG_SUCCESS':
-      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: action.payload.scid } }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: action.payload.scid, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration } }
+
+    case 'PLAYER_DURATION_UPDATE':
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: action.payload} }
+
+    case 'PLAYER_TIME_UPDATE':
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: action.payload, duration: state.player.duration } }
 
 
     default:

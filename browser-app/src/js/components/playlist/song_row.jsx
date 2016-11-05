@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import classNames from 'classnames';
+
+import { SongRowProgress } from './song_row_progress.jsx'
 
 export class SongRow extends Component {
   constructor(props) {
@@ -6,19 +9,28 @@ export class SongRow extends Component {
   }
 
   handlePlaySong = () => {
-    const { place, artist, title  } = this.props.song
+    const { id, place, artist, title } = this.props.song
 
-    this.props.fetchSong(artist + ' ' + title)
+    // TODO: WTF????
+    this.props.fetchSong(id, artist + ' ' + title)
   }
 
+
   render() {
-    const { place, artist, title  } = this.props.song
+    const { place, artist, title  } = this.props.song;
+    const isActive = (this.props.song.id == this.props.player.currentSongID)
+
+    let renderProgressBar = isActive ? <SongRowProgress player={ this.props.player } /> : null;
 
     return (
-      <div className='lc-playlist-row' onClick={ this.handlePlaySong }>
-        <div className='lc-playlist-row-play-pause'></div>
-        <div className='lc-playlist-row-title'>{ place }. <span>{ artist }</span> - { title }</div>
-        <div className='lc-playlist-row-time'>02:33</div>
+      <div className={ classNames('lc-playlist-row', { 'active': isActive }) } onClick={ this.handlePlaySong }>
+        { renderProgressBar }
+
+        <div className='lc-playlist-row-content'>
+          <div className={ classNames('play-pause', { 'playing': this.props.player.isPlaying }) }></div>
+          <div className='title'>{ place }. <span>{ artist }</span> - { title }</div>
+          <div className='time'>02:33</div>
+        </div>
       </div>
     )
   }

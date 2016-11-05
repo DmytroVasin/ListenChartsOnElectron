@@ -7,7 +7,8 @@ import { PlayListPage } from '../components/playlist/playlist_page.jsx';
 
 function mapStateToProps(store) {
   return {
-    playList: store.reducer.playList
+    playList: store.reducer.playList,
+    player: store.reducer.player
   }
 }
 
