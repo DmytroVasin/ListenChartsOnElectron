@@ -96,8 +96,15 @@ export class MusicPlayer extends Component {
     }
 
     const audioElement = this.refs.audio;
+    const currentTime = Math.floor(audioElement.currentTime);
 
-    this.props.actions.timeUpdate(Math.floor(audioElement.currentTime))
+    if (currentTime === this._currentTime) {
+      return;
+    }
+
+    this._currentTime = currentTime;
+
+    this.props.actions.timeUpdate(currentTime)
   }
 
   handleSeekMouseDown = (e) => {
