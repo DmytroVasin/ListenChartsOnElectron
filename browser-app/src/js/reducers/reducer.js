@@ -46,7 +46,7 @@ const reducer = function(state=initialState, action) {
       return { ...state, player: { isPlaying: action.payload, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration } }
 
     case 'FETCH_SONG_REQUEST':
-      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: null, currentSongID: action.payload.id, currentTime: state.player.currentTime, duration: state.player.duration } }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: action.payload.id, currentTime: 0, duration: 0 } }
 
     case 'FETCH_SONG_SUCCESS':
       return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: action.payload.scid, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration } }

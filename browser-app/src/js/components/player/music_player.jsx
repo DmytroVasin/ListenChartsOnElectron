@@ -45,21 +45,15 @@ export class MusicPlayer extends Component {
     audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
   }
 
-  // componentDidUpdate = (prevState) => {
-  //   // TODO: Too much call'
-  //   if (prevState.currentSongSCID && prevState.currentSongSCID == this.props.playingSongId) {
-  //     return;
-  //   }
-  //   const { isPlaying } = this.props.player;
-  //   const audioElement = this.refs.audio;
+  componentDidUpdate = (prevProps) => {
+    // TODO: Too much call'
 
-  //   if (isPlaying) {
-  //     audioElement.play();
-  //   } else {
-  //     audioElement.pause();
-  //   }
-  // }
+    const audioElement = this.refs.audio;
 
+    if (this.props.player.currentSongSCID && this.props.player.currentSongSCID != prevProps.player.currentSongSCID) {
+      audioElement.play();
+    }
+  }
 
   componentWillUnmount() {
     const audioElement = this.refs.audio;
@@ -81,6 +75,7 @@ export class MusicPlayer extends Component {
   }
 
   handleLoadStart = () => {
+    this.props.actions.timeUpdate(0)
     this.props.actions.durationUpdate(0)
   }
 
@@ -149,7 +144,7 @@ export class MusicPlayer extends Component {
 
     return (
       <div id='lc-player'>
-        <audio id='lc-player-audio' ref='audio' controls='controls' preload='none' src={ soundCloudUrl(this.props.player.currentSongSCID) } />
+        <audio id='lc-player-audio' ref='audio' controls='controls' src={ soundCloudUrl(this.props.player.currentSongSCID) } />
 
         <div className='lc-player-badge'>
           <img src='http://www.webdesign-flash.ro/p/rap/content/thumbnails/small21.jpg' />
@@ -194,7 +189,7 @@ export class MusicPlayer extends Component {
             <Link to='/' className='options-btn playlist'></Link>
             <div className='options-btn radiostations'></div>
             <div className={ classNames('options-btn', 'replay', { 'active': this.state.replay }) } onClick={ this.toggleReplay }></div>
-            <div className={ classNames('options-btn', 'shuffle', { 'active': this.state.replay }) } onClick={ this.toggleShuffle }></div>
+            <div className={ classNames('options-btn', 'shuffle', { 'active': this.state.shuffle }) } onClick={ this.toggleShuffle }></div>
             <div className='options-btn download'></div>
             <div className='options-btn visit-site'></div>
           </div>

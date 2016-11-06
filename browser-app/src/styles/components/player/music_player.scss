@@ -9,9 +9,11 @@
   display: flex;
 
   #lc-player-audio {
-    display: none;
+    // display: none;
     position: absolute;
     top: 120px;
+    right: 20px;
+    background-color: green;
   }
 
   .lc-player-badge {
