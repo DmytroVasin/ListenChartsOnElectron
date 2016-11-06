@@ -20,7 +20,7 @@ export class PlayListPage extends Component {
     }
 
     let songRows = songs.map( (song, index) => {
-      return <SongRow key={song.id} song={song} index={index} fetchSong={this.props.actions.fetchSong} player={this.props.player} />
+      return <SongRow key={song.id} song={song} index={index} player={this.props.player} fetchSong={this.props.actions.fetchSong} setPlayerTitle={this.props.actions.setPlayerTitle} />
     })
 
     return (

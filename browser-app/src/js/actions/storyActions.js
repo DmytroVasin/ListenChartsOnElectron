@@ -128,3 +128,12 @@ export function timeUpdate(currentTime) {
     })
   }
 }
+
+export function setPlayerTitle(songMetaData) {
+  return (dispatch) => {
+    dispatch({
+      type: 'PLAYER_TITLE_UPDATE',
+      payload: { title: songMetaData.title, artist: songMetaData.artist, place: songMetaData.place }
+    })
+  }
+}

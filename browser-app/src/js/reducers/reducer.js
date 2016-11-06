@@ -4,7 +4,10 @@ const initialState = {
     currentTime: 0,
     duration: 0,
     currentSongID: null,
-    currentSongSCID: null
+    currentSongSCID: null,
+    title: '',
+    artist: '',
+    place: null
   },
 
   playList: {
@@ -43,19 +46,22 @@ const reducer = function(state=initialState, action) {
 
     // return Object.assign({}, state, { playing: false });
     case 'TOGGLE_PLAY':
-      return { ...state, player: { isPlaying: action.payload, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration } }
+      return { ...state, player: { isPlaying: action.payload, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration, title: state.player.title, artist: state.player.artist, place: state.player.place } }
 
     case 'FETCH_SONG_REQUEST':
-      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: action.payload.id, currentTime: 0, duration: 0 } }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: action.payload.id, currentTime: 0, duration: 0, title: state.player.title, artist: state.player.artist, place: state.player.place } }
 
     case 'FETCH_SONG_SUCCESS':
-      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: action.payload.scid, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration } }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: action.payload.scid, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration, title: state.player.title, artist: state.player.artist, place: state.player.place } }
 
     case 'PLAYER_DURATION_UPDATE':
-      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: action.payload} }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: action.payload, title: state.player.title, artist: state.player.artist, place: state.player.place } }
 
     case 'PLAYER_TIME_UPDATE':
-      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: action.payload, duration: state.player.duration } }
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: action.payload, duration: state.player.duration, title: state.player.title, artist: state.player.artist, place: state.player.place } }
+
+    case 'PLAYER_TITLE_UPDATE':
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration, title: action.payload.title, artist: action.payload.artist, place: action.payload.place } }
 
 
     default:

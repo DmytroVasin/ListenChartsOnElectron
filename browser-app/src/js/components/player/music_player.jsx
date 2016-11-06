@@ -67,7 +67,7 @@ export class MusicPlayer extends Component {
 
 
   handlePlay = () => {
-    this.props.actions.toggleIsPlaying(true)
+    this.props.actions.toggleIsPlaying(true);
   }
 
   handlePause = () => {
@@ -137,6 +137,16 @@ export class MusicPlayer extends Component {
     });
   }
 
+  renderSongTitle = () => {
+    const { place, artist, title,  } = this.props.player;
+
+    if (place && artist && title) {
+      return `${ place }. <span>${ artist }</span> - ${ title }`;
+    } else {
+      return '';
+    }
+  }
+
   render() {
     const { duration, currentTime } = this.props.player;
 
@@ -163,9 +173,7 @@ export class MusicPlayer extends Component {
             <div className={ classNames('equalizer', { 'playing': this.props.player.isPlaying }) }>
               <img src='http://www.webdesign-flash.ro/p/rap/content/minimal_skin_white/equalizer.png' />
             </div>
-            <div className='text-ticker'>
-              03. <span>Crush ft. Camden Cox</span> - Could This Be Real (Luminox Remix)
-            </div>
+            <div className='text-ticker' dangerouslySetInnerHTML={{ __html: this.renderSongTitle() }}></div>
           </div>
 
           <div className='player-header-controll-main-box-player'>

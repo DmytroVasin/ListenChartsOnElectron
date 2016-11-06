@@ -13,6 +13,7 @@ export class SongRow extends Component {
 
     // TODO: WTF????
     this.props.fetchSong(id, artist + ' ' + title)
+    this.props.setPlayerTitle({ title: title, artist: artist, place: place })
   }
 
 
