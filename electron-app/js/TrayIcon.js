@@ -1,9 +1,9 @@
 const path = require('path');
-const { BrowserWindow, Tray } = require('electron');
-const Positioner = require('electron-positioner');
+const { Tray } = require('electron');
 
 class TrayIcon {
   constructor(trayWindow) {
+    let electronScreen = require('electron').screen
 
     let iconPath = path.join(__dirname, '../icons/icon-22.png')
 
@@ -14,16 +14,19 @@ class TrayIcon {
       if ( trayWindow.isVisible() ) {
         trayWindow.hide();
       } else {
-        let positioner = new Positioner(trayWindow);
-        positioner.move('trayCenter', bounds)
+        // TODO: Refactor
+        let windowSize = trayWindow.getSize()
+        let screenSize = electronScreen.getDisplayNearestPoint( electronScreen.getCursorScreenPoint()).workArea
 
+        let position = {
+          x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
+          y: screenSize.y
+        }
+
+        trayWindow.setPosition(position.x, position.y)
         trayWindow.show();
       }
     });
-  }
-
-  updateTitle(title) {
-    this.trayIcon.setTitle(title)
   }
 }
 

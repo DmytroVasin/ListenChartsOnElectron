@@ -8,8 +8,7 @@ export default class Application extends Component {
       <div className='window'>
         <div className='window-container'>
 
-          <div className='popover'>
-            <div className='arrow'></div>
+          <div className='popover popover-arrow'>
 
             <div className='popover-content'>
               <MusicPlayerContainer />
@@ -23,4 +22,3 @@ export default class Application extends Component {
     );
   }
 }
-
