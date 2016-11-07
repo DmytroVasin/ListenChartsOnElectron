@@ -62,3 +62,7 @@ export function offsetLeft(element) {
 export function soundCloudUrl(scid) {
   return `https://api.soundcloud.com/tracks/${scid}/stream?client_id=${CLIENT_ID}`
 }
+
+export function random(n) {
+  return Math.floor(Math.random() * n);
+}

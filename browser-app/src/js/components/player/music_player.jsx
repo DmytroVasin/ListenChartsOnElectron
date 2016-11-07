@@ -10,6 +10,8 @@ export class MusicPlayer extends Component {
 
     this.state = {
       isSeeking: false,
+      replay: false,
+      shuffle: false
     };
   }
 
@@ -25,12 +27,12 @@ export class MusicPlayer extends Component {
     }
   }
 
-  handleToggleReplay = () => {
-    this.props.actions.toggleReplay()
+  toggleReplay = () => {
+    this.setState({ replay: !this.state.replay });
   }
 
-  handleToggleShuffle = () => {
-    this.props.actions.toggleShuffle()
+  toggleShuffle = () => {
+    this.setState({ shuffle: !this.state.shuffle });
   }
 
   componentDidMount = () => {
@@ -86,11 +88,23 @@ export class MusicPlayer extends Component {
   }
 
   handleNextSong = () => {
-    this.props.actions.changeSong('NEXT_SONG')
+    if (this.state.replay) {
+      this.props.actions.changeSong('REPLAY_SONG')
+    } else if (this.state.shuffle) {
+      this.props.actions.changeSong('SHUFFLE_SONG')
+    } else {
+      this.props.actions.changeSong('NEXT_SONG')
+    }
   }
 
   handlePrevSong = () => {
-    this.props.actions.changeSong('PREV_SONG')
+    if (this.state.replay) {
+      this.props.actions.changeSong('REPLAY_SONG')
+    } else if (this.state.shuffle) {
+      this.props.actions.changeSong('SHUFFLE_SONG')
+    } else {
+      this.props.actions.changeSong('PREV_SONG')
+    }
   }
 
   handleLoadedMetadata = () => {
@@ -162,8 +176,11 @@ export class MusicPlayer extends Component {
   }
 
   render() {
-    const { duration, currentTime, isPlaying, replay, shuffle } = this.props.player;
+    const { duration, currentTime, isPlaying } = this.props.player;
     const { scid } = this.props.song;
+    console.log('---------------')
+    console.log(this.props.song)
+    console.log('---------------')
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
 
@@ -211,8 +228,8 @@ export class MusicPlayer extends Component {
           <div className='options-bar'>
             <Link to='/' className='options-btn playlist'></Link>
             <div className='options-btn radiostations'></div>
-            <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
-            <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
+            <div className={ classNames('options-btn', 'replay', { 'active': this.state.replay }) } onClick={ this.toggleReplay }></div>
+            <div className={ classNames('options-btn', 'shuffle', { 'active': this.state.shuffle }) } onClick={ this.toggleShuffle }></div>
             <div className='options-btn download'></div>
             <div className='options-btn visit-site'></div>
           </div>

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { random } from '../utils';
 
 export function fetchList(stationId) {
   return (dispatch) => {
@@ -71,22 +72,6 @@ export function toggleIsPlaying(isPlaying) {
   }
 }
 
-export function toggleReplay() {
-  return (dispatch) => {
-    dispatch({
-      type: 'TOGGLE_REPLAY'
-    })
-  }
-}
-
-export function toggleShuffle() {
-  return (dispatch) => {
-    dispatch({
-      type: 'TOGGLE_SHUFFLE'
-    })
-  }
-}
-
 
 // TODO: хня какая-то смена песни идет только после запроса...
 // Это если делать так как в Charts...
@@ -141,14 +126,14 @@ export function changeSong(changeType) {
     const { player, playList } = state.reducer;
     let newSongPlace;
 
-    console.log('----------------------------')
-    console.log(state)
-    console.log('----------------------------')
-
     if (changeType === 'NEXT_SONG') {
       newSongPlace = player.song.place + 1;
     } else if (changeType === 'PREV_SONG') {
       newSongPlace = player.song.place - 1;
+    } else if (changeType === 'REPLAY_SONG') {
+      newSongPlace = player.song.place
+    } else if (changeType === 'SHUFFLE_SONG') {
+      newSongPlace = random(playList.songs.length + 1);
     }
 
     if (newSongPlace <= 0 || newSongPlace >= playList.songs.length ) {
