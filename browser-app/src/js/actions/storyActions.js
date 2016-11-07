@@ -118,6 +118,22 @@ export function timeUpdate(currentTime) {
   }
 }
 
+export function toggleReplay() {
+  return (dispatch) => {
+    dispatch({
+      type: 'TOGGLE_REPLAY'
+    })
+  }
+}
+
+export function toggleShuffle() {
+  return (dispatch) => {
+    dispatch({
+      type: 'TOGGLE_SHUFFLE'
+    })
+  }
+}
+
 
 // TODO: Это нихуя не Action. это вроде как LIB или что-то вроде.
 export function changeSong(changeType) {
