@@ -10,8 +10,6 @@ export class MusicPlayer extends Component {
 
     this.state = {
       isSeeking: false,
-      replay: false,
-      shuffle: false
     };
   }
 
@@ -27,16 +25,18 @@ export class MusicPlayer extends Component {
     }
   }
 
-  toggleReplay = () => {
-    this.setState({ replay: !this.state.replay });
+  handleToggleReplay = () => {
+    this.props.actions.toggleReplay()
   }
 
-  toggleShuffle = () => {
-    this.setState({ shuffle: !this.state.shuffle });
+  handleToggleShuffle = () => {
+    this.props.actions.toggleShuffle()
   }
 
   componentDidMount = () => {
     const audioElement = this.refs.audio;
+    // TODO: VOLUME:
+    audioElement.volume = 0;
 
     audioElement.addEventListener('pause', this.handlePause, false);
     audioElement.addEventListener('play', this.handlePlay, false);
@@ -87,6 +87,10 @@ export class MusicPlayer extends Component {
 
   handleNextSong = () => {
     this.props.actions.changeSong('NEXT_SONG')
+  }
+
+  handlePrevSong = () => {
+    this.props.actions.changeSong('PREV_SONG')
   }
 
   handleLoadedMetadata = () => {
@@ -158,11 +162,8 @@ export class MusicPlayer extends Component {
   }
 
   render() {
-    const { duration, currentTime, isPlaying } = this.props.player;
+    const { duration, currentTime, isPlaying, replay, shuffle } = this.props.player;
     const { scid } = this.props.song;
-    console.log('---------------')
-    console.log(this.props.song)
-    console.log('---------------')
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
 
@@ -175,7 +176,7 @@ export class MusicPlayer extends Component {
         </div>
 
         <div className='lc-player-controlls'>
-          <div className='prev-btn'></div>
+          <div className='prev-btn' onClick={ this.handlePrevSong }></div>
           <div className={ classNames('play-btn', { 'playing': isPlaying }) } onClick={ this.togglePlay }></div>
           <div className='next-btn' onClick={ this.handleNextSong }></div>
         </div>
@@ -210,8 +211,8 @@ export class MusicPlayer extends Component {
           <div className='options-bar'>
             <Link to='/' className='options-btn playlist'></Link>
             <div className='options-btn radiostations'></div>
-            <div className={ classNames('options-btn', 'replay', { 'active': this.state.replay }) } onClick={ this.toggleReplay }></div>
-            <div className={ classNames('options-btn', 'shuffle', { 'active': this.state.shuffle }) } onClick={ this.toggleShuffle }></div>
+            <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
+            <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
             <div className='options-btn download'></div>
             <div className='options-btn visit-site'></div>
           </div>
