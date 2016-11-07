@@ -47,16 +47,21 @@ export class MusicPlayer extends Component {
 
   // TODO: Too much call'
   componentDidUpdate = (prevProps) => {
+    const audioElement = this.refs.audio;
+
     const songSCID = this.props.player.song.scid;
+    const prevSongSCID = prevProps.player.song.scid;
+
+    if (!audioElement) {
+      return;
+    }
 
     if (!songSCID) {
       return;
     }
 
-    const prevSongSCID = prevProps.player.song.scid;
-    const audioElement = this.refs.audio;
-
     if (songSCID != prevSongSCID) {
+      console.log('PLAY: ' + songSCID)
       audioElement.play();
     }
   }

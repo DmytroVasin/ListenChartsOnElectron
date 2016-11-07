@@ -60,7 +60,11 @@ export function offsetLeft(element) {
 
 
 export function soundCloudUrl(scid) {
-  return `https://api.soundcloud.com/tracks/${scid}/stream?client_id=${CLIENT_ID}`
+  if (scid) {
+    return `https://api.soundcloud.com/tracks/${scid}/stream?client_id=${CLIENT_ID}`;
+  } else {
+    return '';
+  }
 }
 
 export function random(n) {
