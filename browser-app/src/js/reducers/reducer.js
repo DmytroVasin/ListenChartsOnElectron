@@ -31,6 +31,9 @@ const reducer = function(state=initialState, action) {
     case 'FETCH_LIST_FAILURE':
       return { ...state, playList: {songs: [], error: action.payload, loading: false }}
 
+    case 'UPDATE_PLAYLIST_SONG':
+      return { ...state, playList: { songs: state.playList.songs.map(song => song.id === action.payload.id ? action.payload : song), error: null, loading: false }}
+
 
 
 
@@ -40,8 +43,6 @@ const reducer = function(state=initialState, action) {
       return { ...state, stationsList: {stations: action.payload, error: null, loading: false }}
     case 'FETCH_STATIONS_FAILURE':
       return { ...state, stationsList: {stations: [], error: action.payload, loading: false }}
-
-
 
 
     case 'TOGGLE_PLAY':

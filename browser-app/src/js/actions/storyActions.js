@@ -78,12 +78,26 @@ export function toggleIsPlaying(isPlaying) {
 export function fetchSong(song) {
   return (dispatch) => {
     dispatch(fetchSongRequest(song))
-    let query = song.artist + ' ' + song.title;
-    SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
-      dispatch(fetchSongSuccess(data[0]))
-    }).catch(function (error) {
-      console.log('There was an error ' + error.message);
-    });
+
+    if (song.scid) {
+      dispatch(fetchSongSuccess(song.scid))
+    } else {
+      let query = song.artist + ' ' + song.title;
+
+      SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
+        let scid = data[0].id
+        dispatch(fetchSongSuccess(scid))
+
+        // mutate song for now. This fixes playlist song detection
+        // TODO: Replace with immutable version
+        // TODO: Как это сделать нормально?
+        Object.assign(song, { scid: scid });
+        dispatch(updatePlaylistSong(song))
+
+      }).catch(function (error) {
+        console.log('There was an error ' + error.message);
+      });
+    }
   }
 }
 function fetchSongRequest(song) {
@@ -92,10 +106,10 @@ function fetchSongRequest(song) {
     payload: song
   }
 }
-function fetchSongSuccess(scSong) {
+function fetchSongSuccess(scid) {
   return {
     type: 'FETCH_SONG_SUCCESS',
-    payload: scSong.id
+    payload: scid
   }
 }
 
@@ -159,5 +173,15 @@ export function changeSong(changeType) {
     let newSong = playList.songs.find((song) => song.place === newSongPlace);
 
     return dispatch(fetchSong(newSong));
+  }
+}
+
+
+export function updatePlaylistSong(song) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_PLAYLIST_SONG',
+      payload: song
+    })
   }
 }
