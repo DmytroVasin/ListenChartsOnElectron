@@ -45,12 +45,18 @@ export class MusicPlayer extends Component {
     audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
   }
 
+  // TODO: Too much call'
   componentDidUpdate = (prevProps) => {
-    // TODO: Too much call'
+    const songSCID = this.props.player.song.scid;
 
+    if (!songSCID) {
+      return;
+    }
+
+    const prevSongSCID = prevProps.player.song.scid;
     const audioElement = this.refs.audio;
 
-    if (this.props.player.song.scid && this.props.player.song.scid != prevProps.player.song.scid) {
+    if (songSCID != prevSongSCID) {
       audioElement.play();
     }
   }
@@ -154,6 +160,9 @@ export class MusicPlayer extends Component {
   render() {
     const { duration, currentTime, isPlaying } = this.props.player;
     const { scid } = this.props.song;
+    console.log('---------------')
+    console.log(this.props.song)
+    console.log('---------------')
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
 

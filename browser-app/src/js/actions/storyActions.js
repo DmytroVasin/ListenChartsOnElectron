@@ -72,7 +72,8 @@ export function toggleIsPlaying(isPlaying) {
 }
 
 
-
+// TODO: хня какая-то смена песни идет только после запроса...
+// Это если делать так как в Charts...
 export function fetchSong(song) {
   return (dispatch) => {
     dispatch(fetchSongRequest(song))
@@ -121,19 +122,18 @@ export function changeSong(changeType) {
   return (dispatch, getState) => {
     const state = getState();
     const { player, playList } = state.reducer;
-    let newSongIndex;
+    let newSongPlace;
 
     if (changeType === 'NEXT_SONG') {
-      newSongIndex = player.place + 1;
+      newSongPlace = player.song.place + 1;
     }
 
-    if (newSongIndex < 0 || newSongIndex >= playList.songs.length ) {
+    if (newSongPlace < 0 || newSongPlace >= playList.songs.length ) {
       return null;
     }
 
-    let newSong = playList.songs[newSongIndex]
-    console.log('.........')
-    // ??????????????????????????????
-    fetchSong(newSong.id, newSong.artist + ' ' + newSong.title)
+    let newSong = playList.songs.find((song) => song.place === newSongPlace);
+
+    return dispatch(fetchSong(newSong));
   }
 }
