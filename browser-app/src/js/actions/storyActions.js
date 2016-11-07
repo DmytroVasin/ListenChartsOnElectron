@@ -76,19 +76,13 @@ export function toggleIsPlaying(isPlaying) {
 export function fetchSong(id, query) {
   return (dispatch) => {
     dispatch(fetchSongRequest(id))
+    console.log('REQUEST')
     SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
+      console.log('SUCCESS')
       dispatch(fetchSongSuccess(data[0]))
     }).catch(function (error) {
       console.log('There was an error ' + error.message);
     });
-
-    // axios.get('https://api.soundcloud.com/tracks?limit=10&offset=0&client_id='+CLIENT_ID+'&q='+encodeURI(query))
-    // .then(function(response) {
-    //   dispatch(fetchSongSuccess(response.data[0]))
-    // })
-    // .catch(function (error) {
-    //   console.log('failed')
-    // })
   }
 }
 function fetchSongRequest(id) {
@@ -103,12 +97,6 @@ function fetchSongSuccess(scSong) {
     payload: { scid: scSong.id }
   }
 }
-// function fetchSongFailure(error) {
-//   return {
-//     type: 'FETCH_SONG_FAILURE',
-//     payload: error
-//   }
-// }
 
 
 export function durationUpdate(duration) {
@@ -135,5 +123,27 @@ export function setPlayerTitle(songMetaData) {
       type: 'PLAYER_TITLE_UPDATE',
       payload: { title: songMetaData.title, artist: songMetaData.artist, place: songMetaData.place }
     })
+  }
+}
+
+
+export function changeSong(changeType) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { player, playList } = state.reducer;
+    let newSongIndex;
+
+    if (changeType === 'NEXT_SONG') {
+      newSongIndex = player.place + 1;
+    }
+
+    if (newSongIndex < 0 || newSongIndex >= playList.songs.length ) {
+      return null;
+    }
+
+    let newSong = playList.songs[newSongIndex]
+    console.log('.........')
+    // ??????????????????????????????
+    fetchSong(newSong.id, newSong.artist + ' ' + newSong.title)
   }
 }

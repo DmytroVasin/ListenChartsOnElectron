@@ -79,6 +79,10 @@ export class MusicPlayer extends Component {
     this.props.actions.durationUpdate(0)
   }
 
+  handleNextSong = () => {
+    this.props.actions.changeSong('NEXT_SONG')
+  }
+
   handleLoadedMetadata = () => {
     const audioElement = this.refs.audio;
 
@@ -86,6 +90,7 @@ export class MusicPlayer extends Component {
   }
 
   handleTimeUpdate = () => {
+    console.log('handleTimeUpdate')
     if (this.state.isSeeking) {
       return;
     }
@@ -163,7 +168,7 @@ export class MusicPlayer extends Component {
         <div className='lc-player-controlls'>
           <div className='prev-btn'></div>
           <div className={ classNames('play-btn', { 'playing': this.props.player.isPlaying }) } onClick={ this.togglePlay }></div>
-          <div className='next-btn'></div>
+          <div className='next-btn' onClick={ this.handleNextSong }></div>
         </div>
 
         <div className='lc-player-devider'></div>

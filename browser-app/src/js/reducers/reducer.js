@@ -63,6 +63,8 @@ const reducer = function(state=initialState, action) {
     case 'PLAYER_TITLE_UPDATE':
       return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration, title: action.payload.title, artist: action.payload.artist, place: action.payload.place } }
 
+    case 'CHANGE_PLAYING_SONG':
+      return { ...state, player: { isPlaying: state.player.isPlaying, currentSongSCID: state.player.currentSongSCID, currentSongID: state.player.currentSongID, currentTime: state.player.currentTime, duration: state.player.duration, title: action.payload.title, artist: action.payload.artist, place: action.payload.place } }
 
     default:
       return state
