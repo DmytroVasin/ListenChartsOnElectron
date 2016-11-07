@@ -50,7 +50,7 @@ export class MusicPlayer extends Component {
 
     const audioElement = this.refs.audio;
 
-    if (this.props.player.currentSongSCID && this.props.player.currentSongSCID != prevProps.player.currentSongSCID) {
+    if (this.props.player.song.scid && this.props.player.song.scid != prevProps.player.song.scid) {
       audioElement.play();
     }
   }
@@ -90,7 +90,6 @@ export class MusicPlayer extends Component {
   }
 
   handleTimeUpdate = () => {
-    console.log('handleTimeUpdate')
     if (this.state.isSeeking) {
       return;
     }
@@ -143,7 +142,7 @@ export class MusicPlayer extends Component {
   }
 
   renderSongTitle = () => {
-    const { place, artist, title,  } = this.props.player;
+    const { place, artist, title  } = this.props.song;
 
     if (place && artist && title) {
       return `${ place }. <span>${ artist }</span> - ${ title }`;
@@ -153,13 +152,14 @@ export class MusicPlayer extends Component {
   }
 
   render() {
-    const { duration, currentTime } = this.props.player;
+    const { duration, currentTime, isPlaying } = this.props.player;
+    const { scid } = this.props.song;
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
 
     return (
       <div id='lc-player'>
-        <audio id='lc-player-audio' ref='audio' controls='controls' src={ soundCloudUrl(this.props.player.currentSongSCID) } />
+        <audio id='lc-player-audio' ref='audio' controls='controls' src={ soundCloudUrl(scid) } />
 
         <div className='lc-player-badge'>
           <img src='http://www.webdesign-flash.ro/p/rap/content/thumbnails/small21.jpg' />
@@ -167,7 +167,7 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-controlls'>
           <div className='prev-btn'></div>
-          <div className={ classNames('play-btn', { 'playing': this.props.player.isPlaying }) } onClick={ this.togglePlay }></div>
+          <div className={ classNames('play-btn', { 'playing': isPlaying }) } onClick={ this.togglePlay }></div>
           <div className='next-btn' onClick={ this.handleNextSong }></div>
         </div>
 
@@ -175,7 +175,7 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-controll-timeline'>
           <div className='player-header-controll-main-box-ticker-line'>
-            <div className={ classNames('equalizer', { 'playing': this.props.player.isPlaying }) }>
+            <div className={ classNames('equalizer', { 'playing': isPlaying }) }>
               <img src='http://www.webdesign-flash.ro/p/rap/content/minimal_skin_white/equalizer.png' />
             </div>
             <div className='text-ticker' dangerouslySetInnerHTML={{ __html: this.renderSongTitle() }}></div>

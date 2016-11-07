@@ -73,28 +73,27 @@ export function toggleIsPlaying(isPlaying) {
 
 
 
-export function fetchSong(id, query) {
+export function fetchSong(song) {
   return (dispatch) => {
-    dispatch(fetchSongRequest(id))
-    console.log('REQUEST')
+    dispatch(fetchSongRequest(song))
+    let query = song.artist + ' ' + song.title;
     SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
-      console.log('SUCCESS')
       dispatch(fetchSongSuccess(data[0]))
     }).catch(function (error) {
       console.log('There was an error ' + error.message);
     });
   }
 }
-function fetchSongRequest(id) {
+function fetchSongRequest(song) {
   return {
     type: 'FETCH_SONG_REQUEST',
-    payload: { id: id }
+    payload: song
   }
 }
 function fetchSongSuccess(scSong) {
   return {
     type: 'FETCH_SONG_SUCCESS',
-    payload: { scid: scSong.id }
+    payload: scSong.id
   }
 }
 
@@ -113,15 +112,6 @@ export function timeUpdate(currentTime) {
     dispatch({
       type: 'PLAYER_TIME_UPDATE',
       payload: currentTime
-    })
-  }
-}
-
-export function setPlayerTitle(songMetaData) {
-  return (dispatch) => {
-    dispatch({
-      type: 'PLAYER_TITLE_UPDATE',
-      payload: { title: songMetaData.title, artist: songMetaData.artist, place: songMetaData.place }
     })
   }
 }

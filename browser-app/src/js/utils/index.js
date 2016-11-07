@@ -59,6 +59,6 @@ export function offsetLeft(element) {
 }
 
 
-export function soundCloudUrl(currentSongSCID) {
-  return `https://api.soundcloud.com/tracks/${currentSongSCID}/stream?client_id=${CLIENT_ID}`
+export function soundCloudUrl(scid) {
+  return `https://api.soundcloud.com/tracks/${scid}/stream?client_id=${CLIENT_ID}`
 }

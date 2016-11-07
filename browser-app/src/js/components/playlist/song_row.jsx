@@ -9,17 +9,14 @@ export class SongRow extends Component {
   }
 
   handlePlaySong = () => {
-    const { id, place, artist, title } = this.props.song
-
     // TODO: WTF????
-    this.props.fetchSong(id, artist + ' ' + title)
-    this.props.setPlayerTitle({ title: title, artist: artist, place: place })
+    this.props.fetchSong(this.props.songRow)
   }
 
 
   render() {
-    const { place, artist, title  } = this.props.song;
-    const isActive = (this.props.song.id == this.props.player.currentSongID)
+    const { place, artist, title  } = this.props.songRow;
+    const isActive = (this.props.songRow.id == this.props.player.song.id)
 
     let renderProgressBar = isActive ? <SongRowProgress player={ this.props.player } /> : null;
 
