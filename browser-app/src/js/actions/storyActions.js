@@ -84,14 +84,15 @@ export function fetchSong(song) {
     } else {
       let query = song.artist + ' ' + song.title;
 
-      SC.get('/tracks', { q: encodeURI(query) }).then( function(data) {
-        let scid = data[0].id
-        dispatch(fetchSongSuccess(scid))
+      SC.get('/tracks', { q: encodeURI(query) }).then( function(scSong) {
+        let { scid, artwork_url } = scSong[0];
+
+        dispatch(fetchSongSuccess({ scid: scid, artwork_url: artwork_url }));
 
         // mutate song for now. This fixes playlist song detection
         // TODO: Replace with immutable version
         // TODO: Как это сделать нормально?
-        Object.assign(song, { scid: scid });
+        Object.assign(song, { scid: scid, artwork_url: artwork_url });
         dispatch(updatePlaylistSong(song))
 
       }).catch(function (error) {
@@ -106,10 +107,10 @@ function fetchSongRequest(song) {
     payload: song
   }
 }
-function fetchSongSuccess(scid) {
+function fetchSongSuccess(object) {
   return {
     type: 'FETCH_SONG_SUCCESS',
-    payload: scid
+    payload: object
   }
 }
 

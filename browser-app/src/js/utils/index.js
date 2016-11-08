@@ -1,5 +1,9 @@
 import { CLIENT_ID } from '../constants/config.js';
 
+// TODO: Реально ли рекваирить файлы таким образом, что бы типо оно их рекваирило относительно ROOT_FOLDER или предустановленной папки
+// Проблема в том, что при билде приложения папки будут копироваться без соблюдения структуры
+const dummyImage = require('../../styles/images/player/dummy-image.jpg');
+
 /**
  * Convert null, 0, 240 value minutes to
  * hours in format 3.5h
@@ -64,6 +68,14 @@ export function soundCloudUrl(scid) {
     return `https://api.soundcloud.com/tracks/${scid}/stream?client_id=${CLIENT_ID}`;
   } else {
     return '';
+  }
+}
+
+export function soundCloudImage(imageUrl) {
+  if (imageUrl) {
+    return imageUrl;
+  } else {
+    return dummyImage;
   }
 }
 

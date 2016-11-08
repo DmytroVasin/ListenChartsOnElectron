@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames';
 
-import { formatSeconds, offsetLeft, soundCloudUrl } from '../../utils';
+import { formatSeconds, offsetLeft, soundCloudUrl, soundCloudImage } from '../../utils';
 import { Link } from 'react-router';
 
 export class MusicPlayer extends Component {
@@ -223,7 +223,7 @@ export class MusicPlayer extends Component {
 
   render() {
     const { duration, currentTime, isPlaying, replay, shuffle, volume } = this.props.player;
-    const { scid } = this.props.song;
+    const { scid, artwork_url } = this.props.song;
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
     const volumeWidth = volume * 100;
@@ -233,7 +233,7 @@ export class MusicPlayer extends Component {
         <audio id='lc-player-audio' ref='audio' controls='controls' src={ soundCloudUrl(scid) } />
 
         <div className='lc-player-badge'>
-          <img src='http://www.webdesign-flash.ro/p/rap/content/thumbnails/small21.jpg' />
+          <img src={ soundCloudImage(artwork_url) } />
         </div>
 
         <div className='lc-player-controlls'>

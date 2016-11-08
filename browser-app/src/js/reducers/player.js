@@ -28,7 +28,7 @@ const player = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { song: action.payload, currentTime: 0, duration: 0 });
 
     case 'FETCH_SONG_SUCCESS':
-      return Object.assign({}, state, { song: Object.assign({}, state.song, { scid: action.payload }) });
+      return Object.assign({}, state, { song: Object.assign({}, state.song, action.payload) });
 
     case 'PLAYER_DURATION_UPDATE':
       return Object.assign({}, state, { duration: action.payload });
