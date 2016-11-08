@@ -153,7 +153,7 @@ export function toggleShuffle() {
 export function changeSong(changeType) {
   return (dispatch, getState) => {
     const state = getState();
-    const { player, playList } = state.reducer;
+    const { player, playlist } = state;
     let newSongPlace;
 
     if (changeType === 'NEXT_SONG') {
@@ -163,14 +163,14 @@ export function changeSong(changeType) {
     } else if (changeType === 'REPLAY_SONG') {
       newSongPlace = player.song.place
     } else if (changeType === 'SHUFFLE_SONG') {
-      newSongPlace = random(playList.songs.length + 1);
+      newSongPlace = random(playlist.songs.length + 1);
     }
 
-    if (newSongPlace <= 0 || newSongPlace >= playList.songs.length ) {
+    if (newSongPlace <= 0 || newSongPlace >= playlist.songs.length ) {
       return null;
     }
 
-    let newSong = playList.songs.find((song) => song.place === newSongPlace);
+    let newSong = playlist.songs.find((song) => song.place === newSongPlace);
 
     return dispatch(fetchSong(newSong));
   }

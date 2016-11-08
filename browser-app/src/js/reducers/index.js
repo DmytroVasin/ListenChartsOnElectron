@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux'
 
-import reducer from './reducer'
+import stations_list from './stations_list'
+import playlist from './playlist'
+import player from './player'
 
 const rootReducer = combineReducers({
-  reducer
+  stations_list,
+  playlist,
+  player
 })
 
 export default rootReducer

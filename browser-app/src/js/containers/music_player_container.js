@@ -7,8 +7,8 @@ import { MusicPlayer } from '../components/player/music_player.jsx';
 
 function mapStateToProps(store) {
   return {
-    player: store.reducer.player,
-    song: store.reducer.player.song
+    player: store.player,
+    song: store.player.song
   }
 }
 

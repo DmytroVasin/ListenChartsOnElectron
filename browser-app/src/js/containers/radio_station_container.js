@@ -7,7 +7,7 @@ import { RadioStationPage } from '../components/radio_station/radio_station_page
 
 function mapStateToProps(store) {
   return {
-    stationsList: store.reducer.stationsList
+    stationsList: store.stations_list
   }
 }
 

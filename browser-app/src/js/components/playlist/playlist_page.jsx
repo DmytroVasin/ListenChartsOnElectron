@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 
 import { SongRow } from './song_row.jsx'
 
-export class PlayListPage extends Component {
+export class PlaylistPage extends Component {
 
   componentWillMount() {
     this.props.actions.fetchList(this.props.routeParams.id)
   }
 
   render() {
-    const { songs, error, loading } = this.props.playList
+    const { songs, error, loading } = this.props.playlist
 
     if (loading || !songs.length) {
       return null
