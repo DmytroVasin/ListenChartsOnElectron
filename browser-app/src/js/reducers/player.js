@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   currentTime: 0,
   duration: 0,
   replay: 0,
-  shuffle: 0
+  shuffle: 0,
+  volume: 0.8
 }
 
 const player = (state = INITIAL_STATE, action) => {
@@ -30,6 +31,9 @@ const player = (state = INITIAL_STATE, action) => {
 
     case 'PLAYER_TIME_UPDATE':
       return Object.assign({}, state, { currentTime: action.payload });
+
+    case 'PLAYER_VOLUME_UPDATE':
+      return Object.assign({}, state, { volume: action.payload });
 
     default:
       return state

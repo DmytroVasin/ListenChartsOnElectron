@@ -185,3 +185,12 @@ export function updatePlaylistSong(song) {
     })
   }
 }
+
+export function volumeUpdate(volume) {
+  return (dispatch) => {
+    dispatch({
+      type: 'PLAYER_VOLUME_UPDATE',
+      payload: volume
+    })
+  }
+}

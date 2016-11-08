@@ -35,8 +35,8 @@ export class MusicPlayer extends Component {
 
   componentDidMount = () => {
     const audioElement = this.refs.audio;
-    // TODO: VOLUME:
-    audioElement.volume = 0;
+
+    audioElement.volume = this.props.player.volume;
 
     audioElement.addEventListener('pause', this.handlePause, false);
     audioElement.addEventListener('play', this.handlePlay, false);
@@ -60,8 +60,9 @@ export class MusicPlayer extends Component {
       return;
     }
 
+    audioElement.volume = this.props.player.volume;
+
     if (songSCID != prevSongSCID) {
-      console.log('PLAY: ' + songSCID)
       audioElement.play();
     }
   }
@@ -147,18 +148,17 @@ export class MusicPlayer extends Component {
 
     this.handleSeekMouseMove(e);
   }
-
   handleSeekMouseMove = (e) => {
-    const seekBar = this.refs.seekBar;
-    const diff = e.clientX - offsetLeft(seekBar);
+    const movingBar = this.refs.seekBar;
+
+    const diff = e.clientX - offsetLeft(movingBar);
     const pos = diff < 0 ? 0 : diff;
-    let percent = pos / seekBar.offsetWidth;
+    let percent = pos / movingBar.offsetWidth;
 
     percent = percent > 1 ? 1 : percent;
 
     this.props.actions.timeUpdate(Math.floor(percent * this.props.player.duration))
   }
-
   handleSeekMouseUp = () => {
     const audioElement = this.refs.audio;
 
@@ -169,6 +169,37 @@ export class MusicPlayer extends Component {
       isSeeking: false,
     }, () => {
       audioElement.currentTime = this.props.player.currentTime;
+    });
+  }
+
+  handleVolumeMouseDown = (e) => {
+    document.addEventListener('mousemove', this.handleVolumeMouseMove);
+    document.addEventListener('mouseup', this.handleVolumeMouseUp);
+
+    this.setState({
+      isVolumeChanging: true
+    });
+
+    this.handleVolumeMouseMove(e);
+  }
+  handleVolumeMouseMove = (e) => {
+    const audioElement = this.refs.audio;
+    const movingBar = this.refs.volumeBar;
+
+    const diff = e.clientX - offsetLeft(movingBar);
+    const pos = diff < 0 ? 0 : diff;
+    let percent = pos / movingBar.offsetWidth;
+
+    percent = percent > 1 ? 1 : percent;
+
+    this.props.actions.volumeUpdate(percent);
+  }
+  handleVolumeMouseUp = (e) => {
+    document.removeEventListener('mousemove', this.handleVolumeMouseMove);
+    document.removeEventListener('mouseup', this.handleVolumeMouseUp);
+
+    this.setState({
+      isVolumeChanging: false
     });
   }
 
@@ -183,10 +214,11 @@ export class MusicPlayer extends Component {
   }
 
   render() {
-    const { duration, currentTime, isPlaying, replay, shuffle } = this.props.player;
+    const { duration, currentTime, isPlaying, replay, shuffle, volume } = this.props.player;
     const { scid } = this.props.song;
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
+    const volumeWidth = volume * 100;
 
     return (
       <div id='lc-player'>
@@ -241,12 +273,10 @@ export class MusicPlayer extends Component {
           <div className='volume-bar'>
             <div className='volume-bar-btn'></div>
 
-            <div className='volume-progress-bar-wrapper'>
-              <div className='volume-progress-bar'>
-                <div className='volume-progress-bar-progress'>
-                  <div className='volume-progress-bar-handler'>
-                  </div>
-                </div>
+            <div className='volume-progress-bar-wrapper' onMouseDown={ this.handleVolumeMouseDown } >
+              <div className='volume-progress-bar' ref='volumeBar'>
+                <div className='volume-progress-bar-progress' style={{ width: `${volumeWidth}%` }} ></div>
+                <div className='volume-progress-bar-handler' style={{ left: `${volumeWidth}%` }}></div>
               </div>
             </div>
 
