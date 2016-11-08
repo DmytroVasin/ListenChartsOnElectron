@@ -37,6 +37,10 @@ export class MusicPlayer extends Component {
     this.props.actions.togglePlayerContent()
   }
 
+  handleVisitSite = () => {
+    shell.openExternal('http://beta.listencharts.com/');
+  }
+
   componentDidMount = () => {
     const audioElement = this.refs.audio;
 
@@ -271,7 +275,7 @@ export class MusicPlayer extends Component {
             <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
             <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
             <div className='options-btn download'></div>
-            <div className='options-btn visit-site'></div>
+            <div className='options-btn visit-site' onClick={ this.handleVisitSite }></div>
           </div>
 
           <div className='volume-bar'>
