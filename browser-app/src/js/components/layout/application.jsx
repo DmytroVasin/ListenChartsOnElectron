@@ -6,17 +6,12 @@ export default class Application extends Component {
   render() {
     return (
       <div className='window'>
-        <div className='window-container'>
+        <div className='window-container arrow'>
+          <MusicPlayerContainer />
 
-          <div className='popover popover-arrow'>
-
-            <div className='popover-content'>
-              <MusicPlayerContainer />
-
-              { this.props.children }
-            </div>
+          <div className='window-content'>
+            { this.props.children }
           </div>
-
         </div>
       </div>
     );

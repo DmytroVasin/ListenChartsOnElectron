@@ -16,7 +16,7 @@ class TrayIcon {
       } else {
         // TODO: Refactor
         let windowSize = trayWindow.getSize()
-        let screenSize = electronScreen.getDisplayNearestPoint( electronScreen.getCursorScreenPoint()).workArea
+        let screenSize = electronScreen.getDisplayNearestPoint( electronScreen.getCursorScreenPoint() ).workArea
 
         let position = {
           x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),

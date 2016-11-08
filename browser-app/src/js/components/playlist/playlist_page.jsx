@@ -4,8 +4,25 @@ import { SongRow } from './song_row.jsx'
 
 export class PlaylistPage extends Component {
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.actions.fetchList(this.props.routeParams.id)
+  }
+
+  componentDidUpdate = (prevProps) => {
+    const playerContent = this.props.player.playerContent;
+    const prevPlayerContent = prevProps.player.playerContent;
+
+    if ( playerContent != prevPlayerContent ) {
+      let height;
+
+      if ( playerContent ) {
+        height = 400
+      } else {
+        height = 92
+      }
+
+      remote.getCurrentWindow().setSize(800, height);
+    }
   }
 
   render() {
@@ -24,7 +41,7 @@ export class PlaylistPage extends Component {
     })
 
     return (
-      <div id='lc-playlist'>
+      <div id='lc-playlist' style={{ height: this.props.player.playerContent ? '275px' : '0px' }} >
         { songRows }
       </div>
     )

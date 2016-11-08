@@ -33,6 +33,10 @@ export class MusicPlayer extends Component {
     this.props.actions.toggleShuffle();
   }
 
+  togglePlayerContent = () => {
+    this.props.actions.togglePlayerContent()
+  }
+
   componentDidMount = () => {
     const audioElement = this.refs.audio;
 
@@ -263,7 +267,7 @@ export class MusicPlayer extends Component {
         <div className='lc-player-options'>
           <div className='options-bar'>
             <Link to='/' className='options-btn playlist'></Link>
-            <div className='options-btn radiostations'></div>
+            <div className='options-btn radiostations' onClick={ this.togglePlayerContent }></div>
             <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
             <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
             <div className='options-btn download'></div>

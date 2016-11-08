@@ -11,6 +11,7 @@ class MainWindow {
       height: 400,
       width: 800,
       frame: false,
+      hasShadow: false,
       transparent: true
     });
 
