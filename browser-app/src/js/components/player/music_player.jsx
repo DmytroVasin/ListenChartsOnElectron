@@ -33,6 +33,10 @@ export class MusicPlayer extends Component {
     this.props.actions.toggleShuffle();
   }
 
+  handleToggleMute = () => {
+    this.props.actions.toggleMute();
+  }
+
   togglePlayerContent = () => {
     this.props.actions.togglePlayerContent()
   }
@@ -222,7 +226,7 @@ export class MusicPlayer extends Component {
   }
 
   render() {
-    const { duration, currentTime, isPlaying, replay, shuffle, volume } = this.props.player;
+    const { duration, currentTime, isPlaying, replay, shuffle, volume, mute } = this.props.player;
     const { scid, artwork_url } = this.props.song;
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
@@ -279,7 +283,7 @@ export class MusicPlayer extends Component {
           </div>
 
           <div className='volume-bar'>
-            <div className='volume-bar-btn'></div>
+            <div className={ classNames('volume-bar-btn', { 'mute': mute }) } onClick={ this.handleToggleMute }></div>
 
             <div className='volume-progress-bar-wrapper' onMouseDown={ this.handleVolumeMouseDown } >
               <div className='volume-progress-bar' ref='volumeBar'>

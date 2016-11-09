@@ -228,10 +228,19 @@
         cursor: pointer;
         width: 22px;
         height: 20px;
+
         background: url(images/player/volume-icon.png);
 
         &:hover {
           background: url(images/player/volume-icon-over.png);
+        }
+
+        &.mute {
+          background: url(images/player/volume-icon.png);
+
+          &:hover {
+            background: url(images/player/volume-icon-over.png);
+          }
         }
       }
 

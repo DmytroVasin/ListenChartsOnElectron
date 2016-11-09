@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   replay: 0,
   shuffle: 0,
   volume: 0.8,
+  mute: false,
   playerContent: true
 }
 
@@ -23,6 +24,9 @@ const player = (state = INITIAL_STATE, action) => {
 
     case 'TOGGLE_SHUFFLE':
       return Object.assign({}, state, { shuffle: !state.shuffle });
+
+    case 'TOGGLE_MUTE':
+      return Object.assign({}, state, { mute: !state.mute });
 
     case 'FETCH_SONG_REQUEST':
       return Object.assign({}, state, { song: action.payload, currentTime: 0, duration: 0 });

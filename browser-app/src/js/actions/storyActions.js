@@ -149,6 +149,14 @@ export function toggleShuffle() {
   }
 }
 
+export function toggleMute() {
+  return (dispatch) => {
+    dispatch({
+      type: 'TOGGLE_MUTE'
+    })
+  }
+}
+
 
 // TODO: Это нихуя не Action. это вроде как LIB или что-то вроде.
 export function changeSong(changeType) {
