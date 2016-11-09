@@ -9,10 +9,10 @@
 
   #lc-player-audio {
     display: none;
+
     position: absolute;
     top: 120px;
     right: 20px;
-    background-color: green;
   }
 
   .lc-player-badge {
@@ -23,6 +23,7 @@
       width: 75px;
       height: inherit;
       display: block;
+      border-top-left-radius: 4px;
     }
   }
 

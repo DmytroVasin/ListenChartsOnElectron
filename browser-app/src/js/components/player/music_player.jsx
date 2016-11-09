@@ -64,6 +64,8 @@ export class MusicPlayer extends Component {
     const songSCID = this.props.player.song.scid;
     const prevSongSCID = prevProps.player.song.scid;
 
+    const { volume, mute } = this.props.player;
+
     if (!audioElement) {
       return;
     }
@@ -72,7 +74,7 @@ export class MusicPlayer extends Component {
       return;
     }
 
-    audioElement.volume = this.props.player.volume;
+    audioElement.volume = mute ? 0 : volume;
 
     if (songSCID != prevSongSCID) {
       audioElement.play();

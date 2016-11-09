@@ -41,7 +41,7 @@ const player = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { currentTime: action.payload });
 
     case 'PLAYER_VOLUME_UPDATE':
-      return Object.assign({}, state, { volume: action.payload });
+      return Object.assign({}, state, { volume: action.payload, mute: false });
 
     default:
       return state
