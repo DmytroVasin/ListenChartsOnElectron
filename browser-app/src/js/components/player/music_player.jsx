@@ -50,11 +50,12 @@ export class MusicPlayer extends Component {
 
     audioElement.volume = this.props.player.volume;
 
-    audioElement.addEventListener('pause', this.handlePause, false);
     audioElement.addEventListener('play', this.handlePlay, false);
+    audioElement.addEventListener('pause', this.handlePause, false);
+    audioElement.addEventListener('ended', this.handleNextSong, false);
     audioElement.addEventListener('loadstart', this.handleLoadStart, false);
-    audioElement.addEventListener('loadedmetadata', this.handleLoadedMetadata, false);
     audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
+    audioElement.addEventListener('loadedmetadata', this.handleLoadedMetadata, false);
   }
 
   // TODO: Too much call'
@@ -84,11 +85,12 @@ export class MusicPlayer extends Component {
   componentWillUnmount() {
     const audioElement = this.refs.audio;
 
-    audioElement.removeEventListener('pause', this.handlePause, false);
     audioElement.removeEventListener('play', this.handlePlay, false);
-    audioElement.addEventListener('loadstart', this.handleLoadStart, false);
-    audioElement.removeEventListener('loadedmetadata', this.handleLoadedMetadata, false);
+    audioElement.removeEventListener('pause', this.handlePause, false);
+    audioElement.removeEventListener('ended', this.handleNextSong, false);
+    audioElement.removeEventListener('loadstart', this.handleLoadStart, false);
     audioElement.removeEventListener('timeupdate', this.handleTimeUpdate, false);
+    audioElement.removeEventListener('loadedmetadata', this.handleLoadedMetadata, false);
   }
 
 
