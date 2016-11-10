@@ -30,7 +30,7 @@
   .lc-player-devider {
     width: 1px;
     height: 51px;
-    background-color: #D6D6D6;
+    background-color: #DCDCDC;
     margin: 12px 5px;
   }
 
@@ -90,7 +90,7 @@
     margin: 15px 5px 5px 5px;
 
     .player-header-controll-main-box-ticker-line {
-      border: 1px solid #D6D6D6;
+      border: 1px solid #DCDCDC;
       height: 22px;
       background-color: #E8E8E8;
       display: flex;
@@ -144,7 +144,7 @@
         .player-progress-bar {
           height: 5px;
           margin: 9px 0;
-          background-color: #D6D6D6;
+          background-color: $border;
           position: relative;
 
           .player-progress-bar-progress {
@@ -251,7 +251,7 @@
         .volume-progress-bar {
           height: 5px;
           margin: 9px 0;
-          background-color: #D6D6D6;
+          background-color: #DCDCDC;
           position: relative;
 
           .volume-progress-bar-progress {

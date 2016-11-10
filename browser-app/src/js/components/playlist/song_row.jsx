@@ -22,9 +22,10 @@ export class SongRow extends Component {
 
     return (
       <div className={ classNames('lc-playlist-row', { 'active': isActive }) } onClick={ this.handlePlaySong }>
-        { renderProgressBar }
 
         <div className='lc-playlist-row-content'>
+          { renderProgressBar }
+
           <div className={ classNames('play-pause', { 'playing': this.props.player.isPlaying }) }></div>
           <div className='title'>{ place }. <span>{ artist }</span> - { title }</div>
           <div className='time'>02:33</div>
