@@ -1,14 +1,16 @@
+// Platform specific!
+// http://electron.rocks/proper-tray-icon/
+
 const path = require('path');
 const { Tray } = require('electron');
 
 class TrayIcon {
-  constructor(trayWindow) {
+  constructor(mainWindow) {
     let electronScreen = require('electron').screen
-
-    let iconPath = path.join(__dirname, '../icons/icon-22.png')
 
     // TODO: Refactoring.
     this.icon_default = path.join(__dirname, '../icons/icon-22.png')
+
     this.icon_0 = path.join(__dirname, '../icons/0.png')
     this.icon_1 = path.join(__dirname, '../icons/1.png')
     this.icon_2 = path.join(__dirname, '../icons/2.png')
@@ -17,14 +19,16 @@ class TrayIcon {
     this.icon_5 = path.join(__dirname, '../icons/5.png')
     this.icon_6 = path.join(__dirname, '../icons/6.png')
 
-    this.trayIcon = new Tray(iconPath);
+    this.icon = new Tray(this.icon_default);
 
-    this.trayIcon.on('click', (e, bounds) => {
-      if ( trayWindow.isVisible() ) {
-        trayWindow.hide();
+    this.setDefaultImage();
+
+    this.icon.on('click', (e, bounds) => {
+      if ( mainWindow.isVisible() ) {
+        mainWindow.hide();
       } else {
         // TODO: Refactor
-        let windowSize = trayWindow.getSize()
+        let windowSize = mainWindow.getSize()
         let screenSize = electronScreen.getDisplayNearestPoint( electronScreen.getCursorScreenPoint() ).workArea
 
         let position = {
@@ -32,8 +36,8 @@ class TrayIcon {
           y: screenSize.y
         }
 
-        trayWindow.setPosition(position.x, position.y)
-        trayWindow.show();
+        mainWindow.setPosition(position.x, position.y)
+        mainWindow.show();
       }
     });
   }
@@ -51,11 +55,11 @@ class TrayIcon {
 
   setRandomImage() {
     let iconName = 'icon_' + Math.floor(Math.random() * 7);
-    this.trayIcon.setImage(this[iconName]);
+    this.icon.setImage(this[iconName]);
   }
 
   setDefaultImage() {
-    this.trayIcon.setImage(this.icon_default);
+    this.icon.setImage(this.icon_default);
   }
 }
 

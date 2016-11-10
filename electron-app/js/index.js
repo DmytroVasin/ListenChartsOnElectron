@@ -28,18 +28,12 @@ app.on('ready', function () {
   trayIcon = new TrayIcon(main.window);
 })
 
-
 ipcMain.on('quit-app', function() {
   main.window.close();
   app.quit();
 });
 
 // Custom events MAIN WINDOW
-ipcMain.on('show-main-window-event', function() {
-  main.window.show();
-  app.dock.show();
-});
-
 ipcMain.on('update-image-tray-window-event', function(event, status) {
   trayIcon.updateTrayImage(status);
 });
