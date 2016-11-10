@@ -80,6 +80,19 @@ export class MusicPlayer extends Component {
     if (songSCID != prevSongSCID) {
       audioElement.play();
     }
+
+
+    // TODO: ЭТА ХУЙНЯ НЕ ДОЛЖНА БЫТЬ ТУТ!!
+    // Это не принадлежит плееру - а вообще APP
+
+    // Turn player OFF
+    if (prevProps.player.isPlaying && !this.props.player.isPlaying) {
+      ipcRenderer.send('update-image-tray-window-event', false);
+    }
+    // Turn player ON
+    if (!prevProps.player.isPlaying && this.props.player.isPlaying) {
+      ipcRenderer.send('update-image-tray-window-event', true);
+    }
   }
 
   componentWillUnmount() {

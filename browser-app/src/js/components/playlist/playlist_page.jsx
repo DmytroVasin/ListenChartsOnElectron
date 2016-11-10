@@ -21,6 +21,7 @@ export class PlaylistPage extends Component {
         height = 92
       }
 
+      // TODO: ЭТА ХУЙНЯ НЕ ДОЛЖНА БЫТЬ ТУТ!!
       remote.getCurrentWindow().setSize(800, height);
     }
   }

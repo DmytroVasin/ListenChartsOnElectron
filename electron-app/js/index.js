@@ -15,17 +15,17 @@ const TrayIcon = require('./TrayIcon');
 const {app, ipcMain, Menu} = electron;
 
 let main = null;
+let trayIcon = null;
 
 // app.dock.hide();
 
-// app.commandLine.appendSwitch('enable-transparent-visuals');
 app.on('ready', function () {
   if ( isDev ) installExtentions();
 
   main = new MainWindow();
   Menu.setApplicationMenu( Menu.buildFromTemplate(menuTemplate(main)) );
 
-  new TrayIcon(main.window);
+  trayIcon = new TrayIcon(main.window);
 })
 
 
@@ -38,6 +38,10 @@ ipcMain.on('quit-app', function() {
 ipcMain.on('show-main-window-event', function() {
   main.window.show();
   app.dock.show();
+});
+
+ipcMain.on('update-image-tray-window-event', function(event, status) {
+  trayIcon.updateTrayImage(status);
 });
 
 const installExtentions = function () {
