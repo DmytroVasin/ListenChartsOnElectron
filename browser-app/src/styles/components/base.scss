@@ -22,8 +22,9 @@ body {
   color: #333;
   font-size: 14px;
   line-height: 1.4em;
-  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
+  // Use system font.
+  font: caption;
 
   #react-root {
     height: 100%;
