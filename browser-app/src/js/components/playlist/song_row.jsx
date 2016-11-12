@@ -30,6 +30,8 @@ export class SongRow extends Component {
 
           <div className={ classNames('play-pause', { 'playing': this.props.player.isPlaying }) }></div>
           <div className='title'>{ song.place }. <span>{ song.artist }</span> - { song.title }</div>
+          <div className='download'></div>
+          <div className='cart'></div>
           <Place place={song.place} previousPlace={song.previous_place} />
           <div className='time'>{ formatSeconds(song.sc_duration) }</div>
         </div>
