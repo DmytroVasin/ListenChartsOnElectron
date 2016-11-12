@@ -244,17 +244,17 @@ export class MusicPlayer extends Component {
 
   render() {
     const { duration, currentTime, isPlaying, replay, shuffle, volume, mute } = this.props.player;
-    const { sc_stream_url, sc_image_url, sc_duration } = this.props.song;
+    const { song } = this.props;
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
     const volumeWidth = volume * 100;
 
     return (
       <div id='lc-player'>
-        <audio id='lc-player-audio' ref='audio' controls='controls' src={ sc_stream_url } />
+        <audio id='lc-player-audio' ref='audio' controls='controls' src={ song.sc_stream_url } />
 
         <div className='lc-player-badge'>
-          <img src={ soundCloudImage(sc_image_url) } />
+          <img src={ soundCloudImage(song.sc_image_url) } />
         </div>
 
         <div className='lc-player-controlls'>
@@ -282,8 +282,7 @@ export class MusicPlayer extends Component {
                 <div className='player-progress-bar-handler' style={{ left: `${seekWidth}%` }}></div>
               </div>
             </div>
-
-            <div className='player-header-controll-main-box-full-time'>{ formatSeconds(duration || sc_duration) }</div>
+            <div className='player-header-controll-main-box-full-time'>{ formatSeconds(duration || song.sc_duration) }</div>
           </div>
         </div>
 

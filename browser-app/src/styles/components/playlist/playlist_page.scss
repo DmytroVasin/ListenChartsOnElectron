@@ -38,12 +38,28 @@
       }
 
       .title {
-        width: 100%;
+        flex: 1;
 
         span { font-weight: bold; }
       }
 
-      .time { margin-right: 15px; }
+      .place {
+        margin: 0 10px;
+        width: 16px;
+        height: 20px;
+
+        &.place-up {
+          background: url(images/player/playlist-place-up-button.png);
+        }
+        &.place-down {
+          background: url(images/player/playlist-place-down-button.png);
+        }
+        &.place-new {
+          background: url(images/player/playlist-place-new-button.png);
+        }
+      }
+
+      .time { margin: 0 15px 0 10px; }
     }
 
     &:hover {
@@ -51,6 +67,18 @@
 
       .play-pause {
         background: url(images/player/playlist-play-button-over.png);
+      }
+
+      .place {
+        &.place-up {
+          background: url(images/player/playlist-place-up-button-over.png);
+        }
+        &.place-down {
+          background: url(images/player/playlist-place-down-button-over.png);
+        }
+        &.place-new {
+          background: url(images/player/playlist-place-new-button-over.png);
+        }
       }
     }
 
@@ -63,6 +91,17 @@
       }
 
       .lc-playlist-row-content {
+        .place {
+          &.place-up {
+            background: url(images/player/playlist-place-up-button-over.png);
+          }
+          &.place-down {
+            background: url(images/player/playlist-place-down-button-over.png);
+          }
+          &.place-new {
+            background: url(images/player/playlist-place-new-button-over.png);
+          }
+        }
         .play-pause {
           background: url(images/player/playlist-play-button-over.png);
 
