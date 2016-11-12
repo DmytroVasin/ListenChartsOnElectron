@@ -62,8 +62,8 @@ export class MusicPlayer extends Component {
   componentDidUpdate = (prevProps) => {
     const audioElement = this.refs.audio;
 
-    const songSCID = this.props.player.song.scid;
-    const prevSongSCID = prevProps.player.song.scid;
+    const songId = this.props.player.song.id;
+    const prevSongId = prevProps.player.song.id;
 
     const { volume, mute } = this.props.player;
 
@@ -71,13 +71,13 @@ export class MusicPlayer extends Component {
       return;
     }
 
-    if (!songSCID) {
+    if (!songId) {
       return;
     }
 
     audioElement.volume = mute ? 0 : volume;
 
-    if (songSCID != prevSongSCID) {
+    if (songId != prevSongId) {
       audioElement.play();
     }
 
@@ -244,17 +244,17 @@ export class MusicPlayer extends Component {
 
   render() {
     const { duration, currentTime, isPlaying, replay, shuffle, volume, mute } = this.props.player;
-    const { scid, artwork_url } = this.props.song;
+    const { sc_stream_url, sc_image_url, sc_duration } = this.props.song;
 
     const seekWidth = currentTime === 0 ? 0 : Math.floor(currentTime / duration * 100);
     const volumeWidth = volume * 100;
 
     return (
       <div id='lc-player'>
-        <audio id='lc-player-audio' ref='audio' controls='controls' src={ soundCloudUrl(scid) } />
+        <audio id='lc-player-audio' ref='audio' controls='controls' src={ sc_stream_url } />
 
         <div className='lc-player-badge'>
-          <img src={ soundCloudImage(artwork_url) } />
+          <img src={ soundCloudImage(sc_image_url) } />
         </div>
 
         <div className='lc-player-controlls'>
@@ -283,7 +283,7 @@ export class MusicPlayer extends Component {
               </div>
             </div>
 
-            <div className='player-header-controll-main-box-full-time'>{ formatSeconds(duration) }</div>
+            <div className='player-header-controll-main-box-full-time'>{ formatSeconds(duration || sc_duration) }</div>
           </div>
         </div>
 

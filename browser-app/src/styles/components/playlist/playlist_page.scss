@@ -26,31 +26,24 @@
       position: relative;
       display: flex;
       align-items: center;
+      cursor: pointer;
+
+      > * { z-index: 1; }
 
       .play-pause {
         margin: 0 10px;
-        cursor: pointer;
         width: 5px;
         height: 9px;
-
         background: url(images/player/playlist-play-button.png);
-        z-index: 1;
       }
 
       .title {
-        cursor: pointer;
         width: 100%;
-        z-index: 1;
 
-        span {
-          font-weight: bold;
-        }
+        span { font-weight: bold; }
       }
 
-      .time {
-        margin: 0 15px 0 10px;
-        z-index: 1;
-      }
+      .time { margin-right: 15px; }
     }
 
     &:hover {

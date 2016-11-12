@@ -13,6 +13,9 @@ const INITIAL_STATE = {
 const player = (state = INITIAL_STATE, action) => {
   switch(action.type) {
 
+    case 'PLAY_SONG':
+      return Object.assign({}, state, { song: action.payload, currentTime: 0, duration: 0 });
+
     case 'TOGGLE_PLAY':
       return Object.assign({}, state, { isPlaying: action.payload });
 
@@ -27,12 +30,6 @@ const player = (state = INITIAL_STATE, action) => {
 
     case 'TOGGLE_MUTE':
       return Object.assign({}, state, { mute: !state.mute });
-
-    case 'FETCH_SONG_REQUEST':
-      return Object.assign({}, state, { song: action.payload, currentTime: 0, duration: 0 });
-
-    case 'FETCH_SONG_SUCCESS':
-      return Object.assign({}, state, { song: Object.assign({}, state.song, action.payload) });
 
     case 'PLAYER_DURATION_UPDATE':
       return Object.assign({}, state, { duration: action.payload });

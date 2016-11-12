@@ -4,7 +4,7 @@ import { random } from '../utils';
 export function fetchList(stationId) {
   return (dispatch) => {
     dispatch(fetchListRequest())
-    axios.get(`http://beta.listencharts.com/api/v1/charts/${stationId}`)
+    axios.get(`https://winamp-api.herokuapp.com/api/v1/stations/${stationId}/episodes`)
     .then(function(response) {
       dispatch(fetchListSuccess(response.data))
     })
@@ -18,10 +18,10 @@ function fetchListRequest() {
     type: 'FETCH_LIST_REQUEST'
   }
 }
-function fetchListSuccess(list) {
+function fetchListSuccess(songs) {
   return {
     type: 'FETCH_LIST_SUCCESS',
-    payload: list.songs
+    payload: songs
   }
 }
 function fetchListFailure(error) {
@@ -35,7 +35,7 @@ function fetchListFailure(error) {
 export function fetchStations() {
   return (dispatch) => {
     dispatch(fetchStationsRequest())
-    axios.get('http://beta.listencharts.com/api/v1/charts')
+    axios.get('https://winamp-api.herokuapp.com/api/v1/stations')
     .then(function(response) {
       dispatch(fetchStationsSuccess(response.data))
     })
@@ -49,10 +49,10 @@ function fetchStationsRequest() {
     type: 'FETCH_STATIONS_REQUEST'
   }
 }
-function fetchStationsSuccess(list) {
+function fetchStationsSuccess(stations) {
   return {
     type: 'FETCH_STATIONS_SUCCESS',
-    payload: list.charts
+    payload: stations
   }
 }
 function fetchStationsFailure(error) {
@@ -72,47 +72,14 @@ export function toggleIsPlaying(isPlaying) {
   }
 }
 
-
-// TODO: хня какая-то смена песни идет только после запроса...
-// Это если делать так как в Charts...
-export function fetchSong(song) {
+export function playSong(song) {
   return (dispatch) => {
-    dispatch(fetchSongRequest(song))
-
-    if (song.scid) {
-      dispatch(fetchSongSuccess(song.scid))
-    } else {
-      let query = song.artist + ' ' + song.title;
-
-      SC.get('/tracks', { q: encodeURI(query) }).then( function(scSong) {
-        let { id, artwork_url } = scSong[0];
-        dispatch(fetchSongSuccess({ scid: id, artwork_url: artwork_url }));
-
-        // mutate song for now. This fixes playlist song detection
-        // TODO: Replace with immutable version
-        // TODO: Как это сделать нормально?
-        Object.assign(song, { scid: id, artwork_url: artwork_url });
-        dispatch(updatePlaylistSong(song))
-
-      }).catch(function (error) {
-        console.log('There was an error ' + error.message);
-      });
-    }
+    dispatch({
+      type: 'PLAY_SONG',
+      payload: song
+    })
   }
 }
-function fetchSongRequest(song) {
-  return {
-    type: 'FETCH_SONG_REQUEST',
-    payload: song
-  }
-}
-function fetchSongSuccess(object) {
-  return {
-    type: 'FETCH_SONG_SUCCESS',
-    payload: object
-  }
-}
-
 
 export function durationUpdate(duration) {
   return (dispatch) => {
@@ -180,7 +147,7 @@ export function changeSong(changeType) {
 
     let newSong = playlist.songs.find((song) => song.place === newSongPlace);
 
-    return dispatch(fetchSong(newSong));
+    return dispatch(playSong(newSong));
   }
 }
 

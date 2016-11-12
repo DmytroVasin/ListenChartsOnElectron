@@ -1,4 +1,3 @@
-require('font-awesome-webpack');
 import '../styles/application.scss'
 
 import React from 'react';
@@ -11,15 +10,6 @@ import configureStore from './config/configureStore'
 import routes from './routes'
 
 const store = configureStore()
-
-
-
-import SC from 'soundcloud';
-import { CLIENT_ID } from './constants/config.js';
-
-SC.initialize({
-  client_id: CLIENT_ID
-});
 
 render(
   <Provider store={store}>

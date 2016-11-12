@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames';
 
 import { SongRowProgress } from './song_row_progress.jsx'
+import { formatSeconds } from '../../utils';
 
 export class SongRow extends Component {
   constructor(props) {
@@ -9,14 +10,14 @@ export class SongRow extends Component {
   }
 
   handlePlaySong = () => {
-    // TODO: WTF????
-    this.props.fetchSong(this.props.songRow)
+    this.props.playSong(this.props.songRow)
   }
 
 
   render() {
-    const { place, artist, title  } = this.props.songRow;
+    const { place, artist, title, sc_duration } = this.props.songRow;
     const isActive = (this.props.songRow.id == this.props.player.song.id)
+
 
     let renderProgressBar = isActive ? <SongRowProgress player={ this.props.player } /> : null;
 
@@ -28,7 +29,7 @@ export class SongRow extends Component {
 
           <div className={ classNames('play-pause', { 'playing': this.props.player.isPlaying }) }></div>
           <div className='title'>{ place }. <span>{ artist }</span> - { title }</div>
-          <div className='time'>02:33</div>
+          <div className='time'>{ formatSeconds(sc_duration) }</div>
         </div>
       </div>
     )
