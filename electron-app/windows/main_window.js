@@ -12,7 +12,8 @@ class MainWindow {
       width: 800,
       frame: false,
       hasShadow: false,
-      transparent: true
+      transparent: true,
+      resizable: false
     });
 
     this.window.loadURL(htmlPath);
