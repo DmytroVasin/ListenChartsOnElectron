@@ -17,7 +17,6 @@ export class SongRow extends Component {
 
   handleDownload = (e) => {
     e.stopPropagation()
-
     ipcRenderer.send('dowload-file-from-url', this.props.songRow.sc_stream_url);
   }
 

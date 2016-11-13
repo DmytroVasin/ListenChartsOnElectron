@@ -45,6 +45,12 @@ export class MusicPlayer extends Component {
     shell.openExternal('http://beta.listencharts.com/');
   }
 
+  handleDownload = () => {
+    if (this.props.player.song.sc_stream_url) {
+      ipcRenderer.send('dowload-file-from-url', this.props.player.song.sc_stream_url);
+    }
+  }
+
   componentDidMount = () => {
     const audioElement = this.refs.audio;
 
@@ -294,7 +300,7 @@ export class MusicPlayer extends Component {
             <div className='options-btn radiostations' onClick={ this.togglePlayerContent }></div>
             <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
             <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
-            <div className='options-btn download'></div>
+            <div className='options-btn download' onClick={ this.handleDownload }></div>
             <div className='options-btn visit-site' onClick={ this.handleVisitSite }></div>
           </div>
 

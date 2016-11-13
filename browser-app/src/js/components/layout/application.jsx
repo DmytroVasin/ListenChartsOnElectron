@@ -8,13 +8,12 @@ export default class Application extends Component {
     return (
       <div className='window'>
         <div className='window-container arrow'>
+          <SpinnerContainer />
           <MusicPlayerContainer />
 
           <div className='window-content'>
             { this.props.children }
           </div>
-
-          <SpinnerContainer />
         </div>
       </div>
     );
