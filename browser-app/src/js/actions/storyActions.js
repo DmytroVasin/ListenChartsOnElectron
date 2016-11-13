@@ -129,23 +129,26 @@ export function changeSong(changeType) {
   return (dispatch, getState) => {
     const state = getState();
     const { player, playlist } = state;
-    let newSongPlace;
+
+    let newSongIndex;
+    let currentSongIndex;
+    currentSongIndex = playlist.songs.findIndex((el) => el.place === player.song.place);
 
     if (changeType === 'NEXT_SONG') {
-      newSongPlace = player.song.place + 1;
+      newSongIndex = currentSongIndex + 1;
     } else if (changeType === 'PREV_SONG') {
-      newSongPlace = player.song.place - 1;
+      newSongIndex = currentSongIndex - 1;
     } else if (changeType === 'REPLAY_SONG') {
-      newSongPlace = player.song.place
+      newSongIndex = currentSongIndex
     } else if (changeType === 'SHUFFLE_SONG') {
-      newSongPlace = random(playlist.songs.length + 1);
+      newSongIndex = random(playlist.songs.length + 1);
     }
 
-    if (newSongPlace <= 0 || newSongPlace >= playlist.songs.length ) {
+    let newSong = playlist.songs[newSongIndex]
+
+    if (!newSong) {
       return null;
     }
-
-    let newSong = playlist.songs.find((song) => song.place === newSongPlace);
 
     return dispatch(playSong(newSong));
   }
