@@ -236,10 +236,10 @@
         }
 
         &.mute {
-          background: url(images/player/volume-icon.png);
+          background: url(images/player/volume-icon-mute.png);
 
           &:hover {
-            background: url(images/player/volume-icon-over.png);
+            background: url(images/player/volume-icon-mute-over.png);
           }
         }
       }
