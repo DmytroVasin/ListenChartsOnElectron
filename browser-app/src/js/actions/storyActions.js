@@ -181,3 +181,19 @@ export function togglePlayerContent() {
     })
   }
 }
+
+export function startTrackDownloading() {
+  return (dispatch) => {
+    dispatch({
+      type: 'START_TRACK_DOWNLOADING'
+    })
+  }
+}
+
+export function finishTrackDownloading() {
+  return (dispatch) => {
+    dispatch({
+      type: 'FINISH_TRACK_DOWNLOADING'
+    })
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import MusicPlayerContainer from '../../containers/music_player_container.js'
+import SpinnerContainer from '../../containers/spinner_container.js'
 
 export default class Application extends Component {
   render() {
@@ -12,6 +13,8 @@ export default class Application extends Component {
           <div className='window-content'>
             { this.props.children }
           </div>
+
+          <SpinnerContainer />
         </div>
       </div>
     );

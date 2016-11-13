@@ -26,17 +26,20 @@ app.on('ready', function () {
   trayIcon = new TrayIcon(main.window);
 
   main.window.webContents.session.on('will-download', function(event, item, webContents) {
+    item.on('updated', (event, state) => {
+      if (state === 'interrupted' || state === 'cancelled' ) {
+        main.window.webContents.send('finish-track-downloading');
+      }
+    });
+
     item.once('done', function(event, state) {
-      var fileName = item.getSavePath().replace(/^.*[\\\/]/, '');
-      var message;
+      main.window.webContents.send('finish-track-downloading');
 
       if (state === 'completed') {
-        message = 'File was download successfully';
-      } else {
-        message = 'Download failed!';
+        var fileName = item.getSavePath().replace(/^.*[\\\/]/, '');
+        var message = 'File was download successfully';
+        sendNotification(fileName, message);
       }
-
-      sendNotification(fileName, message);
     });
   });
 });
@@ -52,6 +55,7 @@ ipcMain.on('update-image-tray-window-event', function(event, state) {
 });
 
 ipcMain.on('dowload-file-from-url', function(event, url) {
+  main.window.webContents.send('start-track-downloading');
   main.window.webContents.downloadURL(url);
 });
 

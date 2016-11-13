@@ -1,6 +1,6 @@
 @-webkit-keyframes equalizer_animation {
-  from { -webkit-transform: translate(0%,0) }
-  to { -webkit-transform: translate(-90%,0) }
+  from { transform: translate(0%,0) }
+  to { transform: translate(-90%,0) }
 }
 
 #lc-player {
