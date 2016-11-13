@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
-import * as storyActions from '../actions/storyActions'
+import * as playerActions from '../actions/playerActions'
 
 import { RadioStationPage } from '../components/radio_station/radio_station_page.jsx';
 
@@ -13,7 +13,7 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(storyActions, dispatch)
+    actions: bindActionCreators(playerActions, dispatch)
   }
 }
 

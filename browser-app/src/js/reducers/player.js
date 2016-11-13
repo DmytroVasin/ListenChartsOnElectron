@@ -22,7 +22,10 @@ const player = (state = INITIAL_STATE, action) => {
     case 'TOGGLE_REPLAY':
       return Object.assign({}, state, { replay: !state.replay });
 
-    case 'PLAYER_CONTENT_TOGGLE':
+    case 'OPEN_PLAYER_CONTENT':
+      return Object.assign({}, state, { playerContent: true });
+
+    case 'TOGGLE_PLAYER_CONTENT':
       return Object.assign({}, state, { playerContent: !state.playerContent });
 
     case 'TOGGLE_SHUFFLE':

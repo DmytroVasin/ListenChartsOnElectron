@@ -191,11 +191,12 @@
         width: 22px;
         height: 20px;
 
-        &.playlist {
+        &.close-app {
           background: url(images/player/playlist-button.png);
           &.active, &:hover { background: url(images/player/playlist-button-over.png); }
         }
-        &.radiostations {
+        &.playlist,
+        &.stations {
           background: url(images/player/categories-button.png);
           &.active, &:hover { background: url(images/player/categories-button-over.png); }
         }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { browserHistory } from 'react-router'
 import classNames from 'classnames';
 
 import { formatSeconds, offsetLeft, soundCloudUrl, soundCloudImage } from '../../utils';
@@ -39,6 +40,17 @@ export class MusicPlayer extends Component {
 
   togglePlayerContent = () => {
     this.props.actions.togglePlayerContent()
+  }
+
+  goToStatiosOrEpisodes = () => {
+    debugger
+
+    this.props.actions.openPlayerContent()
+    browserHistory.push('/')
+
+    // got to '/'
+    // or
+    // got to current episodes...
   }
 
   handleVisitSite = () => {
@@ -238,6 +250,10 @@ export class MusicPlayer extends Component {
     });
   }
 
+  handleQuitApp = () => {
+    ipcRenderer.send('quit-app');
+  }
+
   renderSongTitle = () => {
     const { place, artist, title  } = this.props.song;
 
@@ -296,12 +312,13 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-options'>
           <div className='options-bar'>
-            <Link to='/' className='options-btn playlist'></Link>
-            <div className='options-btn radiostations' onClick={ this.togglePlayerContent }></div>
+            <div className='options-btn playlist' onClick={ this.goToStatiosOrEpisodes }></div>
+            <div className='options-btn stations' onClick={ this.togglePlayerContent }></div>
             <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
             <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
             <div className='options-btn download' onClick={ this.handleDownload }></div>
             <div className='options-btn visit-site' onClick={ this.handleVisitSite }></div>
+            <div className='options-btn close-app' onClick={ this.handleQuitApp }></Link>
           </div>
 
           <div className='volume-bar'>

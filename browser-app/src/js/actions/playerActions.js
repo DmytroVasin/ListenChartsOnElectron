@@ -177,7 +177,14 @@ export function volumeUpdate(volume) {
 export function togglePlayerContent() {
   return (dispatch) => {
     dispatch({
-      type: 'PLAYER_CONTENT_TOGGLE'
+      type: 'TOGGLE_PLAYER_CONTENT'
+    })
+  }
+}
+export function openPlayerContent() {
+  return (dispatch) => {
+    dispatch({
+      type: 'OPEN_PLAYER_CONTENT'
     })
   }
 }
