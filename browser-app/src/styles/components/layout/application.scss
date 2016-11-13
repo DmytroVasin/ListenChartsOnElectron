@@ -38,6 +38,10 @@
     }
 
     .window-content {
+      height: 230px;
+      border-top: 1px solid $border;
+
+      &.hidden { display: none; }
     }
   }
 }

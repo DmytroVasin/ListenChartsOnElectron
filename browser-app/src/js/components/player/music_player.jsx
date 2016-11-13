@@ -43,14 +43,16 @@ export class MusicPlayer extends Component {
   }
 
   goToStatiosOrEpisodes = () => {
-    debugger
+    // this.props.actions.openPlayerContent()
 
-    this.props.actions.openPlayerContent()
-    browserHistory.push('/')
+    // console.log(this.props)
 
-    // got to '/'
-    // or
-    // got to current episodes...
+    // if (this.props.router.isActive('/')) {
+
+    //   // browserHistory.push('/')
+    // } else {
+    //   browserHistory.push('/')
+    // }
   }
 
   handleVisitSite = () => {
@@ -318,7 +320,7 @@ export class MusicPlayer extends Component {
             <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
             <div className='options-btn download' onClick={ this.handleDownload }></div>
             <div className='options-btn visit-site' onClick={ this.handleVisitSite }></div>
-            <div className='options-btn close-app' onClick={ this.handleQuitApp }></Link>
+            <div className='options-btn close-app' onClick={ this.handleQuitApp }></div>
           </div>
 
           <div className='volume-bar'>

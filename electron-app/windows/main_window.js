@@ -8,7 +8,7 @@ class MainWindow {
 
     this.window = new BrowserWindow({
       show: false,
-      height: 400,
+      height: 325,
       width: 800,
       frame: false,
       hasShadow: false,

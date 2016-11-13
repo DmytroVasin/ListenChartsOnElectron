@@ -192,8 +192,8 @@
         height: 20px;
 
         &.close-app {
-          background: url(images/player/playlist-button.png);
-          &.active, &:hover { background: url(images/player/playlist-button-over.png); }
+          background: url(images/player/close-button.png);
+          &.active, &:hover { background: url(images/player/close-button-over.png); }
         }
         &.playlist,
         &.stations {

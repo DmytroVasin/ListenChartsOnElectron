@@ -6,8 +6,7 @@ const INITIAL_STATE = {
   replay: 0,
   shuffle: 0,
   volume: 0.8,
-  mute: false,
-  playerContent: true
+  mute: false
 }
 
 const player = (state = INITIAL_STATE, action) => {
@@ -21,12 +20,6 @@ const player = (state = INITIAL_STATE, action) => {
 
     case 'TOGGLE_REPLAY':
       return Object.assign({}, state, { replay: !state.replay });
-
-    case 'OPEN_PLAYER_CONTENT':
-      return Object.assign({}, state, { playerContent: true });
-
-    case 'TOGGLE_PLAYER_CONTENT':
-      return Object.assign({}, state, { playerContent: !state.playerContent });
 
     case 'TOGGLE_SHUFFLE':
       return Object.assign({}, state, { shuffle: !state.shuffle });

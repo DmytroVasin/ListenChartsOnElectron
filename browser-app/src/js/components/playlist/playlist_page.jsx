@@ -8,24 +8,6 @@ export class PlaylistPage extends Component {
     this.props.actions.fetchList(this.props.routeParams.id)
   }
 
-  componentDidUpdate = (prevProps) => {
-    const playerContent = this.props.player.playerContent;
-    const prevPlayerContent = prevProps.player.playerContent;
-
-    if ( playerContent != prevPlayerContent ) {
-      let height;
-
-      if ( playerContent ) {
-        height = 400
-      } else {
-        height = 92
-      }
-
-      // TODO: ЭТА ХУЙНЯ НЕ ДОЛЖНА БЫТЬ ТУТ!!
-      remote.getCurrentWindow().setSize(800, height);
-    }
-  }
-
   render() {
     const { songs, error, loading } = this.props.playlist
 
@@ -42,7 +24,7 @@ export class PlaylistPage extends Component {
     })
 
     return (
-      <div id='lc-playlist' style={{ height: this.props.player.playerContent ? '275px' : '0px' }} >
+      <div id='lc-playlist' >
         { songRows }
       </div>
     )
