@@ -23,5 +23,12 @@
       js_script.async = true;
       document.body.appendChild(js_script);
     </script>
+
+    <script type="text/javascript">
+      // Notifications can be sent only from renderer process
+      ipcRenderer.on('display-notification', (event, args) => {
+        new window.Notification( args.title, args.options)
+      })
+    </script>
   </body>
 </html>

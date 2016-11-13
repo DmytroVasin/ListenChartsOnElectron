@@ -15,6 +15,35 @@ export class SongRow extends Component {
     this.props.playSong(this.props.songRow)
   }
 
+  handleDownload = (e) => {
+    e.stopPropagation()
+
+    ipcRenderer.send('dowload-file-from-url', this.props.songRow.sc_stream_url);
+  }
+
+  handleGoBuyTrack = (e) => {
+    e.stopPropagation()
+
+    if (this.props.songRow.sc_permalink_url) {
+      shell.openExternal(this.props.songRow.sc_permalink_url);
+    }
+  }
+
+  renderCart = () => {
+    if ( this.props.songRow.sc_permalink_url ) {
+      return <div className='cart' onClick={ this.handleGoBuyTrack }></div>;
+    } else {
+      return null;
+    }
+  }
+
+  renderDownload = () => {
+    if ( this.props.songRow.sc_stream_url ) {
+      return <div className='download' onClick={ this.handleDownload }></div>;
+    } else {
+      return null;
+    }
+  }
 
   render() {
     const song = this.props.songRow;
@@ -30,8 +59,8 @@ export class SongRow extends Component {
 
           <div className={ classNames('play-pause', { 'playing': this.props.player.isPlaying }) }></div>
           <div className='title'>{ song.place }. <span>{ song.artist }</span> - { song.title }</div>
-          <div className='download'></div>
-          <div className='cart'></div>
+          { this.renderDownload() }
+          { this.renderCart() }
           <Place place={song.place} previousPlace={song.previous_place} />
           <div className='time'>{ formatSeconds(song.sc_duration) }</div>
         </div>
