@@ -1,10 +1,13 @@
 // npm-check -u
+// TODO: "target electron" - спросить Валеру!
+
 var webpack = require('webpack');
 
 module.exports = {
   entry: {
     main: './main.jsx'
   },
+  target: 'electron',
   context: __dirname + '/browser-app/src/js',
 
   resolve: {

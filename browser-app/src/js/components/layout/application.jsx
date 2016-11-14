@@ -54,9 +54,6 @@ class ApplicationComponent extends Component {
 
 function mapStateToProps(store) {
   return {
-    stations_list: store.stations_list,
-    playlist: store.playlist,
-    player: store.player,
     app: store.app
   }
 }
