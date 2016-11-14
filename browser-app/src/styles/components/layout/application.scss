@@ -40,8 +40,20 @@
     .window-content {
       height: 230px;
       border-top: 1px solid $border;
+    }
 
-      &.hidden { display: none; }
+    &.hidden {
+      .window-content {
+        display: none;
+
+        #lc-player {
+          .lc-player-badge {
+            img {
+              border-bottom-left-radius: 4px;
+            }
+          }
+        }
+      }
     }
   }
 }
