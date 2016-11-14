@@ -195,8 +195,11 @@
           background: url(images/player/close-button.png);
           &.active, &:hover { background: url(images/player/close-button-over.png); }
         }
-        &.playlist,
-        &.stations {
+        &.player-content {
+          background: url(images/player/display-button.png);
+          &.active, &:hover { background: url(images/player/display-button-over.png); }
+        }
+        &.playlist {
           background: url(images/player/categories-button.png);
           &.active, &:hover { background: url(images/player/categories-button-over.png); }
         }

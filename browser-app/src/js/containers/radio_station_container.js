@@ -7,6 +7,7 @@ import { RadioStationPage } from '../components/radio_station/radio_station_page
 
 function mapStateToProps(store) {
   return {
+    app: store.app,
     stationsList: store.stations_list
   }
 }

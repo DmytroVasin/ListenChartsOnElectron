@@ -6,6 +6,7 @@ export class PlaylistPage extends Component {
 
   componentWillMount = () => {
     this.props.actions.fetchList(this.props.routeParams.id)
+    this.props.actions.updateCurrentStationId(this.props.routeParams.id)
   }
 
   render() {

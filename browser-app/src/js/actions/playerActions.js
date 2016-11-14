@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux'
+import { hashHistory } from 'react-router'
 import axios from 'axios'
 import { random } from '../utils';
 
@@ -154,6 +156,37 @@ export function changeSong(changeType) {
   }
 }
 
+export function switchContent(url) {
+  return (dispatch, getState) => {
+    let currentUrl = hashHistory.getCurrentLocation().pathname;
+    let nextUrl;
+
+    if ( currentUrl  == '/' ) {
+      let currentStationId = getState().app.currentStationId;
+      nextUrl = `/stations/${currentStationId}/episodes`
+    } else {
+      nextUrl = '/'
+    }
+
+    dispatch(openPlayerContent())
+    dispatch(push(nextUrl))
+  }
+}
+function openPlayerContent() {
+  return {
+    type: 'OPEN_PLAYER_CONTENT'
+  }
+}
+
+export function updateCurrentStationId(id) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_CURRENT_STATION_ID',
+      payload: id
+    })
+  }
+}
+
 
 export function updatePlaylistSong(song) {
   return (dispatch) => {
@@ -181,14 +214,6 @@ export function togglePlayerContent() {
     })
   }
 }
-export function openPlayerContent() {
-  return (dispatch) => {
-    dispatch({
-      type: 'OPEN_PLAYER_CONTENT'
-    })
-  }
-}
-
 export function startTrackDownloading() {
   return (dispatch) => {
     dispatch({

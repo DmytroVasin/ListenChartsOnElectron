@@ -8,6 +8,14 @@ export class RadioStationPage extends Component {
     this.props.actions.fetchStations()
   }
 
+  componentDidUpdate() {
+    const { app, stationsList } = this.props
+
+    if ( stationsList.stations[0] && !app.currentStationId ) {
+      this.props.actions.updateCurrentStationId(stationsList.stations[0].id)
+    }
+  }
+
   render() {
     const { stations, error, loading } = this.props.stationsList
 

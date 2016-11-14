@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   downloadLoading: false,
-  playerContent: true
+  playerContent: true,
+  currentStationId: null
 }
 
 const playlist = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,9 @@ const playlist = (state = INITIAL_STATE, action) => {
 
     case 'TOGGLE_PLAYER_CONTENT':
       return Object.assign({}, state, { playerContent: !state.playerContent });
+
+    case 'UPDATE_CURRENT_STATION_ID':
+      return Object.assign({}, state, { currentStationId: action.payload });
 
     default:
       return state

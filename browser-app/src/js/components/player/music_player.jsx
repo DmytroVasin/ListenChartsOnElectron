@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { browserHistory } from 'react-router'
 import classNames from 'classnames';
 
 import { formatSeconds, offsetLeft, soundCloudUrl, soundCloudImage } from '../../utils';
@@ -43,16 +42,7 @@ export class MusicPlayer extends Component {
   }
 
   goToStatiosOrEpisodes = () => {
-    // this.props.actions.openPlayerContent()
-
-    // console.log(this.props)
-
-    // if (this.props.router.isActive('/')) {
-
-    //   // browserHistory.push('/')
-    // } else {
-    //   browserHistory.push('/')
-    // }
+    this.props.actions.switchContent()
   }
 
   handleVisitSite = () => {
@@ -315,7 +305,7 @@ export class MusicPlayer extends Component {
         <div className='lc-player-options'>
           <div className='options-bar'>
             <div className='options-btn playlist' onClick={ this.goToStatiosOrEpisodes }></div>
-            <div className='options-btn stations' onClick={ this.togglePlayerContent }></div>
+            <div className='options-btn player-content' onClick={ this.togglePlayerContent }></div>
             <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
             <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
             <div className='options-btn download' onClick={ this.handleDownload }></div>
