@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import classNames from 'classnames';
 
 import { SongRowProgress } from './song_row_progress.jsx'
-import { Place } from './place.jsx'
 
 import { formatSeconds } from '../../utils';
 
@@ -28,9 +27,25 @@ export class SongRow extends Component {
     }
   }
 
+  renderPlayPause = (isActive) => {
+    const { isPlaying } = this.props.player
+
+    if (isActive && isPlaying) {
+      return <div className='icon-pause'></div>
+    } else {
+      return <div className='icon-play'></div>
+    }
+  }
+
+  renderTitle = () => {
+    const { place, artist, title } = this.props.songRow;
+
+    return <div className='title'>{ place }. <span>{ artist }</span> - { title }</div>;
+  }
+
   renderCart = () => {
     if ( this.props.songRow.sc_permalink_url ) {
-      return <div className='cart' onClick={ this.handleGoBuyTrack }></div>;
+      return <div className='icon-link' onClick={ this.handleGoBuyTrack }></div>;
     } else {
       return null;
     }
@@ -38,30 +53,49 @@ export class SongRow extends Component {
 
   renderDownload = () => {
     if ( this.props.songRow.sc_stream_url ) {
-      return <div className='download' onClick={ this.handleDownload }></div>;
+      return <div className='icon-download' onClick={ this.handleDownload }></div>;
     } else {
       return null;
     }
   }
 
-  render() {
-    const song = this.props.songRow;
-    const isActive = (song.id == this.props.player.song.id)
+  renderPlace = () => {
+    const { place, previous_place } = this.props.songRow
 
-    let renderProgressBar = isActive ? <SongRowProgress player={ this.props.player } /> : null;
+    if ( !place ) {
+      return null;
+    } else if ( !previous_place ) {
+      return <div className='icon-fire'></div>;
+    } else if ( place < previous_place ) {
+      return <div className='icon-arrow-up'></div>;
+    } else {
+      return <div className='icon-arrow-down'></div>;
+    }
+  }
+
+  renderTime = () => {
+    const { sc_duration } = this.props.songRow;
+    return <div className='time'>{ formatSeconds(sc_duration) }</div>;
+  }
+
+  render() {
+    const { player } = this.props
+    const song = this.props.songRow;
+    const isActive = (song.id == player.song.id)
+
+    let renderProgressBar = isActive ? <SongRowProgress player={ player } /> : null;
 
     return (
       <div className={ classNames('lc-playlist-row', { 'active': isActive }) } onClick={ this.handlePlaySong }>
+        { renderProgressBar }
 
         <div className='lc-playlist-row-content'>
-          { renderProgressBar }
-
-          <div className={ classNames('play-pause', { 'playing': this.props.player.isPlaying }) }></div>
-          <div className='title'>{ song.place }. <span>{ song.artist }</span> - { song.title }</div>
+          { this.renderPlayPause(isActive) }
+          { this.renderTitle() }
           { this.renderDownload() }
           { this.renderCart() }
-          <Place place={song.place} previousPlace={song.previous_place} />
-          <div className='time'>{ formatSeconds(song.sc_duration) }</div>
+          { this.renderPlace() }
+          { this.renderTime() }
         </div>
       </div>
     )

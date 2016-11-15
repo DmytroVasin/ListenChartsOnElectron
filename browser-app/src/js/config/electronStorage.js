@@ -6,7 +6,7 @@ export const loadState = ()  => {
 
 export const saveState = (state) => {
   electronStorage.set('stateOfStore', {
-    app: state.app,
-    player: state.player
+    app: Object.assign({}, state.app, { downloadLoading: false }),
+    player: Object.assign({}, state.player, { isPlaying: false })
   });
 }

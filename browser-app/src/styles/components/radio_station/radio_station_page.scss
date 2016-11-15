@@ -48,12 +48,12 @@
 
       &:hover { border: 2px solid $white; }
 
-      .circle-play {
-        background: url(images/player/white-play-button-over.png);
-        width: 21px;
-        height: 21px;
-        background-size: 100% 100%;
-        margin: 12px 0 0 15px;
+      .icon-play {
+        color: white;
+        text-align: center;
+        font-size: 24px;
+        line-height: 46px;
+        margin-left: 5px;
       }
     }
   }

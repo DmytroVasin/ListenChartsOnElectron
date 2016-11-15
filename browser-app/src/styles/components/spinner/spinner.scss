@@ -1,6 +1,6 @@
 /* Absolute Center CSS Spinner */
 
-.loading-container {
+.spinner-container {
   position: absolute;
   left: 0;
   top: 0;
@@ -9,7 +9,7 @@
   background-color: rgba(0,0,0,0.3);
   z-index: 1;
 
-  .loading {
+  .icon-spinner {
     position: absolute;
     z-index: 999;
     top: 50%;
@@ -17,8 +17,7 @@
     margin-left: -15px;
     margin-top: -15px;
 
-    width: 30px;
-    height: 30px;
-    background: url(images/player/loader-wheel.svg);
+    font-size: 30px;
+    color: white;
   }
 }

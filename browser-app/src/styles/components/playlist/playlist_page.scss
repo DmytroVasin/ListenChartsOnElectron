@@ -3,6 +3,7 @@
   overflow-y: scroll;
 
   .lc-playlist-row {
+    position: relative;
     border-bottom: 1px solid $border;
     line-height: 24px;
 
@@ -15,87 +16,53 @@
     }
 
     .lc-playlist-row-progress {
-      display: none;
       position: absolute;
-      top: 0; left: 0; bottom: 0;
+      top: 0; left: 0;
+      height: 100%; width: 0%;
       background-color: $border;
     }
 
     .lc-playlist-row-content {
       position: relative;
-      display: flex;
-      align-items: center;
       cursor: pointer;
+      display: table;
+      width: 100%;
 
-      > * { z-index: 1; }
+      > * {
+        z-index: 1;
+        display: table-cell;
+        text-align: center;
+      }
 
-      .play-pause {
-        margin: 0 10px;
-        width: 5px;
-        height: 9px;
-        background: url(images/player/playlist-play-button.png);
+      .icon-play,
+      .icon-pause {
+        width: 25px;
+        font-size: 8px;
       }
 
       .title {
-        flex: 1;
-
+        text-align: left;
         span { font-weight: bold; }
       }
 
-      .place {
-        margin-right: 5px;
-        width: 24px;
-        height: 20px;
-
-        &.place-up {
-          background: url(images/player/playlist-place-up-button.png);
-          &:hover {
-            background: url(images/player/playlist-place-up-button-over.png);
-          }
-        }
-        &.place-down {
-          background: url(images/player/playlist-place-down-button.png);
-          &:hover {
-            background: url(images/player/playlist-place-down-button-over.png);
-          }
-        }
-        &.place-new {
-          background: url(images/player/playlist-place-new-button.png);
-          &:hover {
-            background: url(images/player/playlist-place-new-button-over.png);
-          }
-        }
-      }
-      .cart {
-        margin-right: 5px;
-        width: 20px;
-        height: 27px;
-        background: url(images/player/playlist-buy-button.png);
-
-        &:hover {
-          background: url(images/player/playlist-buy-button-over.png);
-        }
-      }
-      .download {
-        margin-right: 5px;
-        width: 20px;
-        height: 27px;
-        background: url(images/player/playlist-download-button.png);
-        &:hover {
-          background: url(images/player/playlist-download-button-over.png);
-        }
+      .icon-link,
+      .icon-download,
+      .icon-fire,
+      .icon-arrow-up,
+      .icon-arrow-down {
+        width: 25px;
+        font-size: 12px;
       }
 
-      .time { margin: 0 15px 0 10px; }
+      .time {
+        width: 60px;
+      }
     }
 
     &:hover {
       color: $black;
 
-      .play-pause {
-        background: url(images/player/playlist-play-button-over.png);
-      }
-
+      .icon-play, .icon-pause { color: #000000; }
     }
 
     &.active {
@@ -107,13 +74,7 @@
       }
 
       .lc-playlist-row-content {
-        .play-pause {
-          background: url(images/player/playlist-play-button-over.png);
-
-          &.playing {
-            background: url(images/player/playlist-pause-button-over.png);
-          }
-        }
+        .icon-play, .icon-pause { color: #000000; }
       }
     }
   }

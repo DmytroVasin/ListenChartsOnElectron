@@ -1,4 +1,3 @@
-require('font-awesome-webpack')
 import '../styles/application.scss'
 
 import React from 'react';

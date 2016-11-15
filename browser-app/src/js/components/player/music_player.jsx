@@ -90,19 +90,6 @@ export class MusicPlayer extends Component {
     if (songId != prevSongId) {
       audioElement.play();
     }
-
-
-    // TODO: ЭТА ХУЙНЯ НЕ ДОЛЖНА БЫТЬ ТУТ!!
-    // Это не принадлежит плееру - а вообще APP
-
-    // Turn player OFF
-    if (prevProps.player.isPlaying && !this.props.player.isPlaying) {
-      ipcRenderer.send('update-image-tray-window-event', false);
-    }
-    // Turn player ON
-    if (!prevProps.player.isPlaying && this.props.player.isPlaying) {
-      ipcRenderer.send('update-image-tray-window-event', true);
-    }
   }
 
   componentWillUnmount() {
@@ -257,6 +244,7 @@ export class MusicPlayer extends Component {
   }
 
   render() {
+    const { playerContent } = this.props.app;
     const { duration, currentTime, isPlaying, replay, shuffle, volume, mute } = this.props.player;
     const { song } = this.props;
 
@@ -272,9 +260,9 @@ export class MusicPlayer extends Component {
         </div>
 
         <div className='lc-player-controlls'>
-          <div className='prev-btn' onClick={ this.handlePrevSong }></div>
-          <div className={ classNames('play-btn', { 'playing': isPlaying }) } onClick={ this.togglePlay }></div>
-          <div className='next-btn' onClick={ this.handleNextSong }></div>
+          <div className='icon-backward' onClick={ this.handlePrevSong }></div>
+          <div className={ classNames({ 'icon-play': !isPlaying, 'icon-pause': isPlaying }) } onClick={ this.togglePlay }></div>
+          <div className='icon-forward' onClick={ this.handleNextSong }></div>
         </div>
 
         <div className='lc-player-devider'></div>
@@ -304,17 +292,17 @@ export class MusicPlayer extends Component {
 
         <div className='lc-player-options'>
           <div className='options-bar'>
-            <div className='options-btn playlist' onClick={ this.goToStatiosOrEpisodes }></div>
-            <div className='options-btn player-content' onClick={ this.togglePlayerContent }></div>
-            <div className={ classNames('options-btn', 'replay', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
-            <div className={ classNames('options-btn', 'shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
-            <div className='options-btn download' onClick={ this.handleDownload }></div>
-            <div className='options-btn visit-site' onClick={ this.handleVisitSite }></div>
-            <div className='options-btn close-app' onClick={ this.handleQuitApp }></div>
+            <div className='icon-stack' onClick={ this.goToStatiosOrEpisodes }></div>
+            <div className={ classNames({ 'icon-shrink': playerContent, 'icon-enlarge': !playerContent }) } onClick={ this.togglePlayerContent }></div>
+            <div className={ classNames('icon-loop', { 'active': replay }) } onClick={ this.handleToggleReplay }></div>
+            <div className={ classNames('icon-shuffle', { 'active': shuffle }) } onClick={ this.handleToggleShuffle }></div>
+            <div className='icon-download' onClick={ this.handleDownload }></div>
+            <div className='icon-new-tab' onClick={ this.handleVisitSite }></div>
+            <div className='icon-switch' onClick={ this.handleQuitApp }></div>
           </div>
 
           <div className='volume-bar'>
-            <div className={ classNames('volume-bar-btn', { 'mute': mute }) } onClick={ this.handleToggleMute }></div>
+            <div className={ classNames({ 'icon-volume-mute': mute, 'icon-volume-high': !mute }) } onClick={ this.handleToggleMute }></div>
 
             <div className='volume-progress-bar-wrapper' onMouseDown={ this.handleVolumeMouseDown } >
               <div className='volume-progress-bar' ref='volumeBar'>

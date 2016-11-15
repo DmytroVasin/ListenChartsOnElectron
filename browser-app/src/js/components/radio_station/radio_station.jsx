@@ -14,7 +14,7 @@ export class RadioStation extends Component {
           <div className='mask'></div>
 
           <div className='circle'>
-            <div className='circle-play'></div>
+            <div className='icon-play'></div>
           </div>
         </Link>
       </div>

@@ -36,51 +36,22 @@
 
   .lc-player-controlls {
     height: inherit;
-    display: flex;
-    align-items: center;
+    display: table;
 
-    .prev-btn {
-      cursor: pointer;
-
-      width: 19px;
-      height: 20px;
-      background: url(images/player/prev-button.png);
-
-      &:hover {
-        background: url(images/player/prev-button-over.png);
-      }
+    > * {
+      display: table-cell;
+      vertical-align: middle;
     }
 
-    .play-btn {
-      cursor: pointer;
-      margin: 0 5px;
-
-      width: 25px;
-      height: 27px;
-      background: url(images/player/play-button.png);
-
-      &:hover {
-        background: url(images/player/play-button-over.png);
-      }
-
-      &.playing {
-        background: url(images/player/pause-button.png);
-
-        &:hover {
-          background: url(images/player/pause-button-over.png);
-        }
-      }
+    .icon-backward,
+    .icon-forward {
+      font-size: 24px;
     }
 
-    .next-btn {
-      cursor: pointer;
-      width: 19px;
-      height: 20px;
-      background: url(images/player/next-button.png);
-
-      &:hover {
-        background: url(images/player/next-button-over.png);
-      }
+    .icon-play,
+    .icon-pause {
+      font-size: 28px;
+      padding: 0 5px;
     }
   }
 
@@ -160,6 +131,7 @@
             left: 0;
             height: 5px;
             width: 2px;
+            margin-left: -2px;
             background-color: #000000;
             transition: left 0.2s ease-in-out;
           }
@@ -181,74 +153,33 @@
     height: 55px;
 
     .options-bar {
+      display: table;
+      width: 100%;
       height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      text-align: center;
 
-      .options-btn {
-        cursor: pointer;
-        width: 22px;
-        height: 20px;
-
-        &.close-app {
-          background: url(images/player/close-button.png);
-          &.active, &:hover { background: url(images/player/close-button-over.png); }
-        }
-        &.player-content {
-          background: url(images/player/display-button.png);
-          &.active, &:hover { background: url(images/player/display-button-over.png); }
-        }
-        &.playlist {
-          background: url(images/player/categories-button.png);
-          &.active, &:hover { background: url(images/player/categories-button-over.png); }
-        }
-        &.replay {
-          background: url(images/player/replay-button.png);
-          &.active, &:hover { background: url(images/player/replay-button-over.png); }
-        }
-        &.shuffle {
-          background: url(images/player/shuffle-button.png);
-          &.active, &:hover { background: url(images/player/shuffle-button-over.png); }
-        }
-        &.download {
-          background: url(images/player/download-button.png);
-          &.active, &:hover { background: url(images/player/download-button-over.png); }
-        }
-        &.visit-site {
-          background: url(images/player/popup-button.png);
-          &.active, &:hover { background: url(images/player/popup-button-over.png); }
-        }
+      > * {
+        display: table-cell;
+        font-size: 16px;
+        vertical-align: middle;
       }
     }
 
     .volume-bar {
       line-height: 24px;
       margin-top: 9px;
-      display: flex;
+      display: table;
 
-      .volume-bar-btn {
-        margin: 1px 5px 0 2px;
-        cursor: pointer;
-        width: 22px;
-        height: 20px;
-
-        background: url(images/player/volume-icon.png);
-
-        &:hover {
-          background: url(images/player/volume-icon-over.png);
-        }
-
-        &.mute {
-          background: url(images/player/volume-icon-mute.png);
-
-          &:hover {
-            background: url(images/player/volume-icon-mute-over.png);
-          }
-        }
+      .icon-volume-high,
+      .icon-volume-mute {
+        padding-right: 5px;
+        vertical-align: middle;
+        font-size: 16px;
+        display: table-cell;
       }
 
       .volume-progress-bar-wrapper {
+        display: table-cell;
         width: 100%;
         cursor: pointer;
 
@@ -271,6 +202,7 @@
             left: 0;
             height: 5px;
             width: 2px;
+            margin-left: -2px;
             background-color: #000000;
             transition: left 0.2s ease-in-out;
           }

@@ -15,12 +15,50 @@ class ApplicationComponent extends Component {
     this.resizeAppWindow(props.app.playerContent)
   }
 
-  componentDidUpdate = (prevProps) => {
-    const playerContent = this.props.app.playerContent;
-    const prevPlayerContent = prevProps.app.playerContent;
+  componentDidMount() {
+    ipcRenderer.on('start-track-downloading', this.handleStartTrackDownloading);
+    ipcRenderer.on('finish-track-downloading', this.handleFinishTrackDownloading);
+  }
 
+  componentWillUnmount() {
+    ipcRenderer.removeListener('start-track-downloading', this.handleStartTrackDownloading);
+    ipcRenderer.removeListener('finish-track-downloading', this.handleFinishTrackDownloading);
+  }
+
+  handleStartTrackDownloading = () => {
+    this.props.actions.startTrackDownloading()
+  }
+
+  handleFinishTrackDownloading = () => {
+    this.props.actions.finishTrackDownloading()
+  }
+
+  componentDidUpdate = (prevProps) => {
+    const app = this.props.app;
+    const prevApp = prevProps.app;
+
+    const player = this.props.player;
+    const prevPlayer = prevProps.player;
+
+    this.updateTrayImageIfNeeded(player.isPlaying, prevPlayer.isPlaying);
+    this.resizeIfNeeded(app.playerContent, prevApp.prevPlayerContent);
+  }
+
+  updateTrayImageIfNeeded = (isPlaying, prevIsPlaying) => {
+    // Turn player OFF
+    if (prevIsPlaying && !isPlaying) {
+      ipcRenderer.send('update-image-tray-window-event', false);
+    }
+    // Turn player ON
+    if (!prevIsPlaying && isPlaying) {
+      ipcRenderer.send('update-image-tray-window-event', true);
+    }
+  }
+
+
+  resizeIfNeeded = (playerContent, prevPlayerContent) => {
     if ( playerContent != prevPlayerContent ) {
-      this.resizeAppWindow(playerContent)
+      this.resizeAppWindow(playerContent);
     }
   }
 
@@ -54,7 +92,8 @@ class ApplicationComponent extends Component {
 
 function mapStateToProps(store) {
   return {
-    app: store.app
+    app: store.app,
+    player: store.player
   }
 }
 
