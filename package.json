@@ -2,16 +2,21 @@
   "name": "Wi",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "Zzzz.",
+  "description": "App is based on Electron, React, Redux + Rails as a back end.",
   "author": "Dmytro Vasin <dmytro.vasin@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/DmytroVasin/xxx.git"
   },
   "scripts": {
-    "clean": "rm -rf app/electron-app/ && rm -rf app/browser-app/ && rm -rf dist/",
     "b": "NODE_ENV=development webpack-dev-server --config webpack.config.js --hot --inline",
-    "e": "NODE_ENV=development electron ./electron-app/js/index.js"
+    "e": "NODE_ENV=development electron ./electron-app/js/index.js",
+    "postinstall": "install-app-deps",
+    "clean": "rm -rf ./app/electron-app/ && rm -rf ./app/browser-app/ && rm -rf ./app/browser-app/dist/",
+    "publish:browser": "webpack --config webpack.config.pro.js",
+    "publish:electron": "cp -R electron-app/ app/electron-app/",
+    "publish:osx": "build --x64",
+    "publish:dist": "npm run clean && npm run publish:browser && npm run publish:electron && npm run publish:osx"
   },
   "dependencies": {
     "electron": "^1.4.6",

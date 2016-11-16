@@ -18,9 +18,9 @@ class MainWindow {
 
     this.window.loadURL(htmlPath);
 
-    // this.window.on('blur', () => {
-    //   this.window.hide();
-    // });
+    this.window.on('blur', () => {
+      this.window.hide();
+    });
   }
 }
 

@@ -169,18 +169,18 @@
       line-height: 24px;
       margin-top: 9px;
       display: table;
+      width: 100%;
 
       .icon-volume-high,
       .icon-volume-mute {
-        padding-right: 5px;
         vertical-align: middle;
         font-size: 16px;
         display: table-cell;
+        width: 25px;
       }
 
       .volume-progress-bar-wrapper {
         display: table-cell;
-        width: 100%;
         cursor: pointer;
 
         .volume-progress-bar {

@@ -2,10 +2,9 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    main: './main.jsx',
-    about: './about.jsx',
-    tray: './tray.jsx'
+    main: './main.jsx'
   },
+  target: 'electron',
   context: __dirname + '/browser-app/src/js',
 
   resolve: {
