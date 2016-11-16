@@ -229,3 +229,12 @@ export function finishTrackDownloading() {
     })
   }
 }
+
+export function handleOnline(state) {
+  return (dispatch) => {
+    dispatch({
+      type: 'IS_ONLINE',
+      payload: state
+    })
+  }
+}

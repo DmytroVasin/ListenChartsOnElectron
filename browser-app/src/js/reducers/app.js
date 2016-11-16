@@ -1,11 +1,15 @@
 const INITIAL_STATE = {
   downloadLoading: false,
   playerContent: true,
-  currentStationId: null
+  currentStationId: null,
+  is_online: false
 }
 
 const playlist = (state = INITIAL_STATE, action) => {
   switch(action.type) {
+
+    case 'IS_ONLINE':
+      return Object.assign({}, state, { is_online: action.payload });
 
     case 'START_TRACK_DOWNLOADING':
       return Object.assign({}, state, { downloadLoading: true });

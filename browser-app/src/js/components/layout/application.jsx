@@ -16,11 +16,18 @@ class ApplicationComponent extends Component {
   }
 
   componentDidMount() {
+    this.updateOnlineStatus()
+    window.addEventListener('online',  this.updateOnlineStatus);
+    window.addEventListener('offline',  this.updateOnlineStatus);
+
     ipcRenderer.on('start-track-downloading', this.handleStartTrackDownloading);
     ipcRenderer.on('finish-track-downloading', this.handleFinishTrackDownloading);
   }
 
   componentWillUnmount() {
+    window.removeEventListener('online',  this.updateOnlineStatus);
+    window.removeEventListener('offline',  this.updateOnlineStatus);
+
     ipcRenderer.removeListener('start-track-downloading', this.handleStartTrackDownloading);
     ipcRenderer.removeListener('finish-track-downloading', this.handleFinishTrackDownloading);
   }
@@ -71,6 +78,10 @@ class ApplicationComponent extends Component {
       height = 92
     }
     remote.getCurrentWindow().setSize(800, height);
+  }
+
+  updateOnlineStatus = () => {
+    this.props.actions.handleOnline(navigator.onLine)
   }
 
   render() {
