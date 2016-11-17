@@ -12,9 +12,9 @@ module.exports = {
   },
 
   output: {
-    path: './app/browser-app/dist/js',
+    path: './app/browser-app/',
     filename: '[name].js',
-    publicPath: '../../browser-app/dist/js/'
+    publicPath: '../../browser-app/'
   },
   devtool: 'source-map',
   module: {

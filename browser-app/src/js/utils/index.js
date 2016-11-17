@@ -1,6 +1,6 @@
 // TODO: Реально ли рекваирить файлы таким образом, что бы типо оно их рекваирило относительно ROOT_FOLDER или предустановленной папки
 // Проблема в том, что при билде приложения папки будут копироваться без соблюдения структуры
-const dummyImage = require('../../styles/images/player/dummy-image.png');
+const dummyImage = require('../../images/player/dummy-image.png');
 
 // Format for seconds -> '00:00'
 export function formatSeconds(num) {
