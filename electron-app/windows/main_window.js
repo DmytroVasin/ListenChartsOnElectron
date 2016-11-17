@@ -1,3 +1,5 @@
+const isDev = (process.env.NODE_ENV === 'development');
+
 const path = require('path');
 const { BrowserWindow } = require('electron');
 
@@ -18,9 +20,11 @@ class MainWindow {
 
     this.window.loadURL(htmlPath);
 
-    this.window.on('blur', () => {
-      this.window.hide();
-    });
+    if ( !isDev ) {
+      this.window.on('blur', () => {
+        this.window.hide();
+      });
+    }
   }
 }
 
