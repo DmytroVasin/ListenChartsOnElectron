@@ -1,9 +1,10 @@
 ## ListenCharts On Electron:
 
 Click to download .dmg package of LCharts:
-[From Github](https://github.com/DmytroVasin/ListenChartsOnElectron/raw/master/_readme/LCharts-0.0.1.dmg)
-[From SaberCat](https://sabercathost.com/Kvi/LCharts-0.0.1.dmg)
-[From Dropbox](https://www.dropbox.com/s/prw8adsk8xt5zfq/LCharts-0.0.1.dmg?dl=0)
+
+- [From Github](https://github.com/DmytroVasin/ListenChartsOnElectron/raw/master/_readme/LCharts-0.0.1.dmg)
+- [From SaberCat](https://sabercathost.com/Kvi/LCharts-0.0.1.dmg)
+- [From Dropbox](https://www.dropbox.com/s/prw8adsk8xt5zfq/LCharts-0.0.1.dmg?dl=0)
 
 > Worked on: "OS X El Capitan ( Version 10.11.6 )"
 
@@ -40,7 +41,7 @@ Click to download .dmg package of LCharts:
 
 * Hide window "on blur"
 
-* Play audio of cause :)
+* Play audio, of course :)
 
 ![play_audio](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/play_audio.png)
 
@@ -50,7 +51,7 @@ Click to download .dmg package of LCharts:
 
 * Quit app by clicking on icon
 
-* Open external link ( Open browser ) by clicking on icon
+* Open external link by clicking on icon ( open browser )
 
 * Download audio by clicking on icon
 
@@ -60,7 +61,7 @@ Click to download .dmg package of LCharts:
 
 ![notification_after_downloading](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/Notification_after_downloading.png)
 
-* Save App state on quit. On Reopen user will have preset Mute, Volume, Song, Replay, Shuffle options
+* Save App state on quit. When user reopen app, app will preset Mute, Volume, Song, Replay, Shuffle options
 
 
 ## Setup:
