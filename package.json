@@ -53,7 +53,7 @@
   },
   "build": {
     "asar": false,
-    "appId": "hr.creaticon.eatodo",
+    "appId": "com.electron.lcharts",
     "category": "public.app-category.productivity",
     "dmg": {
       "title": "Listen Charts Installation",

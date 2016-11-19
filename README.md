@@ -4,6 +4,14 @@
 
 > Worked on: "OS X El Capitan ( Version 10.11.6 )"
 
+#### Troubleshooting:
+*When running an application on OS X, like Mac Imager CLI, you receive the error "Your security preferences allow installation of only apps from the Mac App Store and identified developers."*
+
+- Open OS X System Preferences > Security & Privacy
+- On the "General" tab click the lock in the lower left corner to unlock the general preference pane
+- Under "Allow applications downloaded from:", select the "Anywhere" radio button
+
+
 ## What was implemented:
 
 * Customized installation window:
