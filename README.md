@@ -1,6 +1,6 @@
 ## ListenCharts On Electron:
 
-[Dmg package of Listen Charts](https://yarnpkg.com/en/docs/install)
+[Click to download .dmg package of LCharts](https://github.com/DmytroVasin/ListenChartsOnElectron/raw/master/_readme/LCharts-0.0.1.dmg)
 
 > Worked on: "OS X El Capitan ( Version 10.11.6 )"
 
@@ -8,34 +8,34 @@
 
 * Customized installation window:
 
-![customize-instalations](https://cloud.githubusercontent.com/assets/1914001/20455695/80cd3198-ae6a-11e6-8e81-4d08d1ed9ddb.png)
+![customize-instalations](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/customize-instalations.png)
 
 * Tray based app, without Dock icon
 
 * Position of the Tray window
 
-![traywindow](https://cloud.githubusercontent.com/assets/1914001/20455702/80f150d2-ae6a-11e6-98ea-dab446a3b484.png)
+![traywindow](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/traywindow.png)
 
 * Small arrow that point to Tray Icon
 
-![arrow](https://cloud.githubusercontent.com/assets/1914001/20455694/80ad0db4-ae6a-11e6-8be9-fed52b8b8570.png)
+![arrow](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/arrow.png)
 
 * Transparent background of the app
 
 * Ability to increase / decrease size of the window
 
-![increase](https://cloud.githubusercontent.com/assets/1914001/20455699/80d7ec96-ae6a-11e6-93d5-33f9fb409514.png)
-![decrease](https://cloud.githubusercontent.com/assets/1914001/20455696/80d59cac-ae6a-11e6-83b4-e90abdb50fad.png)
+![increase](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/increase.png)
+![decrease](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/decrease.png)
 
 * Hide window "on blur"
 
 * Play audio of cause :)
 
-![play_audio](https://cloud.githubusercontent.com/assets/1914001/20455701/80e66f8c-ae6a-11e6-8480-b8fba7acf277.png)
+![play_audio](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/play_audio.png)
 
 * Dynamically change icons when audio is "ON" ( Somethig like 'equalizer' )
 
-![equalizer](https://cloud.githubusercontent.com/assets/1914001/20455697/80d63040-ae6a-11e6-8522-7b450bb3fbac.png)
+![equalizer](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/equalizer.png)
 
 * Quit app by clicking on icon
 
@@ -43,11 +43,11 @@
 
 * Download audio by clicking on icon
 
-![download](https://cloud.githubusercontent.com/assets/1914001/20455698/80d6924c-ae6a-11e6-96ee-df1ba11a59a5.png)
+![download](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/download.png)
 
 * Notification after success downloading
 
-![notification_after_downloading](https://cloud.githubusercontent.com/assets/1914001/20455700/80d8aad2-ae6a-11e6-97ef-68a87f6165ed.png)
+![notification_after_downloading](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/Notification_after_downloading.png)
 
 * Save App state on quit. On Reopen user will have preset Mute, Volume, Song, Replay, Shuffle options
 
