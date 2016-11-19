@@ -15,7 +15,9 @@ const {app, ipcMain, Menu} = electron;
 let main = null;
 let trayIcon = null;
 
-// app.dock.hide();
+if ( !isDev ) {
+  app.dock.hide();
+}
 
 app.on('ready', function () {
   if ( isDev ) installExtentions();
