@@ -1,6 +1,9 @@
 ## ListenCharts On Electron:
 
-[Click to download .dmg package of LCharts](https://github.com/DmytroVasin/ListenChartsOnElectron/raw/master/_readme/LCharts-0.0.1.dmg)
+Click to download .dmg package of LCharts:
+[From Github](https://github.com/DmytroVasin/ListenChartsOnElectron/raw/master/_readme/LCharts-0.0.1.dmg)
+[From SaberCat](https://sabercathost.com/Kvi/LCharts-0.0.1.dmg)
+[From Dropbox](https://www.dropbox.com/s/prw8adsk8xt5zfq/LCharts-0.0.1.dmg?dl=0)
 
 > Worked on: "OS X El Capitan ( Version 10.11.6 )"
 
