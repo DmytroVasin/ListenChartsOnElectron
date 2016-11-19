@@ -1,5 +1,5 @@
 {
-  "name": "Wi",
+  "name": "LCharts",
   "version": "0.0.1",
   "license": "MIT",
   "description": "App is based on Electron, React, Redux + Rails as a back end.",
@@ -12,7 +12,7 @@
     "b": "NODE_ENV=development webpack-dev-server --config webpack.config.js --hot --inline",
     "e": "NODE_ENV=development electron ./electron-app/js/index.js",
     "postinstall": "install-app-deps",
-    "clean": "rm -rf ./app/electron-app/ && rm -rf ./app/browser-app/ && rm -rf ./app/browser-app/dist/",
+    "clean": "rm -rf ./dist/ && rm -rf ./app/electron-app/ && rm -rf ./app/browser-app/ && rm -rf ./app/browser-app/dist/",
     "publish:browser": "webpack --config webpack.config.pro.js",
     "publish:electron": "cp -R electron-app/ app/electron-app/",
     "publish:osx": "build --x64",
@@ -56,18 +56,18 @@
     "appId": "hr.creaticon.eatodo",
     "category": "public.app-category.productivity",
     "dmg": {
-      "title": "Winamp LC Installation",
+      "title": "Listen Charts Installation",
       "contents": [
+        {
+          "x": 130,
+          "y": 135,
+          "type": "file"
+        },
         {
           "x": 410,
           "y": 125,
           "type": "link",
           "path": "/Applications"
-        },
-        {
-          "x": 130,
-          "y": 125,
-          "type": "file"
         }
       ]
     }
