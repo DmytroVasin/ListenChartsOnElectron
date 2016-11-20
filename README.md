@@ -16,6 +16,10 @@ Click to download .dmg package of LCharts:
 - Under "Allow applications downloaded from:", select the "Anywhere" radio button
 
 
+## Video: *Click to play*
+
+[![Preview](https://raw.githubusercontent.com/DmytroVasin/ListenChartsOnElectron/master/_readme/_preview.png)](https://player.vimeo.com/video/192313570?autoplay=1)
+
 ## What was implemented:
 
 * Customized installation window:
