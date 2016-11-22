@@ -16,7 +16,7 @@
     "publish:browser": "webpack --config webpack.config.pro.js",
     "publish:electron": "cp -R electron-app/ app/electron-app/",
     "publish:osx": "build --x64",
-    "publish:dist": "npm run empty && npm run publish:browser && npm run publish:electron && npm run publish:osx"
+    "publish:dist": "yarn run empty && yarn run publish:browser && yarn run publish:electron && yarn run publish:osx"
   },
   "dependencies": {
     "electron-json-config": "^1.4.0",
