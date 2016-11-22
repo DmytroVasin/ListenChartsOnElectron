@@ -62,7 +62,7 @@ export class MusicPlayer extends Component {
 
     audioElement.addEventListener('play', this.handlePlay, false);
     audioElement.addEventListener('pause', this.handlePause, false);
-    audioElement.addEventListener('ended', this.handleNextSong, false);
+    audioElement.addEventListener('ended', this.handleEnded, false);
     audioElement.addEventListener('loadstart', this.handleLoadStart, false);
     audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
     audioElement.addEventListener('loadedmetadata', this.handleLoadedMetadata, false);
@@ -117,12 +117,21 @@ export class MusicPlayer extends Component {
     this.props.actions.durationUpdate(0)
   }
 
-  handleNextSong = () => {
-    const { replay, shuffle } = this.props.player;
+  handleEnded = () => {
+    const audioElement = this.refs.audio;
+    const { replay } = this.props.player;
 
     if (replay) {
-      this.props.actions.changeSong('REPLAY_SONG')
-    } else if (shuffle) {
+      audioElement.play();
+    } else {
+      this.handlePrevSong();
+    }
+  }
+
+  handleNextSong = () => {
+    const { shuffle } = this.props.player;
+
+    if (shuffle) {
       this.props.actions.changeSong('SHUFFLE_SONG')
     } else {
       this.props.actions.changeSong('NEXT_SONG')
@@ -130,11 +139,9 @@ export class MusicPlayer extends Component {
   }
 
   handlePrevSong = () => {
-    const { replay, shuffle } = this.props.player;
+    const { shuffle } = this.props.player;
 
-    if (replay) {
-      this.props.actions.changeSong('REPLAY_SONG')
-    } else if (shuffle) {
+    if (shuffle) {
       this.props.actions.changeSong('SHUFFLE_SONG')
     } else {
       this.props.actions.changeSong('PREV_SONG')

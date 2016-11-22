@@ -140,8 +140,6 @@ export function changeSong(changeType) {
       newSongIndex = currentSongIndex + 1;
     } else if (changeType === 'PREV_SONG') {
       newSongIndex = currentSongIndex - 1;
-    } else if (changeType === 'REPLAY_SONG') {
-      newSongIndex = currentSongIndex
     } else if (changeType === 'SHUFFLE_SONG') {
       newSongIndex = random(playlist.songs.length + 1);
     }
@@ -152,7 +150,7 @@ export function changeSong(changeType) {
       return null;
     }
 
-    return dispatch(playSong(newSong));
+    dispatch(playSong(newSong));
   }
 }
 
