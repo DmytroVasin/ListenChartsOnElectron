@@ -5,6 +5,20 @@ import { formatSeconds, offsetLeft, soundCloudUrl, soundCloudImage } from '../..
 import { Link } from 'react-router';
 
 export class MusicPlayer extends Component {
+  handleQuitApp = () => {
+    ipcRenderer.send('quit-app');
+  }
+
+  handleVisitSite = () => {
+    shell.openExternal('http://beta.listencharts.com/');
+  }
+
+  handleDownload = () => {
+    if (this.props.player.song.sc_stream_url) {
+      ipcRenderer.send('dowload-file-from-url', this.props.player.song.sc_stream_url);
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -45,16 +59,6 @@ export class MusicPlayer extends Component {
     this.props.actions.switchContent()
   }
 
-  handleVisitSite = () => {
-    shell.openExternal('http://beta.listencharts.com/');
-  }
-
-  handleDownload = () => {
-    if (this.props.player.song.sc_stream_url) {
-      ipcRenderer.send('dowload-file-from-url', this.props.player.song.sc_stream_url);
-    }
-  }
-
   componentDidMount = () => {
     const audioElement = this.refs.audio;
 
@@ -66,6 +70,7 @@ export class MusicPlayer extends Component {
     audioElement.addEventListener('loadstart', this.handleLoadStart, false);
     audioElement.addEventListener('timeupdate', this.handleTimeUpdate, false);
     audioElement.addEventListener('loadedmetadata', this.handleLoadedMetadata, false);
+    audioElement.addEventListener('error', this.failedToLoad, false);
   }
 
   // TODO: Too much call'
@@ -101,6 +106,7 @@ export class MusicPlayer extends Component {
     audioElement.removeEventListener('loadstart', this.handleLoadStart, false);
     audioElement.removeEventListener('timeupdate', this.handleTimeUpdate, false);
     audioElement.removeEventListener('loadedmetadata', this.handleLoadedMetadata, false);
+    audioElement.removeEventListener('error', this.failedToLoad, false);
   }
 
 
@@ -236,8 +242,8 @@ export class MusicPlayer extends Component {
     });
   }
 
-  handleQuitApp = () => {
-    ipcRenderer.send('quit-app');
+  failedToLoad = () => {
+    this.handleNextSong()
   }
 
   renderSongTitle = () => {
