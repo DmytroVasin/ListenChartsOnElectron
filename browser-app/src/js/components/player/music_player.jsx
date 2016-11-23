@@ -14,8 +14,9 @@ export class MusicPlayer extends Component {
   }
 
   handleDownload = () => {
-    if (this.props.player.song.sc_stream_url) {
-      ipcRenderer.send('dowload-file-from-url', this.props.player.song.sc_stream_url);
+    const { sc_stream_url, artist, title } = this.props.player.song;
+    if (sc_stream_url) {
+      ipcRenderer.send('dowload-file-from-url', sc_stream_url, artist, title);
     }
   }
 

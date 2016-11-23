@@ -15,15 +15,17 @@ export class SongRow extends Component {
   }
 
   handleDownload = (e) => {
-    e.stopPropagation()
-    ipcRenderer.send('dowload-file-from-url', this.props.songRow.sc_stream_url);
+    e.stopPropagation();
+    const { sc_stream_url, artist, title } = this.props.songRow;
+    ipcRenderer.send('dowload-file-from-url', sc_stream_url, artist, title);
   }
 
   handleGoBuyTrack = (e) => {
     e.stopPropagation()
 
-    if (this.props.songRow.sc_permalink_url) {
-      shell.openExternal(this.props.songRow.sc_permalink_url);
+    const { sc_permalink_url } = this.props.songRow;
+    if (sc_permalink_url) {
+      shell.openExternal(sc_permalink_url);
     }
   }
 
