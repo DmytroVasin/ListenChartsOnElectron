@@ -12,7 +12,7 @@ let downloadFile = function(mainWindow, url, artist, title) {
   dialog.showSaveDialog({
     defaultPath: path.join(targetPath, fileName),
     filters: [
-      { name: 'Audio', extensions: ['mp3'] },
+      { name: 'Audio', extensions: ['mp3'] }
     ]
   }, function(filePath) {
     if (filePath) {
@@ -22,13 +22,19 @@ let downloadFile = function(mainWindow, url, artist, title) {
 
         item.once('done', function(event, state) {
           mainWindow.webContents.send('finish-track-downloading');
+          let title;
+          let message;
+          if (state === 'interrupted') {
+            title = 'Something went wrong. Sorry.';
+            message = '';
+          }
 
           if (state === 'completed') {
-            var fileName = item.getSavePath().replace(/^.*[\\\/]/, '');
-            var message = 'File was download successfully';
-
-            sendNotification(mainWindow, fileName, message);
+            title = item.getSavePath().replace(/^.*[\\\/]/, '');
+            message = 'File was download successfully';
           }
+
+          sendNotification(mainWindow, title, message);
         });
       });
 
@@ -44,9 +50,9 @@ const fileNameConcat = function(artist, title) {
   return fileName.replace(/ /g,'_');
 }
 
-const sendNotification = function (mainWindow, fileName, message) {
+const sendNotification = function (mainWindow, title, message) {
   mainWindow.webContents.send('display-notification', {
-    title: fileName,
+    title: title,
     options: { body: message }
   })
 }
