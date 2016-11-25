@@ -14,12 +14,19 @@ const menuTemplate = require('./menuTemplate');
 const MainWindow  = require('../windows/main_window');
 const TrayIcon = require('./TrayIcon');
 
-const downloadFile = require('./downloadFile');
+const GithubUpdater = require('./github_updater');
+const downloadFile = require('./download_file');
 
 const {app, ipcMain, Menu} = electron;
 
 let main = null;
 let trayIcon = null;
+
+let ghUpdater = new GithubUpdater({
+  githubName: 'DmytroVasin',
+  githubProject: 'ListenChartsOnElectron',
+  currentVersion: app.getVersion()
+});
 
 if ( !isDev ) {
   app.dock.hide();
@@ -32,14 +39,10 @@ app.on('ready', function () {
   Menu.setApplicationMenu( Menu.buildFromTemplate(menuTemplate(main)) );
 
   trayIcon = new TrayIcon(main.window);
+
+
+  // ghUpdater.checkVersion();
 });
-
-
-// autoUpdater.addListener('checking-for-update', function (event) {
-//   console.log(app.getVersion())
-//   console.log('checking-for-update')
-// });
-
 
 ipcMain.on('quit-app', function() {
   main.window.close();
