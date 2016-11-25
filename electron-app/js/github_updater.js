@@ -5,7 +5,7 @@
 
 // https://github.com/electron/electron-api-demos/blob/master/auto-updater.js
 
-const { autoUpdater, dialog } = require('electron')
+const { autoUpdater, dialog, shell } = require('electron')
 const axios = require('axios')
 const semver = require('semver')
 const pjson = require('../../package.json');
@@ -21,65 +21,17 @@ class GithubUpdater {
     this.currentVersion = opts.currentVersion
   }
 
+  checkVersion (trayWindow) {
+    axios(this.repoUrl).then( (response) => {
+      const { tag_name, html_url } = response.data;
 
-  /**
-   * Check for updates.
-   */
-  checkVersion () {
-    this._getLatestTagRelease().then(response => {
-      if (!response.tag_name) {
-        console.log('Unable to get latest release tag from Github.')
-      }
-
-      if ( this._isLatestVersion(response.tag_name) ) {
-
-        console.log('Your version is not latest')
-        let packageUrl = this._getFeedUrlFromResponse(response)
-
-        console.log('before setFeedURL')
-        console.log(packageUrl)
-
-
-          autoUpdater.on('checking-for-update', function() {
-            console.log('Checking for update');
-          })
-          autoUpdater.on('update-available', function() {
-            console.log('Update available');
-          })
-          autoUpdater.on('update-not-available', function() {
-            console.log('Update not available');
-          })
-          autoUpdater.on('update-downloaded', function() {
-            console.log('Update downloaded');
-          });
-          autoUpdater.on('error', function() {
-            console.log(',.asdasdasd')
-          });
-
-
-        console.log('<><<><<M<>M<>M<>M><M')
-        this.autoUpdater.setFeedURL(packageUrl)
-        console.log('<><<><<M<>M<>M<>M><M')
-        this.autoUpdater.checkForUpdates()
-        // this._showDialog()
-        //
+      if ( this._isLatestVersion(tag_name) ) {
+        this._showDialog(trayWindow, html_url)
       } else {
-        console.log('Your have latest version')
+        console.log('Your version is lates')
       }
-    })
-  }
 
-  /**
-   * Get tags from this.repoUrl
-   */
-  _getLatestTagRelease () {
-    return axios(this.repoUrl)
-      .then(respond => {
-        return respond.data
-      })
-      .catch(err => {
-        return null
-      })
+    })
   }
 
   /**
@@ -90,36 +42,33 @@ class GithubUpdater {
   }
 
   /**
-   * Get the feed URL from this.repoUrl
+   * Get the feed URL to lates release
    */
   _getFeedUrlFromResponse (response) {
     if (DARWIN) {
-      console.log('Url for download latest release:')
-      return response.assets[0].browser_download_url
+      return response.html_url
     } else {
       console.log('Your platform is not supported.')
       return null;
     }
-
   }
 
-  _showDialog () {
-    // showDialog(message, detail, positive_button, callback) {
-    let index = dialog.showMessageBox({
+
+  _showDialog (trayWindow, url) {
+    let response = dialog.showMessageBox(trayWindow, {
       type: 'info',
-      buttons: ['Restart', 'Later'],
-      title: 'LCharts',
-      message: 'The new version has been released. Please restart the application to apply the updates.',
-      detail: 'detail'
+      buttons: ['Visit', 'Later'],
+      title: 'LCharts Updates',
+      message: 'The new version has been released.',
+      detail: 'Please download new version of an app by url.'
     });
 
-    if (index === 1) {
+    if (response) {
       console.log('Install updates later.')
       return null;
     }
 
-    console.log('Install updates now.')
-
+    shell.openExternal(url);
   }
 }
 

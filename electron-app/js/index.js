@@ -17,7 +17,7 @@ const TrayIcon = require('./TrayIcon');
 const GithubUpdater = require('./github_updater');
 const downloadFile = require('./download_file');
 
-const {app, ipcMain, Menu} = electron;
+const {app, ipcMain, Menu, shell} = electron;
 
 let main = null;
 let trayIcon = null;
@@ -40,8 +40,9 @@ app.on('ready', function () {
 
   trayIcon = new TrayIcon(main.window);
 
-
-  // ghUpdater.checkVersion();
+  main.window.once('show', () => {
+    ghUpdater.checkVersion(main.window);
+  })
 });
 
 ipcMain.on('quit-app', function() {
