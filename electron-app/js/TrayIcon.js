@@ -53,8 +53,10 @@ class TrayIcon {
       format = 'png'
       folder = 'mac'
     } else if (platform == 'win32') {
-      format = 'ico'
-      folder = 'win'
+      // format = 'ico'
+      // folder = 'win'
+      format = 'png'
+      folder = 'mac'
     }
 
     this.icon_default = path.join(__dirname, `../icons/${folder}/icon-22.${format}`)
