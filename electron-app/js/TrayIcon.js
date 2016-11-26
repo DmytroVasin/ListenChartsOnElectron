@@ -69,12 +69,12 @@ class TrayIcon {
     let windowSize = this.window.getSize()
     let screenSize = this.screen.getDisplayNearestPoint( this.screen.getCursorScreenPoint() ).workArea
 
-    if (platform == 'darwin') {
+    if (platform == 'win32') {
       return {
         x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
         y: screenSize.y
       }
-    } else if (platform == 'win32') {
+    } else if (platform == 'darwin') {
       return {
         x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
         y: Math.floor(screenSize.height - (windowSize[1] - screenSize.y))

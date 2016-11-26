@@ -5,6 +5,7 @@
       window.shell = require('electron').shell;
       window.remote = require('electron').remote;
       window.ipcRenderer = require('electron').ipcRenderer;
+      window.platform = require('os').platform();
     </script>
   </head>
 
@@ -24,7 +25,11 @@
       document.body.appendChild(js_script);
     </script>
 
-    <script type="text/javascript">
+    <script>
+      document.getElementById('react-root').className = window.platform;
+    </script>
+
+    <script>
       // Notifications can be sent only from renderer process
       ipcRenderer.on('display-notification', (event, args) => {
         new window.Notification( args.title, args.options)

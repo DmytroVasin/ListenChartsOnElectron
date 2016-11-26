@@ -1,41 +1,23 @@
 .window {
   height: 100%;
 
+  .window-arrow-front,
+  .window-arrow-back {
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 103px;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+  }
+
   .window-container {
-    top: 15px;
     position: relative;
     color: $text-color;
     font-size: 12px;
     background: $white;
-
-    &.arrow {
-      border: 1px solid $dark-border;
-      border-radius: 5px;
-
-      &:after, &:before {
-        content: ' ';
-        bottom: 100%;
-        border: solid transparent;
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-      }
-
-      &:after {
-        right: 102px;
-        border-bottom-color: $white;
-        border-width: 10px;
-        margin-left: -10px;
-      }
-
-      &:before {
-        right: 100px;
-        border-bottom-color: $dark-border;
-        border-width: 12px;
-        margin-left: -12px;
-      }
-    }
+    border: 1px solid $dark-border;
+    border-radius: 5px;
 
     .window-content {
       height: 230px;
@@ -54,6 +36,41 @@
           }
         }
       }
+    }
+  }
+}
+
+// .darwin {
+//   .window {
+//     .window-arrow-front {
+//       top: 5px;
+//       border-bottom: 12px solid $white;
+//     }
+//     .window-arrow-back {
+//       top: 3px;
+//       border-bottom: 12px solid $dark-border;
+//     }
+
+//     .window-container {
+//       top: 15px;
+//     }
+//   }
+// }
+
+// .win32 {
+.darwin {
+  .window {
+    .window-arrow-front {
+      bottom: 8px;
+      border-top: 12px solid $white;
+    }
+    .window-arrow-back {
+      bottom: 6px;
+      border-top: 12px solid $dark-border;
+    }
+
+    .window-container {
+      top: 0;
     }
   }
 }

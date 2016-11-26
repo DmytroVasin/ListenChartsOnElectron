@@ -75,7 +75,7 @@ class ApplicationComponent extends Component {
     if ( boolean ) {
       height = 325
     } else {
-      height = 92
+      height = 95
     }
     remote.getCurrentWindow().setSize(800, height);
   }
@@ -87,7 +87,7 @@ class ApplicationComponent extends Component {
   render() {
     return (
       <div className='window'>
-        <div className={ classNames('window-container', 'arrow', { 'hidden': !this.props.app.playerContent }) }>
+        <div className={ classNames('window-container', { 'hidden': !this.props.app.playerContent }) }>
           <SpinnerContainer />
           <MusicPlayerContainer />
 
@@ -95,6 +95,9 @@ class ApplicationComponent extends Component {
             { this.props.children }
           </div>
         </div>
+
+        <div className='window-arrow-back'></div>
+        <div className='window-arrow-front'></div>
       </div>
     );
   }
