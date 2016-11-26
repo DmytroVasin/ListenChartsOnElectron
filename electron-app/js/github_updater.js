@@ -1,17 +1,14 @@
 // https://api.github.com/repos/DmytroVasin/ListenChartsOnElectron/releases/latest
 
-// https://github.com/jenslind/electron-gh-releases/blob/master/docs/2.x/api.md
-// https://github.com/jenslind/electron-gh-releases/blob/master/src/GhReleases.js
-
-// https://github.com/electron/electron-api-demos/blob/master/auto-updater.js
-
 const { autoUpdater, dialog, shell } = require('electron')
 const axios = require('axios')
 const semver = require('semver')
 const pjson = require('../../package.json');
 
+const WIN32 = (process.platform === 'win32')
 const DARWIN = (process.platform === 'darwin')
-const CURRENT_VERSION = '0.0.0' // pjson.version
+
+const CURRENT_VERSION = pjson.version
 
 class GithubUpdater {
 
@@ -22,28 +19,21 @@ class GithubUpdater {
   }
 
   checkVersion (trayWindow) {
+    if (!DARWIN && !WIN32) return null;
+
     axios(this.repoUrl).then( (response) => {
       const { tag_name, html_url } = response.data;
 
-      if ( this._isLatestVersion(tag_name) ) {
-        this._showDialog(trayWindow, html_url)
-      } else {
-        console.log('Your version is lates')
-      }
+      if (this._isLatestVersion(tag_name)) return null;
 
+      this._showDialog(trayWindow, html_url)
     })
   }
 
-  /**
-   * Compare lastTagVersion with current version.
-   */
-  _isLatestVersion (lastTagVersion) {
-    return semver.gt(lastTagVersion, CURRENT_VERSION)
+  _isLatestVersion (latestVersion) {
+    return semver.gt(CURRENT_VERSION, latestVersion)
   }
 
-  /**
-   * Get the feed URL to lates release
-   */
   _getFeedUrlFromResponse (response) {
     if (DARWIN) {
       return response.html_url
@@ -52,7 +42,6 @@ class GithubUpdater {
       return null;
     }
   }
-
 
   _showDialog (trayWindow, url) {
     let response = dialog.showMessageBox(trayWindow, {
@@ -64,7 +53,6 @@ class GithubUpdater {
     });
 
     if (response) {
-      console.log('Install updates later.')
       return null;
     }
 
