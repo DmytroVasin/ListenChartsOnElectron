@@ -3,10 +3,10 @@
 const { autoUpdater, dialog, shell } = require('electron')
 const axios = require('axios')
 const semver = require('semver')
+const platform = require('os').platform();
 const pjson = require('../../package.json');
 
-const WIN32 = (process.platform === 'win32')
-const DARWIN = (process.platform === 'darwin')
+const PLATFORM_AVAILABLE = (platform == 'win32' || platform == 'darwin')
 
 const CURRENT_VERSION = pjson.version
 
@@ -19,7 +19,7 @@ class GithubUpdater {
   }
 
   checkVersion (trayWindow) {
-    if (!DARWIN && !WIN32) return null;
+    if (!PLATFORM_AVAILABLE) return null;
 
     axios(this.repoUrl).then( (response) => {
       const { tag_name, html_url } = response.data;
@@ -35,7 +35,7 @@ class GithubUpdater {
   }
 
   _getFeedUrlFromResponse (response) {
-    if (DARWIN) {
+    if (PLATFORM_AVAILABLE) {
       return response.html_url
     } else {
       console.log('Your platform is not supported.')

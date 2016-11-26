@@ -1,48 +1,33 @@
-// Platform specific!
-// http://electron.rocks/proper-tray-icon/
-
+const electron = require('electron');
+const platform = require('os').platform();
 const path = require('path');
-const { Tray } = require('electron');
 
 class TrayIcon {
   constructor(mainWindow) {
-    let electronScreen = require('electron').screen
+    this.screen = electron.screen
+    this.window = mainWindow
+    this.determineTrayImages();
 
-    // TODO: Refactoring.
-    this.icon_default = path.join(__dirname, '../icons/icon-22.png')
+    this.tray = new electron.Tray(this.icon_default);
 
-    this.icon_0 = path.join(__dirname, '../icons/0.png')
-    this.icon_1 = path.join(__dirname, '../icons/1.png')
-    this.icon_2 = path.join(__dirname, '../icons/2.png')
-    this.icon_3 = path.join(__dirname, '../icons/3.png')
-    this.icon_4 = path.join(__dirname, '../icons/4.png')
-    this.icon_5 = path.join(__dirname, '../icons/5.png')
-    this.icon_6 = path.join(__dirname, '../icons/6.png')
+    this.tray.setToolTip('LCharts')
+    this.tray.setHighlightMode('never')
 
-    this.icon = new Tray(this.icon_default);
-
-    this.setDefaultImage();
-
-    this.icon.on('click', (e, bounds) => {
-      if ( mainWindow.isVisible() ) {
-        mainWindow.hide();
-      } else {
-        // TODO: Refactor
-        let windowSize = mainWindow.getSize()
-        let screenSize = electronScreen.getDisplayNearestPoint( electronScreen.getCursorScreenPoint() ).workArea
-
-        let position = {
-          x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
-          y: screenSize.y
-        }
-
-        mainWindow.setPosition(position.x, position.y)
-        mainWindow.show();
-      }
-    });
+    this.tray.on('click', this.toggleWindow.bind(this))
+    this.tray.on('right-click', this.toggleWindow.bind(this))
+    this.tray.on('double-click', this.toggleWindow.bind(this))
   }
 
-  // TODO: Refactoring.
+  toggleWindow(e, bounds) {
+    if ( this.window.isVisible() ) {
+      this.window.hide();
+    } else {
+      let { x, y } = this.determineWindowPosition(bounds);
+      this.window.setPosition(x, y);
+      this.window.show();
+    }
+  }
+
   updateTrayImage(boolStatus) {
     if (boolStatus) {
       this.setRandomImage()
@@ -55,11 +40,46 @@ class TrayIcon {
 
   setRandomImage() {
     let iconName = 'icon_' + Math.floor(Math.random() * 7);
-    this.icon.setImage(this[iconName]);
+    this.tray.setImage(this[iconName]);
   }
 
   setDefaultImage() {
-    this.icon.setImage(this.icon_default);
+    this.tray.setImage(this.icon_default);
+  }
+
+  determineTrayImages() {
+    let format
+    if (platform == 'darwin') {
+       format = 'png'
+    } else if (platform == 'win32') {
+      format = 'ico'
+    }
+
+    this.icon_default = path.join(__dirname, `../icons/mac/icon-22.${format}`)
+    this.icon_0 = path.join(__dirname, `../icons/mac/0.${format}`)
+    this.icon_1 = path.join(__dirname, `../icons/mac/1.${format}`)
+    this.icon_2 = path.join(__dirname, `../icons/mac/2.${format}`)
+    this.icon_3 = path.join(__dirname, `../icons/mac/3.${format}`)
+    this.icon_4 = path.join(__dirname, `../icons/mac/4.${format}`)
+    this.icon_5 = path.join(__dirname, `../icons/mac/5.${format}`)
+    this.icon_6 = path.join(__dirname, `../icons/mac/6.${format}`)
+  }
+
+  determineWindowPosition(bounds) {
+    let windowSize = this.window.getSize()
+    let screenSize = this.screen.getDisplayNearestPoint( this.screen.getCursorScreenPoint() ).workArea
+
+    if (platform == 'darwin') {
+      return {
+        x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
+        y: screenSize.y
+      }
+    } else if (platform == 'win32') {
+      return {
+        x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
+        y: Math.floor(screenSize.height - (windowSize[1] - screenSize.y))
+      }
+    }
   }
 }
 
