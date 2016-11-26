@@ -47,26 +47,21 @@ class TrayIcon {
   }
 
   _determineTrayImages() {
-    let format;
     let folder;
     if (platform == 'darwin') {
-      format = 'png'
       folder = 'mac'
     } else if (platform == 'win32') {
-      // format = 'ico'
-      // folder = 'win'
-      format = 'png'
-      folder = 'mac'
+      folder = 'win'
     }
 
-    this.icon_default = path.join(__dirname, `../icons/${folder}/icon-22.${format}`)
-    this.icon_0 = path.join(__dirname, `../icons/${folder}/0.${format}`)
-    this.icon_1 = path.join(__dirname, `../icons/${folder}/1.${format}`)
-    this.icon_2 = path.join(__dirname, `../icons/${folder}/2.${format}`)
-    this.icon_3 = path.join(__dirname, `../icons/${folder}/3.${format}`)
-    this.icon_4 = path.join(__dirname, `../icons/${folder}/4.${format}`)
-    this.icon_5 = path.join(__dirname, `../icons/${folder}/5.${format}`)
-    this.icon_6 = path.join(__dirname, `../icons/${folder}/6.${format}`)
+    this.icon_default = path.join(__dirname, `../icons/${folder}/icon-22.png`)
+    this.icon_0 = path.join(__dirname, `../icons/${folder}/0.png`)
+    this.icon_1 = path.join(__dirname, `../icons/${folder}/1.png`)
+    this.icon_2 = path.join(__dirname, `../icons/${folder}/2.png`)
+    this.icon_3 = path.join(__dirname, `../icons/${folder}/3.png`)
+    this.icon_4 = path.join(__dirname, `../icons/${folder}/4.png`)
+    this.icon_5 = path.join(__dirname, `../icons/${folder}/5.png`)
+    this.icon_6 = path.join(__dirname, `../icons/${folder}/6.png`)
   }
 }
 
