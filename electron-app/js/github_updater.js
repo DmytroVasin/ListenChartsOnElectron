@@ -24,14 +24,14 @@ class GithubUpdater {
     axios(this.repoUrl).then( (response) => {
       const { tag_name, html_url } = response.data;
 
-      if (this._isLatestVersion(tag_name)) return null;
-
-      this._showDialog(trayWindow, html_url)
+      if (this._hasNewVersion(tag_name)) {
+        this._showDialog(trayWindow, html_url)
+      };
     })
   }
 
-  _isLatestVersion (latestVersion) {
-    return semver.gt(CURRENT_VERSION, latestVersion)
+  _hasNewVersion (latestVersion) {
+    return semver.gt(latestVersion, CURRENT_VERSION)
   }
 
   _getFeedUrlFromResponse (response) {
