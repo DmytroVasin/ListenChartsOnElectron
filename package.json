@@ -15,7 +15,7 @@
     "empty": "rm -rf ./dist/ && rm -rf ./app/electron-app/ && rm -rf ./app/browser-app/ && rm -rf ./app/browser-app/dist/",
     "publish:browser": "webpack --config webpack.config.pro.js",
     "publish:electron": "cp -R electron-app/ app/electron-app/",
-    "publish:osx": "build --x64",
+    "publish:osx": "build --x64 --mac --win",
     "publish:dist": "yarn run empty && yarn run publish:browser && yarn run publish:electron && yarn run publish:osx"
   },
   "dependencies": {
