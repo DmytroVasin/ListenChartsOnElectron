@@ -26,7 +26,10 @@ let ghUpdater = new GithubUpdater({
 });
 
 if ( !isDev ) {
-  app.dock.hide();
+  // Dock works only on Mac
+  if (app.dock) {
+    app.dock.hide();
+  }
 }
 
 app.on('ready', function () {
