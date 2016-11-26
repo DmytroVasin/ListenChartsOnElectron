@@ -1,5 +1,4 @@
 // npm-check -u
-// TODO: "target electron" - спросить Валеру!
 
 var webpack = require('webpack');
 
