@@ -40,25 +40,24 @@
   }
 }
 
-// .darwin {
-//   .window {
-//     .window-arrow-front {
-//       top: 5px;
-//       border-bottom: 12px solid $white;
-//     }
-//     .window-arrow-back {
-//       top: 3px;
-//       border-bottom: 12px solid $dark-border;
-//     }
-
-//     .window-container {
-//       top: 15px;
-//     }
-//   }
-// }
-
-// .win32 {
 .darwin {
+  .window {
+    .window-arrow-front {
+      top: 5px;
+      border-bottom: 12px solid $white;
+    }
+    .window-arrow-back {
+      top: 3px;
+      border-bottom: 12px solid $dark-border;
+    }
+
+    .window-container {
+      top: 15px;
+    }
+  }
+}
+
+.win32 {
   .window {
     .window-arrow-front {
       bottom: 8px;

@@ -1,53 +1,52 @@
-const electron = require('electron');
+const { Tray } = require('electron');
 const platform = require('os').platform();
 const path = require('path');
 
 class TrayIcon {
   constructor(mainWindow) {
-    this.screen = electron.screen
-    this.window = mainWindow
-    this.determineTrayImages();
+    this.mainWindow = mainWindow;
 
-    this.tray = new electron.Tray(this.icon_default);
+    this._determineTrayImages();
+
+    this.tray = new Tray(this.icon_default);
 
     this.tray.setToolTip('LCharts')
     this.tray.setHighlightMode('never')
 
-    this.tray.on('click', this.toggleWindow.bind(this))
-    this.tray.on('right-click', this.toggleWindow.bind(this))
-    this.tray.on('double-click', this.toggleWindow.bind(this))
-  }
-
-  toggleWindow(e, bounds) {
-    if ( this.window.isVisible() ) {
-      this.window.hide();
-    } else {
-      let { x, y } = this.determineWindowPosition(bounds);
-      this.window.setPosition(x, y);
-      this.window.show();
-    }
+    this.tray.on('click', this._toggleWindow.bind(this))
+    this.tray.on('right-click', this._toggleWindow.bind(this))
+    this.tray.on('double-click', this._toggleWindow.bind(this))
   }
 
   updateTrayImage(boolStatus) {
     if (boolStatus) {
-      this.setRandomImage()
+      this._setRandomImage()
       this.trayTimeout = setTimeout( () => { this.updateTrayImage(true) }, 500);
     } else {
-      this.setDefaultImage()
+      this._setDefaultImage()
       clearTimeout(this.trayTimeout);
     }
   }
 
-  setRandomImage() {
+  _toggleWindow(e, bounds) {
+    if ( this.mainWindow.window.isVisible() ) {
+      this.mainWindow.window.hide();
+    } else {
+      this.mainWindow.setWindowPosition(bounds);
+      this.mainWindow.window.show();
+    }
+  }
+
+  _setRandomImage() {
     let iconName = 'icon_' + Math.floor(Math.random() * 7);
     this.tray.setImage(this[iconName]);
   }
 
-  setDefaultImage() {
+  _setDefaultImage() {
     this.tray.setImage(this.icon_default);
   }
 
-  determineTrayImages() {
+  _determineTrayImages() {
     let format
     if (platform == 'darwin') {
        format = 'png'
@@ -63,23 +62,6 @@ class TrayIcon {
     this.icon_4 = path.join(__dirname, `../icons/mac/4.${format}`)
     this.icon_5 = path.join(__dirname, `../icons/mac/5.${format}`)
     this.icon_6 = path.join(__dirname, `../icons/mac/6.${format}`)
-  }
-
-  determineWindowPosition(bounds) {
-    let windowSize = this.window.getSize()
-    let screenSize = this.screen.getDisplayNearestPoint( this.screen.getCursorScreenPoint() ).workArea
-
-    if (platform == 'win32') {
-      return {
-        x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
-        y: screenSize.y
-      }
-    } else if (platform == 'darwin') {
-      return {
-        x: Math.floor(bounds.x + bounds.width - windowSize[0] + 100),
-        y: Math.floor(screenSize.height - (windowSize[1] - screenSize.y))
-      }
-    }
   }
 }
 

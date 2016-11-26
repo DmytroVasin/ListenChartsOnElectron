@@ -70,14 +70,7 @@ class ApplicationComponent extends Component {
   }
 
   resizeAppWindow = (boolean) => {
-    let height;
-
-    if ( boolean ) {
-      height = 325
-    } else {
-      height = 95
-    }
-    remote.getCurrentWindow().setSize(800, height);
+    ipcRenderer.send('resize-app-window', boolean);
   }
 
   updateOnlineStatus = () => {

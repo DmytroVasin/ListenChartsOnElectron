@@ -1,7 +1,3 @@
-// curl -i https://api.github.com/repos/DmytroVasin/ListenChartsOnElectron/releases/latest
-// const autoUpdater = require('electron-auto-updater')['autoUpdater']
-
-
 const isDev = (process.env.NODE_ENV === 'development');
 
 let installExtension = null;
@@ -10,6 +6,9 @@ if ( isDev ) {
 }
 
 const electron = require('electron');
+const {app, ipcMain, Menu, shell} = electron;
+
+const platform = require('os').platform();
 const menuTemplate = require('./menuTemplate');
 const MainWindow  = require('../windows/main_window');
 const TrayIcon = require('./TrayIcon');
@@ -17,9 +16,7 @@ const TrayIcon = require('./TrayIcon');
 const GithubUpdater = require('./github_updater');
 const downloadFile = require('./download_file');
 
-const {app, ipcMain, Menu, shell} = electron;
-
-let main = null;
+let mainWindow = null;
 let trayIcon = null;
 
 let ghUpdater = new GithubUpdater({
@@ -35,18 +32,18 @@ if ( !isDev ) {
 app.on('ready', function () {
   if ( isDev ) installExtentions();
 
-  main = new MainWindow();
-  Menu.setApplicationMenu( Menu.buildFromTemplate(menuTemplate(main)) );
+  mainWindow = new MainWindow();
+  Menu.setApplicationMenu( Menu.buildFromTemplate(menuTemplate(mainWindow)) );
 
-  trayIcon = new TrayIcon(main.window);
+  trayIcon = new TrayIcon(mainWindow);
 
-  main.window.once('show', () => {
-    ghUpdater.checkVersion(main.window);
+  mainWindow.window.once('show', () => {
+    ghUpdater.checkVersion(mainWindow.window);
   })
 });
 
 ipcMain.on('quit-app', function() {
-  main.window.close();
+  mainWindow.window.close();
   app.quit();
 });
 
@@ -56,7 +53,15 @@ ipcMain.on('update-image-tray-window-event', function(event, state) {
 });
 
 ipcMain.on('dowload-file-from-url', function(event, url, artist, title) {
-  downloadFile(main.window, url, artist, title)
+  downloadFile(mainWindow.window, url, artist, title)
+});
+
+ipcMain.on('resize-app-window', function(event, state) {
+  mainWindow.setWindowSize(state);
+
+  if (platform == 'win32') {
+    mainWindow.setWindowPosition(trayIcon.tray.getBounds());
+  }
 });
 
 const installExtentions = function () {

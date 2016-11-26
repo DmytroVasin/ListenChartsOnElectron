@@ -1,4 +1,4 @@
-// https://api.github.com/repos/DmytroVasin/ListenChartsOnElectron/releases/latest
+// curl -i https://api.github.com/repos/DmytroVasin/ListenChartsOnElectron/releases/latest
 
 const { autoUpdater, dialog, shell } = require('electron')
 const axios = require('axios')
