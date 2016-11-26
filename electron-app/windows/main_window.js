@@ -12,7 +12,7 @@ class MainWindow {
 
     this.window = new BrowserWindow({
       show: false,
-      height: 325,
+      height: 321,
       width: 800,
       frame: false,
       hasShadow: false,
@@ -33,7 +33,7 @@ class MainWindow {
     let height;
 
     if ( state ) {
-      height = 325
+      height = 321
     } else {
       height = 95
     }

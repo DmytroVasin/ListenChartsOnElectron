@@ -1,59 +1,68 @@
 #lc-radio-stations {
-  @include clearfix;
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   height: inherit;
   overflow-y: scroll;
+  padding: 2px 0 7px;
 
   .lc-radio-station {
-    float: left;
     cursor: pointer;
     position: relative;
-    margin: 6px;
-    box-shadow: 5px 5px 10px #ababab;
-    border: 1px solid #ababab;
+    margin: 5px 0;
+    box-shadow: 5px 5px 10px $dark-border;
+    width: 100px;
+    height: 100px;
 
-    .lc-radio-station-preview {
-      width: 100px;
-      height: 100px;
-      background-size: 100% 100%;
-    }
+    a {
+      height: inherit;
+      width: inherit;
+      display: block;
 
-    .mask, .circle {
-      display: none;
+      .lc-radio-station-preview {
+        background-size: 100% 100%;
+        height: inherit;
+        width: inherit;
+        border: 1px solid $dark-border;
+      }
 
-      position: absolute;
-      top: 0; bottom: 0;
-      left: 0; right: 0;
-    }
+      .mask, .circle {
+        display: none;
 
-    &:hover {
-      .mask, .circle { display: block; }
-    }
+        position: absolute;
+        top: 0; bottom: 0;
+        left: 0; right: 0;
+      }
 
-    .mask {
-      opacity: 0.7;
-      background-color: #181818;
-    }
+      &:hover {
+        .mask, .circle { display: block; }
+      }
 
-    .circle {
-      margin: auto;
-      width: 50%;
-      height: 50%;
-      background-color: transparent;
-      border: 2px solid #d7dce0;
-      border-radius: 50%;
-      z-index: 1;
-      transition: all 0.1s ease-in-out;
-      cursor: inherit;
+      .mask {
+        opacity: 0.7;
+        background-color: #181818;
+      }
 
-      &:hover { border: 2px solid $white; }
+      .circle {
+        margin: auto;
+        width: 50%;
+        height: 50%;
+        background-color: transparent;
+        border: 2px solid #d7dce0;
+        border-radius: 50%;
+        z-index: 1;
+        transition: all 0.1s ease-in-out;
+        cursor: inherit;
 
-      .icon-play {
-        color: white;
-        text-align: center;
-        font-size: 24px;
-        line-height: 46px;
-        margin-left: 5px;
+        &:hover { border: 2px solid $white; }
+
+        .icon-play {
+          color: white;
+          text-align: center;
+          font-size: 24px;
+          line-height: 46px;
+          margin-left: 5px;
+        }
       }
     }
   }

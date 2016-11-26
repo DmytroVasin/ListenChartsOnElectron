@@ -18,9 +18,10 @@
     background: $white;
     border: 1px solid $dark-border;
     border-radius: 5px;
+    overflow: hidden;
 
     .window-content {
-      height: 230px;
+      height: 224px;
       border-top: 1px solid $border;
     }
 
