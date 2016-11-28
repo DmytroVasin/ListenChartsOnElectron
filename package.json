@@ -1,6 +1,6 @@
 {
   "name": "LCharts",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "App is based on Electron, React, Redux + Rails as a back end.",
   "author": "Dmytro Vasin <dmytro.vasin@gmail.com>",
