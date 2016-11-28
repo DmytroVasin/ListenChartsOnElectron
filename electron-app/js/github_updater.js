@@ -18,14 +18,14 @@ class GithubUpdater {
     this.currentVersion = opts.currentVersion
   }
 
-  checkVersion (trayWindow) {
+  checkVersion () {
     if (!PLATFORM_AVAILABLE) return null;
 
     axios(this.repoUrl).then( (response) => {
       const { tag_name, html_url } = response.data;
 
       if (this._hasNewVersion(tag_name)) {
-        this._showDialog(trayWindow, html_url)
+        this._showDialog(html_url)
       };
     })
   }
@@ -43,8 +43,8 @@ class GithubUpdater {
     }
   }
 
-  _showDialog (trayWindow, url) {
-    let response = dialog.showMessageBox(trayWindow, {
+  _showDialog (url) {
+    let response = dialog.showMessageBox({
       type: 'info',
       buttons: ['Visit', 'Later'],
       title: 'LCharts Updates',

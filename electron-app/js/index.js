@@ -41,7 +41,7 @@ app.on('ready', function () {
   trayIcon = new TrayIcon(mainWindow);
 
   mainWindow.window.once('show', () => {
-    ghUpdater.checkVersion(mainWindow.window);
+    ghUpdater.checkVersion();
   })
 });
 
